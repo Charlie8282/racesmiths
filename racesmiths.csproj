@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-racesmiths-3330D5FA-09FE-48C9-993A-358A1AC61651</UserSecretsId>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210319000013_Initial_2.cs" />
+    <Compile Remove="Migrations\20210319000013_Initial_2.Designer.cs" />
+    <Compile Remove="Migrations\20210403214034_Initial_4.cs" />
+    <Compile Remove="Migrations\20210403214034_Initial_4.Designer.cs" />
+    <Compile Remove="Migrations\20210403214521_Initial_4.cs" />
+    <Compile Remove="Migrations\20210403214521_Initial_4.Designer.cs" />
+    <Compile Remove="Migrations\20210403224726_Initial_6.cs" />
+    <Compile Remove="Migrations\20210403224726_Initial_6.Designer.cs" />
+    <Compile Remove="Models\Attachment.cs" />
+    <Compile Remove="Models\ChampUser.cs" />
+    <Compile Remove="Models\RaceComment.cs" />
+    <Compile Remove="Models\RaceResult.cs" />
+    <Compile Remove="Services\AttachmentsService.cs" />
+    <Compile Remove="Services\IRSHistoriesService.cs" />
+    <Compile Remove="Services\RSHistoriesService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Home\new.cshtml" />
+    <Content Remove="Views\Home\Scoreboard.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.9.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="MimeKit" Version="2.9.2" />
+    <PackageReference Include="Npgsql" Version="4.1.6" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+  </ItemGroup>
+
+</Project>

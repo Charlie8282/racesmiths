@@ -1,0 +1,177 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background: url(../img/backgroundMain.jpg) fixed no-repeat;
+    background-size: cover;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.my-pad {
+    padding-top: 1rem;
+}
+
+.landing-login {
+    color: white;
+    box-shadow: 0px 2px 35px 5px white;
+    background: url(../img/div-back2.jpg) no-repeat;
+    background-size: cover;
+    margin: 2rem;
+    padding: 2rem;
+    align-content: center;
+    text-align: center;
+    min-width: 40rem;
+}
+
+.logo-back {
+    background: #282e38;
+}
+
+.club-initials {
+    font-family: 'Copperplate Gothic', sans-serif;
+    font-size: 3rem;
+    color: silver;
+    font-weight: bolder;
+}
+
+
+.newsidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fd6706;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+    .newsidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: black;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .newsidebar a:hover {
+            color: #f1f1f1;
+        }
+
+    .newsidebar .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+.openbtn {
+    position: absolute;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: solid;
+    border-width: .1rem;
+    border-color: #e2f0d9;
+    border-radius: .3rem;
+    margin-top: .4rem;
+    margin-left: .5rem;
+}
+
+    .openbtn:hover {
+        background-color: #444;
+    }
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .newsidebar {
+        padding-top: 15px;
+    }
+
+        .newsidebar a {
+            font-size: 18px;
+        }
+}
+
+.font-white {
+    color: white;
+}
+
