@@ -101,7 +101,6 @@ namespace racesmiths.Controllers
                 return NotFound();
             }
             List<RSUser> Users = _context.Users.ToList();
-            ViewData["DeveloperUserId"] = new SelectList(_context.Users, "Id", "FullName");
             return View(club);
         }
 
