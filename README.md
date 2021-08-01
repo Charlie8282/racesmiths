@@ -9,4 +9,5 @@
  First action as a *CM* is to add *drivers*.  Once they have registered as a *NewUser* the *CM* can send them an invitation to the club. When they have accepted the invitation via the email that they regeistered with they move to the role of *driver*.   
  
 Universal to all games with optional presets to add conditions that induce closer points and more compitetive racing.  These options will include but not be limited to:
-- Qual and Race: Inputs available for a qualifying and race session
+- Qual and Race: Inputs available for a qualifying and race session.  
+- Split Race: 
