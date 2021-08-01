@@ -8,7 +8,7 @@
 
 **Registering**
 
- Enter email, Gamertag and desired password.  Check email and click the confirm link to confirm email.  This will save the user to the datbase as a *Newuser*.  Upon log in the user is sent to the "Infield" where there will be a list of recent activity among other clubs.
+ Enter email, Gamertag and desired password.  Check email and click the confirm link to confirm email.  This will save the user to the datbase as a *Newuser*.  Upon log in the user is sent to the "Infield" where there will be a list of recent activity among other clubs, a "Create Club" link, and a "Browse Clubs" link.  If the user sends a join request to a Club and is then confirmed as joining said Club they move to the role of "Driver".
 
 **Club Manager Actions**
 
