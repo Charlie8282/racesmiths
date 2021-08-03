@@ -16,7 +16,7 @@ namespace racesmiths.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.13")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -376,31 +376,9 @@ namespace racesmiths.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChampId");
-
                     b.HasIndex("OwnerUserId");
 
-                    b.ToTable("Races");
-                });
-
-            modelBuilder.Entity("racesmiths.Models.Race", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("EventId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RaceId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("Races");
+                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Notification", b =>
@@ -425,9 +403,6 @@ namespace racesmiths.Migrations
                     b.Property<int?>("RaceId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("RaceId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("RecipientId")
                         .HasColumnType("text");
 
@@ -440,8 +415,6 @@ namespace racesmiths.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ChampId");
-
-                    b.HasIndex("RaceId");
 
                     b.HasIndex("RaceId");
 
@@ -641,22 +614,9 @@ namespace racesmiths.Migrations
 
             modelBuilder.Entity("racesmiths.Models.Event", b =>
                 {
-                    b.HasOne("racesmiths.Models.Champ", null)
-                        .WithMany("Races")
-                        .HasForeignKey("ChampId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("racesmiths.Models.RSUser", "OwnerUser")
                         .WithMany("Races")
                         .HasForeignKey("OwnerUserId");
-                });
-
-            modelBuilder.Entity("racesmiths.Models.Race", b =>
-                {
-                    b.HasOne("racesmiths.Models.Event", null)
-                        .WithMany("Races")
-                        .HasForeignKey("EventId");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Notification", b =>
@@ -664,10 +624,6 @@ namespace racesmiths.Migrations
                     b.HasOne("racesmiths.Models.Champ", "Champ")
                         .WithMany()
                         .HasForeignKey("ChampId");
-
-                    b.HasOne("racesmiths.Models.Race", "Race")
-                        .WithMany()
-                        .HasForeignKey("RaceId");
 
                     b.HasOne("racesmiths.Models.Event", "Race")
                         .WithMany()

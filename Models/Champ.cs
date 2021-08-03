@@ -26,7 +26,6 @@ namespace racesmiths.Models
         [Display(Name = "Image Path")]
         public string ImagePath { get; set; }
         public byte[] ImageData { get; set; }
-        public virtual ICollection<Event> Races { get; set; }
         public virtual RSUser User { get; set; }
 
 

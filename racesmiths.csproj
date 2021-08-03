@@ -9,16 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20210319000013_Initial_2.cs" />
-    <Compile Remove="Migrations\20210319000013_Initial_2.Designer.cs" />
-    <Compile Remove="Migrations\20210403214034_Initial_4.cs" />
-    <Compile Remove="Migrations\20210403214034_Initial_4.Designer.cs" />
-    <Compile Remove="Migrations\20210403214521_Initial_4.cs" />
-    <Compile Remove="Migrations\20210403214521_Initial_4.Designer.cs" />
-    <Compile Remove="Migrations\20210403224726_Initial_6.cs" />
-    <Compile Remove="Migrations\20210403224726_Initial_6.Designer.cs" />
+    <Compile Remove="Views\Races\**" />
+    <Content Remove="Views\Races\**" />
+    <EmbeddedResource Remove="Views\Races\**" />
+    <None Remove="Views\Races\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\EventsController.cs" />
+    <Compile Remove="Controllers\HeatsController.cs" />
     <Compile Remove="Models\Attachment.cs" />
     <Compile Remove="Models\ChampUser.cs" />
+    <Compile Remove="Models\Race.cs" />
     <Compile Remove="Models\RaceComment.cs" />
     <Compile Remove="Models\RaceResult.cs" />
     <Compile Remove="Services\AttachmentsService.cs" />

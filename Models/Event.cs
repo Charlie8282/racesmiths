@@ -25,7 +25,7 @@ namespace racesmiths.Models
         //public string NewValue { get; set; }
         public string FileName { get; set; }
         public byte[] Image { get; set; }
-        public virtual ICollection<Race> Races { get; set; }
+        //public virtual ICollection<Race> Races { get; set; }
         //public virtual ICollection<RaceResult> RaceResults { get; set; }
         //public virtual ICollection<Attachment> RaceAttachments { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

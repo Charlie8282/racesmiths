@@ -496,10 +496,5 @@ C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Event
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Events\Details.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Events\Edit.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Events\Index.cshtml.g.cs
-C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Create.cshtml.g.cs
-C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Delete.cshtml.g.cs
-C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Details.cshtml.g.cs
-C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Edit.cshtml.g.cs
-C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Index.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\racesmiths.csproj.AssemblyReference.cache
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Pages\_ValidationScriptsPartial.cshtml.g.cs

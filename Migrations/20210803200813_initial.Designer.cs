@@ -10,15 +10,15 @@ using racesmiths.Data;
 namespace racesmiths.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210223210600_Initial")]
-    partial class Initial
+    [Migration("20210803200813_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.12")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -151,46 +151,15 @@ namespace racesmiths.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("racesmiths.Models.Attachment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<byte[]>("FileData")
-                        .HasColumnType("bytea");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("RaceId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClubId");
-
-                    b.HasIndex("RaceId");
-
-                    b.ToTable("Attachments");
-                });
-
             modelBuilder.Entity("racesmiths.Models.Champ", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Club")
+                        .HasColumnType("text");
 
                     b.Property<int>("ClubId")
                         .HasColumnType("integer");
@@ -209,6 +178,9 @@ namespace racesmiths.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("OwnerUser")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OwnerUserId")
                         .HasColumnType("text");
 
                     b.Property<int>("RaceCount")
@@ -284,6 +256,12 @@ namespace racesmiths.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<byte[]>("FileData")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
+
                     b.Property<byte[]>("ImageData")
                         .HasColumnType("bytea");
 
@@ -293,10 +271,12 @@ namespace racesmiths.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("OwnerUser")
+                    b.Property<string>("OwnerUserId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerUserId");
 
                     b.ToTable("Clubs");
                 });
@@ -335,11 +315,11 @@ namespace racesmiths.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int?>("EventId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("RSUserId")
                         .HasColumnType("text");
-
-                    b.Property<int?>("RaceId")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("timestamp without time zone");
@@ -353,28 +333,54 @@ namespace racesmiths.Migrations
 
                     b.HasIndex("ChampSettingId");
 
-                    b.HasIndex("RSUserId");
+                    b.HasIndex("EventId");
 
-                    b.HasIndex("RaceId");
+                    b.HasIndex("RSUserId");
 
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("racesmiths.Models.Race", b =>
+            modelBuilder.Entity("racesmiths.Models.Event", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("RaceId")
+                    b.Property<int>("ChampId")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("Completed")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("OwnerUserId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RoundNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Scheduled")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("TrackName")
+                        .IsRequired()
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RaceId");
+                    b.HasIndex("OwnerUserId");
 
-                    b.ToTable("Races");
+                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Notification", b =>
@@ -399,9 +405,6 @@ namespace racesmiths.Migrations
                     b.Property<int?>("RaceId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("RaceId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("RecipientId")
                         .HasColumnType("text");
 
@@ -417,8 +420,6 @@ namespace racesmiths.Migrations
 
                     b.HasIndex("RaceId");
 
-                    b.HasIndex("RaceId");
-
                     b.HasIndex("RecipientId");
 
                     b.HasIndex("SenderId");
@@ -431,13 +432,10 @@ namespace racesmiths.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<bool>("Absent")
-                        .HasColumnType("boolean");
-
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ClubId")
+                    b.Property<int?>("ClubId")
                         .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -457,12 +455,7 @@ namespace racesmiths.Migrations
                     b.Property<string>("FileName")
                         .HasColumnType("text");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("character varying(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("Gamertag")
                         .IsRequired()
                         .HasColumnType("character varying(40)")
                         .HasMaxLength(40);
@@ -512,51 +505,6 @@ namespace racesmiths.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("racesmiths.Models.Race", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("ChampId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Completed")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("text");
-
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("bytea");
-
-                    b.Property<string>("OwnerUserId")
-                        .HasColumnType("text");
-
-                    b.Property<int>("RoundNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("Scheduled")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("TrackName")
-                        .IsRequired()
-                        .HasColumnType("character varying(40)")
-                        .HasMaxLength(40);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChampId");
-
-                    b.HasIndex("OwnerUserId");
-
-                    b.ToTable("Races");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -610,17 +558,6 @@ namespace racesmiths.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("racesmiths.Models.Attachment", b =>
-                {
-                    b.HasOne("racesmiths.Models.Club", null)
-                        .WithMany("Attachments")
-                        .HasForeignKey("ClubId");
-
-                    b.HasOne("racesmiths.Models.Race", null)
-                        .WithMany("RaceAttachments")
-                        .HasForeignKey("RaceId");
-                });
-
             modelBuilder.Entity("racesmiths.Models.Champ", b =>
                 {
                     b.HasOne("racesmiths.Models.Club", null)
@@ -632,6 +569,13 @@ namespace racesmiths.Migrations
                     b.HasOne("racesmiths.Models.RSUser", "User")
                         .WithMany("Champs")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("racesmiths.Models.Club", b =>
+                {
+                    b.HasOne("racesmiths.Models.RSUser", "OwnerUser")
+                        .WithMany()
+                        .HasForeignKey("OwnerUserId");
                 });
 
             modelBuilder.Entity("racesmiths.Models.ClubUser", b =>
@@ -661,22 +605,20 @@ namespace racesmiths.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("ChampSettingId");
 
+                    b.HasOne("racesmiths.Models.Event", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("EventId");
+
                     b.HasOne("racesmiths.Models.RSUser", "RSUser")
                         .WithMany()
                         .HasForeignKey("RSUserId");
-
-                    b.HasOne("racesmiths.Models.Race", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("RaceId");
                 });
 
-            modelBuilder.Entity("racesmiths.Models.Race", b =>
+            modelBuilder.Entity("racesmiths.Models.Event", b =>
                 {
-                    b.HasOne("racesmiths.Models.Race", null)
+                    b.HasOne("racesmiths.Models.RSUser", "OwnerUser")
                         .WithMany("Races")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OwnerUserId");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Notification", b =>
@@ -685,11 +627,7 @@ namespace racesmiths.Migrations
                         .WithMany()
                         .HasForeignKey("ChampId");
 
-                    b.HasOne("racesmiths.Models.Race", "Race")
-                        .WithMany()
-                        .HasForeignKey("RaceId");
-
-                    b.HasOne("racesmiths.Models.Race", "Race")
+                    b.HasOne("racesmiths.Models.Event", "Race")
                         .WithMany()
                         .HasForeignKey("RaceId");
 
@@ -706,22 +644,7 @@ namespace racesmiths.Migrations
                 {
                     b.HasOne("racesmiths.Models.Club", null)
                         .WithMany("RSUsers")
-                        .HasForeignKey("ClubId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("racesmiths.Models.Race", b =>
-                {
-                    b.HasOne("racesmiths.Models.Champ", null)
-                        .WithMany("Races")
-                        .HasForeignKey("ChampId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("racesmiths.Models.RSUser", "OwnerUser")
-                        .WithMany("Races")
-                        .HasForeignKey("OwnerUserId");
+                        .HasForeignKey("ClubId");
                 });
 #pragma warning restore 612, 618
         }

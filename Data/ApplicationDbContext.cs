@@ -23,7 +23,7 @@ namespace racesmiths.Data
 
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Race> Races { get; set; }
+        //public DbSet<Race> Races { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<ClubUser> ClubUsers { get; set; }
 
