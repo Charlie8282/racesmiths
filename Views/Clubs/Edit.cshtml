@@ -14,9 +14,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="RSUserId" class="control-label"></label>
+                <select asp-for="RSUserId" class="form-control" asp-items="ViewBag.RSUserId"></select>
+                <span asp-validation-for="RSUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClubName" class="control-label"></label>
+                <input asp-for="ClubName" class="form-control" />
+                <span asp-validation-for="ClubName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Created" class="control-label"></label>
@@ -24,9 +29,19 @@
                 <span asp-validation-for="Created" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OwnerUser" class="control-label"></label>
-                <input asp-for="OwnerUser" class="form-control" />
-                <span asp-validation-for="OwnerUser" class="text-danger"></span>
+                <label asp-for="Rules" class="control-label"></label>
+                <input asp-for="Rules" class="form-control" />
+                <span asp-validation-for="Rules" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Roles" class="control-label"></label>
+                <input asp-for="Roles" class="form-control" />
+                <span asp-validation-for="Roles" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JoinRequests" class="control-label"></label>
+                <input asp-for="JoinRequests" class="form-control" />
+                <span asp-validation-for="JoinRequests" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImagePath" class="control-label"></label>
@@ -37,6 +52,16 @@
                 <label asp-for="ImageData" class="control-label"></label>
                 <input asp-for="ImageData" class="form-control" />
                 <span asp-validation-for="ImageData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FileName" class="control-label"></label>
+                <input asp-for="FileName" class="form-control" />
+                <span asp-validation-for="FileName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FileData" class="control-label"></label>
+                <input asp-for="FileData" class="form-control" />
+                <span asp-validation-for="FileData" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

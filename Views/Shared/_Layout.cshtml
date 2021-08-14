@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - racesmiths</title>
+    <title>@ViewData["Title"] -  Racesmiths</title>
     <link src="~/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,500,700,800" />
     <link rel="stylesheet" href="sweetalert2.min.css">
     <link href="~/css/bootstrap-dark.css" rel="stylesheet" />
     <link href="~/css/app-dark.min.css" rel="stylesheet" />
@@ -16,17 +17,8 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 </head>
 <body>
+    <div class="container-fluid">
 
-    <div id="mySidebar" class="newsidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a class="active" asp-area="" asp-controller="Home" asp-action="Index">Infield</a>
-        <a class="active" asp-area="" asp-controller="Clubs" asp-action="Index">Clubs</a>
-        <a class="active" asp-area="" asp-controller="Champs" asp-action="Index">Championships</a>
-        <a class="active" asp-area="" asp-controller="" asp-action="">Stats</a>
-    </div>
-
-    <div id="mymain">
-        <button class="openbtn" onclick="openNav()">☰</button>
         <div class="topTitle">
             <div class="float-right">
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -34,15 +26,17 @@
                 </form>
             </div>
         </div>
-        <div class="container myMain">
+
+        <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
         </div>
+
     </div>
 
     <footer>
-            &copy; 2021 - Racesmiths
+        &copy; 2021 - Racesmiths
     </footer>
 
 

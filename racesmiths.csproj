@@ -9,18 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Races\**" />
-    <Content Remove="Views\Races\**" />
-    <EmbeddedResource Remove="Views\Races\**" />
-    <None Remove="Views\Races\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controllers\EventsController.cs" />
-    <Compile Remove="Controllers\HeatsController.cs" />
     <Compile Remove="Models\Attachment.cs" />
+    <Compile Remove="Models\ChampAttachment.cs" />
+    <Compile Remove="Models\ChampComments.cs" />
     <Compile Remove="Models\ChampUser.cs" />
-    <Compile Remove="Models\Race.cs" />
     <Compile Remove="Models\RaceComment.cs" />
     <Compile Remove="Models\RaceResult.cs" />
     <Compile Remove="Services\AttachmentsService.cs" />

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace racesmiths.Migrations
 {
-    public partial class initial : Migration
+    public partial class _001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,34 +20,6 @@ namespace racesmiths.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ChampRules",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Content = table.Column<string>(nullable: true),
-                    ChampId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChampRules", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ChampSettings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Content = table.Column<string>(nullable: true),
-                    ChampId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChampSettings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -138,20 +110,19 @@ namespace racesmiths.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(nullable: false),
                     ClubId = table.Column<int>(nullable: false),
-                    Club = table.Column<string>(nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: true),
-                    Updated = table.Column<DateTime>(nullable: true),
+                    RSUserId = table.Column<string>(nullable: true),
+                    ClubUserId = table.Column<string>(nullable: true),
+                    ChampName = table.Column<string>(maxLength: 30, nullable: false),
                     RaceCount = table.Column<int>(nullable: false),
-                    OwnerUserId = table.Column<string>(nullable: true),
-                    OwnerUser = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
                     Rules = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 1000, nullable: false),
                     Settings = table.Column<string>(nullable: true),
+                    ChampType = table.Column<int>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
-                    ImageData = table.Column<byte[]>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    ImageData = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -159,22 +130,31 @@ namespace racesmiths.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clubs",
+                name: "Event",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(nullable: true),
+                    ChampId = table.Column<int>(nullable: false),
+                    RSUserId = table.Column<string>(nullable: true),
+                    RoundNumber = table.Column<int>(nullable: false),
+                    TrackName = table.Column<string>(maxLength: 40, nullable: false),
+                    Description = table.Column<string>(maxLength: 1000, nullable: false),
+                    Settings = table.Column<string>(maxLength: 1000, nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
-                    OwnerUserId = table.Column<string>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true),
-                    ImageData = table.Column<byte[]>(nullable: true),
+                    Scheduled = table.Column<DateTime>(nullable: true),
                     FileName = table.Column<string>(nullable: true),
-                    FileData = table.Column<byte[]>(nullable: true)
+                    Image = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clubs", x => x.Id);
+                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Event_Champs_ChampId",
+                        column: x => x.ChampId,
+                        principalTable: "Champs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,67 +177,45 @@ namespace racesmiths.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Gamertag = table.Column<string>(maxLength: 40, nullable: false),
+                    ClubId = table.Column<int>(nullable: true),
                     FileName = table.Column<string>(nullable: true),
                     FileData = table.Column<byte[]>(nullable: true),
-                    ClubId = table.Column<int>(nullable: true)
+                    EventId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Clubs_ClubId",
-                        column: x => x.ClubId,
-                        principalTable: "Clubs",
+                        name: "FK_AspNetUsers_Event_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Event",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClubUsers",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(nullable: false),
-                    ClubId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClubUsers", x => new { x.ClubId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_ClubUsers_Clubs_ClubId",
-                        column: x => x.ClubId,
-                        principalTable: "Clubs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClubUsers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Event",
+                name: "Clubs",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ChampId = table.Column<int>(nullable: false),
-                    Completed = table.Column<bool>(nullable: false),
-                    OwnerUserId = table.Column<string>(nullable: true),
+                    RSUserId = table.Column<string>(nullable: true),
+                    ClubName = table.Column<string>(maxLength: 40, nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
-                    Scheduled = table.Column<DateTime>(nullable: false),
-                    TrackName = table.Column<string>(maxLength: 40, nullable: false),
-                    RoundNumber = table.Column<int>(nullable: false),
+                    Rules = table.Column<string>(nullable: true),
+                    Roles = table.Column<string>(nullable: true),
+                    JoinRequests = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    ImageData = table.Column<byte[]>(nullable: true),
                     FileName = table.Column<string>(nullable: true),
-                    Image = table.Column<byte[]>(nullable: true)
+                    FileData = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.PrimaryKey("PK_Clubs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Event_AspNetUsers_OwnerUserId",
-                        column: x => x.OwnerUserId,
+                        name: "FK_Clubs_AspNetUsers_RSUserId",
+                        column: x => x.RSUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -274,9 +232,7 @@ namespace racesmiths.Migrations
                     Updated = table.Column<DateTime>(nullable: true),
                     ChampId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
-                    RSUserId = table.Column<string>(nullable: true),
-                    ChampSettingId = table.Column<int>(nullable: true),
-                    EventId = table.Column<int>(nullable: true)
+                    RSUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -287,18 +243,6 @@ namespace racesmiths.Migrations
                         principalTable: "Champs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comments_ChampSettings_ChampSettingId",
-                        column: x => x.ChampSettingId,
-                        principalTable: "ChampSettings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Comments_Event_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Event",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_AspNetUsers_RSUserId",
                         column: x => x.RSUserId,
@@ -351,6 +295,57 @@ namespace racesmiths.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Race",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EventId = table.Column<int>(nullable: false),
+                    RSUserId = table.Column<string>(nullable: true),
+                    Position = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Race", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Race_Event_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Event",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Race_AspNetUsers_RSUserId",
+                        column: x => x.RSUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClubUsers",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    ClubId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClubUsers", x => new { x.ClubId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_ClubUsers_Clubs_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Clubs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClubUsers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -378,9 +373,9 @@ namespace racesmiths.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_ClubId",
+                name: "IX_AspNetUsers_EventId",
                 table: "AspNetUsers",
-                column: "ClubId");
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -399,14 +394,14 @@ namespace racesmiths.Migrations
                 column: "ClubId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Champs_UserId",
+                name: "IX_Champs_RSUserId",
                 table: "Champs",
-                column: "UserId");
+                column: "RSUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clubs_OwnerUserId",
+                name: "IX_Clubs_RSUserId",
                 table: "Clubs",
-                column: "OwnerUserId");
+                column: "RSUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClubUsers_UserId",
@@ -419,24 +414,14 @@ namespace racesmiths.Migrations
                 column: "ChampId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_ChampSettingId",
-                table: "Comments",
-                column: "ChampSettingId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_EventId",
-                table: "Comments",
-                column: "EventId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comments_RSUserId",
                 table: "Comments",
                 column: "RSUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_OwnerUserId",
+                name: "IX_Event_ChampId",
                 table: "Event",
-                column: "OwnerUserId");
+                column: "ChampId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_ChampId",
@@ -457,6 +442,16 @@ namespace racesmiths.Migrations
                 name: "IX_Notifications_SenderId",
                 table: "Notifications",
                 column: "SenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Race_EventId",
+                table: "Race",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Race_RSUserId",
+                table: "Race",
+                column: "RSUserId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUserRoles_AspNetUsers_UserId",
@@ -491,9 +486,9 @@ namespace racesmiths.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Champs_AspNetUsers_UserId",
+                name: "FK_Champs_AspNetUsers_RSUserId",
                 table: "Champs",
-                column: "UserId",
+                column: "RSUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
@@ -505,20 +500,16 @@ namespace racesmiths.Migrations
                 principalTable: "Clubs",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Clubs_AspNetUsers_OwnerUserId",
-                table: "Clubs",
-                column: "OwnerUserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Clubs_AspNetUsers_OwnerUserId",
+                name: "FK_Champs_AspNetUsers_RSUserId",
+                table: "Champs");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Clubs_AspNetUsers_RSUserId",
                 table: "Clubs");
 
             migrationBuilder.DropTable(
@@ -537,9 +528,6 @@ namespace racesmiths.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ChampRules");
-
-            migrationBuilder.DropTable(
                 name: "ClubUsers");
 
             migrationBuilder.DropTable(
@@ -549,19 +537,19 @@ namespace racesmiths.Migrations
                 name: "Notifications");
 
             migrationBuilder.DropTable(
+                name: "Race");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "ChampSettings");
-
-            migrationBuilder.DropTable(
-                name: "Champs");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Event");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Champs");
 
             migrationBuilder.DropTable(
                 name: "Clubs");

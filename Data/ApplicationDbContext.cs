@@ -18,8 +18,8 @@ namespace racesmiths.Data
         }
         //public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Champ> Champs { get; set; }
-        public DbSet<ChampRule> ChampRules { get; set; }
-        public DbSet<ChampSetting> ChampSettings { get; set; }
+        //public DbSet<ChampRule> ChampRules { get; set; }
+        //public DbSet<ChampSetting> ChampSettings { get; set; }
 
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Comment> Comments { get; set; }

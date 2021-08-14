@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace racesmiths.Enums
 {
-    public enum RSRoles
+    public enum Status
     {
-        Admin,
-        ClubManager,
-        Driver,
-        NewUser
-
+        InProgress,
+        Postponed,
+        Finished
     }
 }
