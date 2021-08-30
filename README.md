@@ -27,7 +27,8 @@
 
 ### Heat Racing
 > Multiple races typically under 20 minutes long.  Grid order for first heat per event would be reverse of points standing, then reverse the finishing order of each heat there after.
-> **These races can be scored by:**
+> 
+> *These heats can be scored by:*
 > 1. Average of all heats per event.
 > 2. Each driver takes the points of their best finish out of all heats per event.
 > 3. Each driver takes the points of two or more of their finishes out of all heats per event.
