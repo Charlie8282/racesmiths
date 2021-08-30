@@ -17,13 +17,26 @@
 
  As the *CM* clicks to create a Championship they can select a blank scorecard to customize the points as they wish and add them in manually.  There is also a "presets" section where the user will be met with multiple options to customize the scorecard.  This is the basic run down of creating a Championship from the start:
  
+ 
+## Point Systems
+
+1. ### Classic
+
+> Each driver gets one point for each position they are from last place (If there are 16 drivers, the winner gets 16 points)
+ 
+2. ### Average
+
+> Each driver's finishes or points awarded are all together averaged for their final score
+ 
+ 
+ 
 ## Race Layouts
 
 ### Single race
-> Single race per event, where each driver gets 1 point for each position they are from last place.(If there are 16 drivers, the winner gets 16 points)
+> Single race per event with random grid order.  Classic points system and an input for bonus points optional. 
 
 ### Single race with qualifying
-> This will include scoring for qualifying if applicable.  Typically this would be for endurance races up to 24 hours long, and will have the same points system as Single Race.
+> This will include scoring for qualifying if applicable.  Typically this would be for endurance races up to 24 hours long, and will have the same points system as Single Race.  Classic points system and an input for bonus points optional. 
 
 ### Heat Racing
 > Multiple races typically under 20 minutes long.  Grid order for first heat per event would be reverse of points standing, then reverse the finishing order of each heat there after.
@@ -34,5 +47,6 @@
 > 3. Each driver takes the points of two or more of their finishes out of all heats per event.
 > 4. Each driver takes the accumulation of points for all heats per event.
 
-### 
+### Split Race
+> Two races of equal length that are scored the same per event.  These  
 
