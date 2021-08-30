@@ -17,11 +17,18 @@
 
  As the *CM* clicks to create a Championship they can select a blank scorecard to customize the points as they wish and add them in manually.  There is also a "presets" section where the user will be met with multiple options to customize the scorecard.  This is the basic run down of creating a Championship from the start:
  
- > Clicking either Blank or Presets will bring you to this initial set up screen:
- 
- - Championship Name
- - Start and End date
- - Maximum amount of drivers
- - Teams (Y/N)
- - Name of Game being used
- - 
+## Race Layouts
+
+### Single race
+> Single race per event, where each driver gets 1 point for each position they are from last place.(If there are 16 drivers, the winner gets 16 points)
+
+### Single race with qualifying
+> This will include scoring for qualifying if applicable.  Typically this would be for endurance races up to 24 hours long, and will have the same points system as Single Race.
+
+### Heat Racing
+> Multiple races typically under 20 minutes long.  These races can be scored by:
+> 1. Average of all heats per event.
+> 2. Each driver takes the points of their best finish out of all heats per event.
+> 3. Each driver takes the points of two or more of their finishes out of all heats per event.
+> 4. Each driver takes the accumulation of points for all heats per event.
+
