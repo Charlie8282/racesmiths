@@ -30,24 +30,24 @@
 3. ### Top ten only
 > 10 point system where only the top 10 driver finishes are scored.  
  
- 
 ## Race Layouts
 
 ### Single race
-> Single race per event with random grid order.
-
-### Single race with qualifying
-> Single race per event.  This will include scoring for qualifying if applicable.  Typically this would be for endurance races up to 24 hours long.
+> Single race with the option to include qualifying, per event.  Typically this would be for endurance races up to 24 hours long.
+> Points options: Any
 
 ### Heat Racing
-> Multiple races typically under 20 minutes long.  Grid order for first heat per event would be reverse of points standing, then reverse the finishing order of each heat there after.  Each Heat would be scored with the Classic points system 
+> Multiple races typically under 20 minutes long.  Grid order for first heat per event would be reverse of points standing, then reverse the finishing order of each heat there after.
 > 
 > *These EVENTS can be scored by:*
-> 1. Average of all heats per event.
+> 1. Average of each drivers finishes over all heats per event.
 > 2. Each driver takes the points of their best finish out of all heats per event.
 > 3. Each driver takes the points of two or more of their finishes out of all heats per event.
 > 4. Each driver takes the accumulation of points for all heats per event.
 
 ### Split Race
 > Two races per event.  These races can be the same length and scored the same, or be different lengths with the shorter race awarding less points than the longer race. 
+*This could be determined by a percentage of the time the user chooses.  Simply choose a total time and the length of the first race and the app will do the rest.*
+
+
 
