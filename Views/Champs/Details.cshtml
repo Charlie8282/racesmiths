@@ -1,0 +1,133 @@
+﻿@model racesmiths.Models.Champ
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="col-md-4 my-div">
+    <form asp-controller="Events" asp-action="Create" enctype="multipart/form-data">
+        <input type="hidden" name="ChampId" value="@Model.Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+        <div class="form-group">
+            <label name="RoundNumber" class="control-label">RoundNumber</label>
+            <input name="RoundNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label name="TrackName" class="control-label">TrackName</label>
+            <input name="TrackName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label name="Description" class="control-label">Description</label>
+            <input name="Description" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label name="Settings" class="control-label">Settings</label>
+            <input name="Settings" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label name="Scheduled" class="control-label">Scheduled</label>
+            <input name="Scheduled" class="form-control" />
+        </div>
+        @*<div class="form-group">
+                <label asp-for="FileName" class="control-label"></label>
+                <input asp-for="FileName" class="form-control" />
+                <span asp-validation-for="FileName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>*@
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <h4>Champ</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ClubUserId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClubUserId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ChampName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ChampName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RaceCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RaceCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rules)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rules)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Settings)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Settings)
+        </dd>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ChampType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ChampType)
+        </dd>*@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageData)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImageData)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Club)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Club.ClubName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

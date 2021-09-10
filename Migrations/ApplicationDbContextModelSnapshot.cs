@@ -161,8 +161,8 @@ namespace racesmiths.Migrations
                         .HasColumnType("character varying(30)")
                         .HasMaxLength(30);
 
-                    b.Property<int>("ChampType")
-                        .HasColumnType("integer");
+                    b.Property<string>("ChampUserId")
+                        .HasColumnType("text");
 
                     b.Property<int>("ClubId")
                         .HasColumnType("integer");
@@ -181,9 +181,6 @@ namespace racesmiths.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("text");
 
-                    b.Property<string>("RSUserId")
-                        .HasColumnType("text");
-
                     b.Property<int>("RaceCount")
                         .HasColumnType("integer");
 
@@ -196,14 +193,14 @@ namespace racesmiths.Migrations
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClubId");
+                    b.HasIndex("ChampUserId");
 
-                    b.HasIndex("RSUserId");
+                    b.HasIndex("ClubId");
 
                     b.ToTable("Champs");
                 });
@@ -262,7 +259,17 @@ namespace racesmiths.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
+                    b.Property<int?>("EventId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("RaceId")
+                        .HasColumnType("integer");
+
                     b.HasKey("ClubId", "UserId");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("RaceId");
 
                     b.HasIndex("UserId");
 
@@ -350,6 +357,8 @@ namespace racesmiths.Migrations
 
                     b.HasIndex("ChampId");
 
+                    b.HasIndex("RSUserId");
+
                     b.ToTable("Event");
                 });
 
@@ -419,9 +428,6 @@ namespace racesmiths.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("EventId")
-                        .HasColumnType("integer");
-
                     b.Property<byte[]>("FileData")
                         .HasColumnType("bytea");
 
@@ -468,8 +474,6 @@ namespace racesmiths.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -493,8 +497,17 @@ namespace racesmiths.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("integer");
 
+                    b.Property<string>("QualifyLength")
+                        .HasColumnType("text");
+
                     b.Property<string>("RSUserId")
                         .HasColumnType("text");
+
+                    b.Property<string>("RaceLength")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RaceNumber")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -558,15 +571,15 @@ namespace racesmiths.Migrations
 
             modelBuilder.Entity("racesmiths.Models.Champ", b =>
                 {
+                    b.HasOne("racesmiths.Models.RSUser", "ChampUser")
+                        .WithMany("Champs")
+                        .HasForeignKey("ChampUserId");
+
                     b.HasOne("racesmiths.Models.Club", "Club")
                         .WithMany("Champs")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("racesmiths.Models.RSUser", null)
-                        .WithMany("Champs")
-                        .HasForeignKey("RSUserId");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Club", b =>
@@ -583,6 +596,14 @@ namespace racesmiths.Migrations
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("racesmiths.Models.Event", null)
+                        .WithMany("ClubUsers")
+                        .HasForeignKey("EventId");
+
+                    b.HasOne("racesmiths.Models.Race", null)
+                        .WithMany("ClubUsers")
+                        .HasForeignKey("RaceId");
 
                     b.HasOne("racesmiths.Models.RSUser", "User")
                         .WithMany("ClubUsers")
@@ -611,6 +632,10 @@ namespace racesmiths.Migrations
                         .HasForeignKey("ChampId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("racesmiths.Models.RSUser", "EventUser")
+                        .WithMany("Events")
+                        .HasForeignKey("RSUserId");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Notification", b =>
@@ -632,13 +657,6 @@ namespace racesmiths.Migrations
                         .HasForeignKey("SenderId");
                 });
 
-            modelBuilder.Entity("racesmiths.Models.RSUser", b =>
-                {
-                    b.HasOne("racesmiths.Models.Event", null)
-                        .WithMany("Drivers")
-                        .HasForeignKey("EventId");
-                });
-
             modelBuilder.Entity("racesmiths.Models.Race", b =>
                 {
                     b.HasOne("racesmiths.Models.Event", "Event")
@@ -647,7 +665,7 @@ namespace racesmiths.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("racesmiths.Models.RSUser", null)
+                    b.HasOne("racesmiths.Models.RSUser", "RaceUser")
                         .WithMany("Races")
                         .HasForeignKey("RSUserId");
                 });

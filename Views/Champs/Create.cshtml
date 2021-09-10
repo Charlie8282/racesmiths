@@ -1,0 +1,82 @@
+﻿@model racesmiths.Models.Champ
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Champ</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            @*@Html.Hidden("ClubId")*@
+            <input type="hidden" asp-for="ClubId" />
+            @*<input type="hidden" name="ClubId" value="@Model.Id" />*@
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ChampName" class="control-label"></label>
+                <input asp-for="ChampName" class="form-control" />
+                <span asp-validation-for="ChampName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RaceCount" class="control-label"></label>
+                <input asp-for="RaceCount" class="form-control" />
+                <span asp-validation-for="RaceCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rules" class="control-label"></label>
+                <input asp-for="Rules" class="form-control" />
+                <span asp-validation-for="Rules" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Settings" class="control-label"></label>
+                <input asp-for="Settings" class="form-control" />
+                <span asp-validation-for="Settings" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="ChampType" class="control-label"></label>
+            <select asp-for="ChampType" class="form-control"></select>
+            <span asp-validation-for="ChampType" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control"></select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="ImagePath" class="control-label"></label>
+            <input asp-for="ImagePath" class="form-control" />
+            <span asp-validation-for="ImagePath" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageData" class="control-label"></label>
+            <input asp-for="ImageData" class="form-control" />
+            <span asp-validation-for="ImageData" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

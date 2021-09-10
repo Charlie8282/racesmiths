@@ -26,10 +26,8 @@ namespace racesmiths.Data
         //public DbSet<Race> Races { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<ClubUser> ClubUsers { get; set; }
-
-
-
-
+        public DbSet<racesmiths.Models.Event> Event { get; set; }
+        public DbSet<racesmiths.Models.Race> Race { get; set; }
 
     }
 }

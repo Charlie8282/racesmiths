@@ -481,7 +481,6 @@ C:\Users\zacks\source\repos\racesmiths\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\zacks\source\repos\racesmiths\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\EnableAuthenticator.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\racesmiths.csproj.AssemblyReference.cache
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\racesmiths.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Clubs\Create.cshtml.g.cs
@@ -489,3 +488,19 @@ C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Clubs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Clubs\Details.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Clubs\Edit.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Clubs\Index.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Champs\Create.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Champs\Delete.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Champs\Details.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Champs\Edit.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Champs\Index.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Events\Create.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Events\Delete.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Events\Details.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Events\Edit.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Events\Index.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\racesmiths.csproj.AssemblyReference.cache
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Create.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Delete.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Details.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Edit.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\netcoreapp3.1\Razor\Views\Races\Index.cshtml.g.cs

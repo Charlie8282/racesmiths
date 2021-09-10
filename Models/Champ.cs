@@ -11,7 +11,7 @@ namespace racesmiths.Models
     {
         public int Id { get; set; }
         public int ClubId { get; set; }
-        public string RSUserId { get; set; }
+        //public string RSUserId { get; set; }
         public string ClubUserId { get; set; }
 
         [Required]
@@ -29,17 +29,19 @@ namespace racesmiths.Models
         public string Description { get; set; }
         public string Settings { get; set; }
 
-        public ChampType ChampType { get; set; }
+        //public ChampType? ChampType { get; set; }
         public DateTime? StartDate { get; set; }
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
 
         [Display(Name = "Image Path")]
         public string ImagePath { get; set; }
         public byte[] ImageData { get; set; }
-
+        //public virtual RSUser User { get; set; }
 
         //NAVIGATION
         public Club Club { get; set; }
+        public RSUser ChampUser { get; set; }
+
         //public virtual ICollection<RSUser> RSUsers { get; set; } = new HashSet<RSUser>();
         public virtual ICollection<Event> Events { get; set; } = new HashSet<Event>();
 

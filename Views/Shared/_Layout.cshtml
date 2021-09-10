@@ -4,40 +4,52 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] -  Racesmiths</title>
-    <link src="~/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,500,700,800" />
-    <link rel="stylesheet" href="sweetalert2.min.css">
-    <link href="~/css/bootstrap-dark.css" rel="stylesheet" />
-    <link href="~/css/app-dark.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="~/css/app-dark.css" rel="stylesheet" />
-    <link href="~/css/icons.min.css" rel="stylesheet" />
-    <link href="~/css/icons.css" rel="stylesheet" />
-    <link href="~/css/site.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link rel="stylesheet" href="~/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+
+    @*<link src="~/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,500,700,800" />
+        <link rel="stylesheet" href="sweetalert2.min.css">
+        <link href="~/css/bootstrap-dark.css" rel="stylesheet" />
+        <link href="~/css/app-dark.min.css" rel="stylesheet" />
+        <link href="~/css/app-dark.css" rel="stylesheet" />
+        <link href="~/css/icons.min.css" rel="stylesheet" />
+        <link href="~/css/icons.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="~/css/site.css" rel="stylesheet" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">*@
 </head>
 <body>
-    <div class="container-fluid">
-
-        <div class="topTitle">
-            <div class="float-right">
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-                </form>
+    <div class="topTitle">
+        <div class="float-right">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-danger">Logout</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row my-center">
+            <a class="float-left"><img src="~/img/name.png" class="responsive-img" /></a>
+            <div id="navbar">
+                <a class="btn" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-1x fa-home mr-1"></i>Infield</a>
+                @*<a class="btn" asp-area="" asp-controller="Clubs" asp-action="Index"><i class="fa fa-1x fa-user mr-1"></i>My Clubs</a>
+                <a class="btn" asp-area="" asp-controller="Champs" asp-action="Index"><i class="fa fa-1x fa-user-plus mr-1"></i>My Championships</a>
+                <a class="btn" href="#"><i class="fa fa-1x fa-minus-square mr-1"></i>Click Here</a>
+                <a class="btn" href="#"><i class="fa fa-1x fa-edit mr-1"></i>Example Link</a>*@
             </div>
         </div>
-
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+        @*<footer class="footer">
+                &copy; 2021 - Racesmiths by: Charlie Tincher
+            </footer>*@
     </div>
-
-    <footer>
-        &copy; 2021 - Racesmiths
-    </footer>
 
 
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -54,7 +66,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     @*<script src="~/js/app.min.js"></script>*@
-    <script src="~/js/app.js"></script>
+    <script src="~/js/app-dark.js"></script>
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

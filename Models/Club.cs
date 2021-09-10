@@ -26,7 +26,6 @@ namespace racesmiths.Models
         public string JoinRequests { get; set; }
         //public List<RSUser> RSUsers { get; set; }
         //public string[] SelectedUsers { get; set; }
-        public List<ClubUser> ClubUsers { get; set; }
         public string ImagePath { get; set; }
 
         [Display(Name = "Club image")]
@@ -42,6 +41,8 @@ namespace racesmiths.Models
 
         //NAVIGATION
         //public virtual ICollection<RSUser> Drivers { get; set; } = new HashSet<RSUser>();
+        public List<ClubUser> ClubUsers { get; set; }
+        //public List<RSUser> Users { get; set; }
         public virtual ICollection<Champ> Champs { get; set; } = new HashSet<Champ>();
 
     }

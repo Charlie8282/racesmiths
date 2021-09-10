@@ -60,26 +60,26 @@ html {
     min-height: 100%;
 }
 
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    background: #141E30;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #243B55, #141E30);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #243B55, #141E30);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    /*background: url(../img/backgroundMain.jpg) fixed no-repeat;
-    background-size: cover;*/
+#p1 {
+    background-color: hsl(200,100%,50%);
 }
 
-.footer {
+body {
+    /*/* fallback for old browsers */
+    background: black;
+   /* background: url(../img/bg-idea3.jpg) fixed no-repeat;
+    background-size: cover;*/
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+/*.footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
-}
+    line-height: 60px;*/ /* Vertically center the text there */
+/*}*/
 
 .my-pad {
     padding-top: 1rem;
@@ -180,3 +180,86 @@ body {
 .font-white {
     color: white;
 }
+
+.my-center {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+/* Style the navbar */
+#navbar {
+    overflow: hidden;
+    background-color: black;
+}
+
+    /* Navbar links */
+    #navbar a {
+        float: left;
+        display: block;
+        color: #fd6706;
+        text-align: center;
+        padding: 14px;
+        text-decoration: none;
+    }
+
+/* Page content */
+.content {
+    padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+    /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+    .sticky + .content {
+        padding-top: 60px;
+    }
+
+.champ-main-score {
+    padding-top: 4rem;
+}
+
+
+.main-score-head {
+    background-color: #141E30;
+    color: silver;
+    font-size: 4rem;
+    font-family: 'Arial Rounded MT', 'Times New Roman', sans-serif;
+    font-weight: bold;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.main-score-body {
+    background-color: #141E30;
+    padding-top: 4rem;
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+}
+
+.my-div {
+    margin-top: 4rem;
+    padding: 4rem;
+    /*background-image: linear-gradient(to right, #fbfafa, #222121);*/
+    color: white;
+    box-shadow: 0px 2px 35px 5px white;
+    background: url(../img/div-back2.jpg) no-repeat;
+    background-size: cover;
+}
+
+.my-head {
+    background-color: black;
+}
+
