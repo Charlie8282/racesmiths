@@ -17,11 +17,37 @@
 
  As the *CM* clicks to create a Championship they can select a blank scorecard to customize the points as they wish and add them in manually.  There is also a "presets" section where the user will be met with multiple options to customize the scorecard.  This is the basic run down of creating a Championship from the start:
  
- > Clicking either Blank or Presets will bring you to this initial set up screen:
  
- - Championship Name
- - Start and End date
- - Maximum amount of drivers
- - Teams (Y/N)
- - Name of Game being used
- - 
+## Point Systems
+*input for bonus points optional for each system*
+
+1. ### Classic
+> Each driver gets one point for each position they are from last place (If there are 16 drivers, the winner gets 16 points)
+ 
+2. ### Average
+> Each driver's finishes or points awarded are all together averaged for their final score
+ 
+3. ### Top ten only
+> 10 point system where only the top 10 driver finishes are scored.  
+ 
+## Race Layouts
+
+### Single race
+> Single race with the option to include qualifying, per event.  Typically this would be for endurance races up to 24 hours long.
+> Points options: Any
+
+### Heat Racing
+> Multiple races typically under 20 minutes long.  Grid order for first heat per event would be reverse of points standing, then reverse the finishing order of each heat there after.
+> 
+> *These EVENTS can be scored by:*
+> 1. Average of each drivers finishes over all heats per event.
+> 2. Each driver takes the points of their best finish out of all heats per event.
+> 3. Each driver takes the points of two or more of their finishes out of all heats per event.
+> 4. Each driver takes the accumulation of points for all heats per event.
+
+### Split Race
+> Two races per event.  These races can be the same length and scored the same, or be different lengths with the shorter race awarding less points than the longer race. 
+*This could be determined by a percentage of the time the user chooses.  Simply choose a total time and the length of the first race and the app will do the rest.*
+
+
+
