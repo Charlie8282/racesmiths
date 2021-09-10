@@ -22,7 +22,7 @@ namespace racesmiths.Services
             {
                 case "Admin":
                     return true;
-                case "Director":
+                case "ClubManager":
                     if (await _context.ClubUsers.Where(pu => pu.UserId == userId && pu.ClubId == clubId).AnyAsync())
                     {
                         return true;
@@ -41,10 +41,9 @@ namespace racesmiths.Services
                 case "Admin":
                     result = true;
                     break;
-                case "Director":
+                case "ClubManager":
                     var clubId = (await _context.Champs.FindAsync(champId)).ClubId;
                     if (await _context.ClubUsers.Where(pu => pu.ClubId == clubId && pu.UserId == userId).AnyAsync())
-                    //if (await _context.ProjectUsers.Where(pu => pu.UserId == userId && pu.ProjectId == projectId).AnyAsync())
                     {
                         result = true;
                     }
@@ -61,38 +60,3 @@ namespace racesmiths.Services
 
 
 
-//public async Task<bool> CanInteractTicket(string userId, int ticketId, string roleName)
-//{
-//    bool result = false;
-//    switch (roleName)
-//    {
-//        case "Admin":
-//            result = true;
-//            break;
-//        case "ProjectManager":
-//            var projectId = (await _context.Tickets.FindAsync(ticketId)).ProjectId;
-//            if (await _context.ProjectUsers.Where(pu => pu.UserId == userId && pu.ProjectId == projectId).AnyAsync())
-//            {
-//                result = true;
-//            }
-//            break;
-//        case "Developer":
-//            if (await _context.Tickets.Where(t => t.DeveloperUserId == userId && t.Id == ticketId).AnyAsync())
-//            {
-//                result = true;
-//            }
-//            break;
-//        case "Submitter":
-//            if (await _context.Tickets.Where(t => t.OwnerUserId == userId && t.Id == ticketId).AnyAsync())
-//            {
-//                result = true;
-//            }
-//            break;
-//        default:
-//            break;
-//    }
-//    return result;
-//}
-//    }
-
-//}

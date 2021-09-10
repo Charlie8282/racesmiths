@@ -1,0 +1,41 @@
+﻿@model racesmiths.Models.ViewModels.ManageClubUsersViewModel
+
+
+
+@{ ViewData["Title"] = "Assign Members"; }
+
+
+
+
+<div class="row my-center">
+    <div class="col-md-4">
+        <form asp-controller="Clubs" asp-action="AssignUsers" method="post">
+            <div asp-validation-summary="ModelOnly" class=""></div>
+            <input type="hidden" asp-for="@Model.Club.Id">
+            <input type="hidden" asp-for="@Model.Club.ClubName">
+            <span class="">Assign Member(s) to</span>
+            <span class="descrip">
+                @Model.Club.ClubName
+            </span>
+            <div>
+                <a class="float-right ml-1" asp-controller="Clubs" asp-action="Details" asp-route-id="@Model.Club.Id">Back to Club</a>
+            </div>
+            <hr />
+            <input type="submit" value="Assign Member(s)" class="btn btn-block assign float-right mb-1" />
+            <div class="">
+                <label asp-for="@Model.Users" class="control-label">Current Members:</label>
+                <select asp-for="@Model.SelectedUsers" class="form-control user-list" asp-items="@Model.Users" multiple="multiple"></select>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3 member-list">
+        <label>Currently assigned:</label><br />
+        @foreach (var user in Model.Club.ClubUsers)
+        {
+            @user.User.Gamertag
+            <br />
+        }
+    </div>
+</div>
+
+

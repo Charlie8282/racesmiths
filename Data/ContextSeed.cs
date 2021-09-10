@@ -12,9 +12,9 @@ namespace racesmiths.Data
     public enum Roles
     {
         Admin,
-        Director,
+        ClubManager,
         Driver,
-        FreeAgent
+        NewUser
     }
     public class ContextSeed
     {
@@ -32,9 +32,9 @@ namespace racesmiths.Data
         private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
             await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Roles.Director.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(Roles.ClubManager.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Roles.Driver.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Roles.FreeAgent.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(Roles.NewUser.ToString()));
            
         }
 

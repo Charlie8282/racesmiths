@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using racesmiths.Data;
 using racesmiths.Enums;
 using racesmiths.Models;
+using racesmiths.Models.ViewModels;
+using racesmiths.Services;
 
 namespace racesmiths.Controllers
 {
@@ -17,12 +20,14 @@ namespace racesmiths.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<RSUser> _userManager;
         private readonly SignInManager<RSUser> _signInManager;
+        private readonly IRSClubService _rsClubService;
 
-        public ClubsController(ApplicationDbContext context, UserManager<RSUser> userManager, SignInManager<RSUser> signInManager)
+        public ClubsController(ApplicationDbContext context, UserManager<RSUser> userManager, SignInManager<RSUser> signInManager, IRSClubService rSClubService)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _rsClubService = rSClubService;
         }
 
         // GET: Clubs
@@ -67,15 +72,20 @@ namespace racesmiths.Controllers
                 club.Created = DateTime.Now;
                 _context.Add(club);
                 await _context.SaveChangesAsync();
-
-                var currentUser = await _userManager.GetUserAsync(User);
-                currentUser.ClubId = club.Id;
+                ClubUser record = new ClubUser { UserId = _userManager.GetUserId(User), ClubId = club.Id };
+                _context.ClubUsers.Add(record);
                 await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+
+                //var currentUser = await _userManager.GetUserAsync(User);
+
+                //currentUser.ClubId = club.Id;
+                //await _context.SaveChangesAsync();
 
                 //await _userManager.AddToRoleAsync(currentUser, RSRoles.ClubManager.ToString());
-                await _signInManager.RefreshSignInAsync(currentUser);
+                //await _signInManager.RefreshSignInAsync(currentUser);
 
-                return RedirectToAction("Details", "Clubs", new { id = club.Id });
+                //return RedirectToAction("Details", "Clubs", new { id = club.Id });
             }
             return View(club);
         }
@@ -163,6 +173,97 @@ namespace racesmiths.Controllers
         private bool ClubExists(int id)
         {
             return _context.Clubs.Any(e => e.Id == id);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, ClubManager")]
+        public async Task<IActionResult> AssignUsers(int id)
+        {
+            var model = new ManageClubUsersViewModel();
+            var club = _context.Clubs
+                .Include(p => p.ClubUsers)
+                .ThenInclude(p => p.User)
+                .FirstAsync(p => p.Id == id);
+
+            model.Club = await club;
+            List<RSUser> users = await _context.Users.ToListAsync();
+            List<RSUser> members = (List<RSUser>)await _rsClubService.UsersInClub(id);
+            model.Users = new MultiSelectList(users, "Id", "Gamertag", members);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, ClubManager")]
+        public async Task<IActionResult> AssignUsers(ManageClubUsersViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (model.SelectedUsers != null)
+                {
+                    var currentMembers = await _context.Clubs.Include(p => p.ClubUsers).FirstOrDefaultAsync(p => p.Id == model.Club.Id);
+                    List<string> memberIds = currentMembers.ClubUsers.Select(u => u.UserId).ToList();
+                    memberIds.ForEach(i => _rsClubService.AddUserToClub(i, model.Club.Id));
+                    //foreach (string id in memberIds)
+                    //{
+                    //    await _btProjectService.RemoveUserFromProject(id, model.Project.Id);
+                    //}
+                    foreach (string id in model.SelectedUsers)
+                    {
+                        await _rsClubService.AddUserToClub(id, model.Club.Id);
+                    }
+                    return RedirectToAction("Details", "Clubs", new { id = model.Club.Id });
+                }
+                else
+                {
+
+                }
+                return View(model);
+
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, ClubManager")]
+        public async Task<IActionResult> RemoveUsers(int id)
+        {
+            var model = new ManageClubUsersViewModel();
+            var club = _context.Clubs
+                .Include(p => p.ClubUsers)
+                .ThenInclude(p => p.User)
+                .FirstAsync(p => p.Id == id);
+            model.Club = await club;
+            List<RSUser> members = (List<RSUser>)await _rsClubService.UsersInClub(id);
+            model.Users = new MultiSelectList(members, "Id", "FullName");
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, ClubManager")]
+        public async Task<IActionResult> RemoveUsers(ManageClubUsersViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (model.SelectedUsers != null)
+                {
+                    foreach (string id in model.SelectedUsers)
+                    {
+                        await _rsClubService.RemoveUserFromClub(id, model.Club.Id);
+                    }
+                    return RedirectToAction("Details", "Clubs", new { id = model.Club.Id });
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+            return RedirectToAction("Details", "Clubs", new { id = model.Club.Id });
         }
     }
 }

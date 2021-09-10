@@ -11,7 +11,7 @@ namespace racesmiths.Models
     public class Club
     {
         public int Id { get; set; }
-        public string RSUserId { get; set; }
+        //public string RSUserId { get; set; }
 
         [Required]
         [StringLength(40, ErrorMessage = "The {0} must be at least {2} but no longer than {1} characters.", MinimumLength = 2)]
@@ -24,8 +24,7 @@ namespace racesmiths.Models
         public string Rules { get; set; }
         public string Roles { get; set; }
         public string JoinRequests { get; set; }
-        //public List<RSUser> RSUsers { get; set; }
-        //public string[] SelectedUsers { get; set; }
+        public string[] SelectedUsers { get; set; }
         public string ImagePath { get; set; }
 
         [Display(Name = "Club image")]
@@ -40,9 +39,8 @@ namespace racesmiths.Models
 
 
         //NAVIGATION
-        //public virtual ICollection<RSUser> Drivers { get; set; } = new HashSet<RSUser>();
         public List<ClubUser> ClubUsers { get; set; }
-        //public List<RSUser> Users { get; set; }
+        public List<RSUser> Users { get; set; }
         public virtual ICollection<Champ> Champs { get; set; } = new HashSet<Champ>();
 
     }

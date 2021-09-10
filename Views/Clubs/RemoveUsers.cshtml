@@ -1,0 +1,27 @@
+﻿
+@model racesmiths.Models.ViewModels.ManageClubUsersViewModel
+
+
+@{ViewData["Title"] = "Remove Members";}
+
+
+<div class="row my-center">
+    <form asp-controller="Clubs" asp-action="RemoveUsers" method="post">
+        <div asp-validation-summary="ModelOnly" class=""></div>
+        <input type="hidden" asp-for="@Model.Club.Id">
+        <input type="hidden" asp-for="@Model.Club.ClubName">
+        <span class="">Remove Member(s) From: </span>
+        <span class="descrip">
+            @Model.Club.ClubName
+        </span>
+        <div>
+            <a class="float-right ml-1" asp-controller="Clubs" asp-action="Details" asp-route-id="@Model.Club.Id">Back to Club</a>
+        </div>
+        <hr />
+        <input type="submit" value="Remove Member(s)" class="btn btn-block assign float-right mb-1" />
+        <div class="">
+            <label asp-for="@Model.Users" class="control-label">Current Members:</label>
+            <select asp-for="@Model.SelectedUsers" class="form-control user-list" asp-items="@Model.Users" multiple="multiple"></select>
+        </div>
+    </form>
+</div>
