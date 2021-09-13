@@ -72,8 +72,10 @@ namespace racesmiths.Controllers
                 club.Created = DateTime.Now;
                 _context.Add(club);
                 await _context.SaveChangesAsync();
-                ClubUser record = new ClubUser { UserId = _userManager.GetUserId(User), ClubId = club.Id };
-                _context.ClubUsers.Add(record);
+                    
+                 RSUser user = await _userManager.GetUserAsync(User);
+
+                club.ClubUsers.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
 
@@ -182,7 +184,6 @@ namespace racesmiths.Controllers
             var model = new ManageClubUsersViewModel();
             var club = _context.Clubs
                 .Include(p => p.ClubUsers)
-                .ThenInclude(p => p.User)
                 .FirstAsync(p => p.Id == id);
 
             model.Club = await club;
@@ -203,7 +204,7 @@ namespace racesmiths.Controllers
                 if (model.SelectedUsers != null)
                 {
                     var currentMembers = await _context.Clubs.Include(p => p.ClubUsers).FirstOrDefaultAsync(p => p.Id == model.Club.Id);
-                    List<string> memberIds = currentMembers.ClubUsers.Select(u => u.UserId).ToList();
+                    List<string> memberIds = currentMembers.ClubUsers.Select(u => u.Id).ToList();
                     memberIds.ForEach(i => _rsClubService.AddUserToClub(i, model.Club.Id));
                     //foreach (string id in memberIds)
                     //{
@@ -233,11 +234,10 @@ namespace racesmiths.Controllers
             var model = new ManageClubUsersViewModel();
             var club = _context.Clubs
                 .Include(p => p.ClubUsers)
-                .ThenInclude(p => p.User)
                 .FirstAsync(p => p.Id == id);
             model.Club = await club;
             List<RSUser> members = (List<RSUser>)await _rsClubService.UsersInClub(id);
-            model.Users = new MultiSelectList(members, "Id", "FullName");
+            model.Users = new MultiSelectList(members, "Id", "Gamertag");
             return View(model);
         }
 

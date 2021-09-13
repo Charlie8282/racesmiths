@@ -10,10 +10,13 @@
 
   <ItemGroup>
     <Compile Remove="Enums\ChampType.cs" />
+    <Compile Remove="Migrations\20210911005426__009.cs" />
+    <Compile Remove="Migrations\20210911005426__009.Designer.cs" />
     <Compile Remove="Models\Attachment.cs" />
     <Compile Remove="Models\ChampAttachment.cs" />
     <Compile Remove="Models\ChampComments.cs" />
     <Compile Remove="Models\ChampUser.cs" />
+    <Compile Remove="Models\ClubUser.cs" />
     <Compile Remove="Models\RaceComment.cs" />
     <Compile Remove="Models\RaceResult.cs" />
     <Compile Remove="Services\AttachmentsService.cs" />

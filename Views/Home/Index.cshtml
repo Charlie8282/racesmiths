@@ -1,4 +1,6 @@
-﻿
+﻿@model racesmiths.Models.ViewModels.InfieldViewModel
+
+
 
 @{
     ViewData["Title"] = "Infield";
@@ -6,25 +8,61 @@
 
 
 
-<div class="row my-center my-div">
-    <div class="col-md-3">
-        <a asp-area="" asp-controller="Clubs" asp-action="Index">
-            Clubs List
+
+<div class="row my-center">
+    <div class="col-md-6 div-back">
+        @*<a href="#">
+            <div class="club-link">
+                CORL
+            </div>
         </a>
+        <br />
+        <a href="#">
+            <div class="club-link">
+                Cat Racing
+            </div>
+        </a>
+        <br />
+        <a href="#">
+            <div class="club-link">
+                Tommy Fun
+            </div>
+        </a>
+        <br />
+        <a href="#">
+            <div class="club-link">
+                Fast Bastards
+            </div>
+        </a>*@
+
+
+
+        @*@foreach (var item in Model.Clubs)
+            {
+                <div>
+                    <a class="btn btn-light form-control" asp-controller="Clubs" asp-action="Details" asp-route-id="@item.Id">
+                        <span>@Html.DisplayFor(modelItem => item.ClubName)</span>
+                    </a>
+                </div>
+            }*@
     </div>
-    <div class="col-md-3">
-        <a asp-area="" asp-controller="Champs" asp-action="Index">
-            Champs List
-        </a>
-    </div>
-    <div class="col-md-3">
-        <a asp-area="" asp-controller="Events" asp-action="Index">
-            Events List
-        </a>
-    </div>
-    <div class="col-md-3">
-        <a asp-area="" asp-controller="Races" asp-action="Index">
-            Races List
-        </a>
+    <div class="col-md upcoming">
+        <div class="upcoming-title">
+            Next Race <hr />
+        </div>
+        <div class="float-left upcoming-track">
+            Monaco
+        </div>
+      
+        <div class="float-right my-center">Forecast:</div><br />
+        <span class="float-right upcoming-weather">
+            <img src="~/img/icons8-onedrive-32.png" />
+        </span>
+        <span class="float-right upcoming-weather">
+            <img src="~/img/icons8-rain-cloud-50.png" />
+        </span>
+        <span class="float-right upcoming-weather">
+            <img src="~/img/icons8-clouds-32.png" />
+        </span>
     </div>
 </div>

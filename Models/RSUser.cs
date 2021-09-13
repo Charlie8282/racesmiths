@@ -20,8 +20,10 @@ namespace racesmiths.Models
         public string FileName { get; set; }
         public byte[] FileData { get; set; }
 
-        public List<ClubUser> ClubUsers { get; set; }
-        //public virtual ICollection<Club> Clubs { get; set; } = new HashSet<Club>();
+        //public int ClubId { get; set; }
+
+
+        public virtual ICollection<Club> Clubs { get; set; } = new HashSet<Club>();
         //public virtual ICollection<Champ> Champs { get; set; } = new HashSet<Champ>();
         //public virtual ICollection<Event> Events { get; set; } = new HashSet<Event>();
         //public virtual ICollection<Race> Races { get; set; } = new HashSet<Race>();

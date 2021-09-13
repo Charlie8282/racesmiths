@@ -257,9 +257,58 @@ body {
     box-shadow: 0px 2px 35px 5px white;
     background: url(../img/div-back2.jpg) no-repeat;
     background-size: cover;
+    border-radius: .2rem;
 }
 
 .my-head {
     background-color: black;
 }
 
+.club-link {
+    padding: 2rem;
+    display: block;
+    height: 2rem;
+    border: solid;
+    border-color: #dc2404;
+    border-radius: 1rem;
+    color: black;
+    background-color: silver;
+}
+
+
+.upcoming {
+    padding: 2rem;
+    background-image: url(../img/flag5.jpeg);
+    background-size: cover;
+    border: solid;
+    border-color: #dc2404;
+    border-radius: 1rem;
+    height: 40rem;
+    width: contain;
+}
+
+.upcoming-title {
+    font-family: 'Arial Rounded MT', sans-serif;
+    color: #ff2803;
+    font-size: 2rem;
+}
+
+.upcoming-track {
+    font-family: 'Agency FB', sans-serif;
+    color: darkgray;
+    font-size: 4rem;
+    
+}
+
+.upcoming-weather {
+    height: 50px;
+    width: 50px;
+    background-color: darkgrey;
+    opacity: 0.7;
+    border-radius: .5rem;
+}
+
+.div-back {
+    background-image: url(../img/div-back5.jpg);
+    background-size: contain;
+}

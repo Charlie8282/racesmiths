@@ -39,8 +39,7 @@ namespace racesmiths.Models
 
 
         //NAVIGATION
-        public List<ClubUser> ClubUsers { get; set; }
-        public List<RSUser> Users { get; set; }
+        public virtual ICollection<RSUser> ClubUsers { get; set; } = new HashSet<RSUser>();
         public virtual ICollection<Champ> Champs { get; set; } = new HashSet<Champ>();
 
     }

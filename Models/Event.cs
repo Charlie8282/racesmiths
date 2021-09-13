@@ -45,7 +45,7 @@ namespace racesmiths.Models
         public virtual Champ Champ { get; set; }
         public RSUser EventUser { get; set; }
 
-        public virtual ICollection<ClubUser> ClubUsers { get; set; } = new HashSet<ClubUser>();
+        //public virtual ICollection<ClubUser> ClubUsers { get; set; } = new HashSet<ClubUser>();
 
         public virtual ICollection<Race> Races { get; set; } = new HashSet<Race>();
 

@@ -29,20 +29,20 @@ namespace racesmiths.Services
         {
             Club club = await _context.Clubs
                .Include(u => u.ClubUsers)
-               .ThenInclude(u => u.User)
                .FirstOrDefaultAsync(u => u.Id == clubId);
-            bool result = club.ClubUsers.Any(u => u.UserId == userId);
+            bool result = club.ClubUsers.Any(u => u.Id == userId);
             return result;
         }
         public async Task<List<Club>> ListUserClubs(string userId)
         {
             RSUser user = await _context.Users
-                 .Include(p => p.ClubUsers)
-                 .ThenInclude(p => p.Club).ThenInclude(p => p.Champs)
-                 .FirstOrDefaultAsync(p => p.Id == userId);
+                .Include(u => u.Clubs).ThenInclude(c => c.Champs)
+                .FirstOrDefaultAsync(p => p.Id == userId);
 
-            List<Project> projects = user.ClubUsers.Select(p => p.Club).ToList();
-            return projects;
+
+
+            List<Club> clubs = user.Clubs.ToList();
+            return clubs;
         }
         public async Task AddUserToClub(string userId, int clubId)
         {
@@ -50,7 +50,10 @@ namespace racesmiths.Services
             {
                 try
                 {
-                    await _context.ClubUsers.AddAsync(new ClubUser { ClubId = clubId, UserId = userId });
+                    RSUser user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                    Club club = await _context.Clubs.FirstOrDefaultAsync(c => c.Id == clubId);
+
+                    club.ClubUsers.Add(user);
                     await _context.SaveChangesAsync();
 
                 }
@@ -63,28 +66,32 @@ namespace racesmiths.Services
         }
         public async Task RemoveUserFromClub(string userId, int clubId)
         {
-            try
+            if (await IsUserInClub(userId, clubId))
             {
-                ClubUser clubUser = _context.ClubUsers.Where(u => u.UserId == userId && u.ClubId == clubId).FirstOrDefault();
+                try
+                {
+                    RSUser clubUser = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
+                    Club club = await _context.Clubs.FirstOrDefaultAsync(c => c.Id == clubId);
 
-                _context.ClubUsers.Remove(clubUser);
-                await _context.SaveChangesAsync();
+                    club.ClubUsers.Remove(clubUser);
+                    await _context.SaveChangesAsync();
 
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"***ERROR*** - Error removing user from club. --> {ex.Message}");
-                throw;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"***ERROR*** - Error removing user from club. --> {ex.Message}");
+                    throw;
+                }
+
             }
         }
         public async Task<ICollection<RSUser>> UsersInClub(int clubId)
         {
             Club club = await _context.Clubs
                 .Include(u => u.ClubUsers)
-                .ThenInclude(u => u.User)
                 .FirstOrDefaultAsync(u => u.Id == clubId);
 
-            List<RSUser> clubusers = club.ClubUsers.Select(p => p.User).ToList();
+            List<RSUser> clubusers = club.ClubUsers.ToList();
             return clubusers;
         }
         public async Task<ICollection<RSUser>> UsersNotInClub(int clubId)

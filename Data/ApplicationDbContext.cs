@@ -13,8 +13,8 @@ namespace racesmiths.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ClubUser>()
-            .HasKey(pu => new { pu.ClubId, pu.UserId });
+            modelBuilder.Entity<RSUser>()
+            .HasKey(pu => new { pu.Clubs, pu.Id });
         }
         //public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Champ> Champs { get; set; }
@@ -25,7 +25,7 @@ namespace racesmiths.Data
         public DbSet<Comment> Comments { get; set; }
         //public DbSet<Race> Races { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<ClubUser> ClubUsers { get; set; }
+        public DbSet<RSUser> ClubUsers { get; set; }
         public DbSet<racesmiths.Models.Event> Event { get; set; }
         public DbSet<racesmiths.Models.Race> Race { get; set; }
 

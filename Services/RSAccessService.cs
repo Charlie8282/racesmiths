@@ -23,7 +23,7 @@ namespace racesmiths.Services
                 case "Admin":
                     return true;
                 case "ClubManager":
-                    if (await _context.ClubUsers.Where(pu => pu.UserId == userId && pu.ClubId == clubId).AnyAsync())
+                    if (await _context.ClubUsers.Where(pu => pu.Id == userId).AnyAsync())
                     {
                         return true;
                     }
@@ -43,7 +43,7 @@ namespace racesmiths.Services
                     break;
                 case "ClubManager":
                     var clubId = (await _context.Champs.FindAsync(champId)).ClubId;
-                    if (await _context.ClubUsers.Where(pu => pu.ClubId == clubId && pu.UserId == userId).AnyAsync())
+                    if (await _context.ClubUsers.Where(pu => pu.Id == userId).AnyAsync())
                     {
                         result = true;
                     }

@@ -14,6 +14,7 @@ namespace racesmiths.Models
         //public Position Position { get; set; }
         public int Position { get; set; }
         public int RaceNumber { get; set; }
+        public int Laps { get; set; }
         public string RaceLength { get; set; }
         public string QualifyLength { get; set; }
         //public RSUser RaceUser { get; set; }
@@ -21,7 +22,9 @@ namespace racesmiths.Models
 
 
         public virtual Event Event { get; set; }
-        public virtual ICollection<ClubUser> ClubUsers { get; set; } = new HashSet<ClubUser>();
+
+        public virtual ICollection<Event> Events { get; set; } = new HashSet<Event>();
+        //public virtual ICollection<ClubUser> ClubUsers { get; set; } = new HashSet<ClubUser>();
 
     }
 }
