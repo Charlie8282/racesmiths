@@ -73,6 +73,12 @@ body {
     margin-bottom: 60px;
 }
 
+h1 {
+    color: whitesmoke;
+    font-family: 'Agency FB', sans-serif;
+    font-size: 3rem;
+}
+
 /*.footer {
     position: absolute;
     bottom: 0;
@@ -252,7 +258,6 @@ body {
 .my-div {
     margin-top: 4rem;
     padding: 4rem;
-    /*background-image: linear-gradient(to right, #fbfafa, #222121);*/
     color: white;
     box-shadow: 0px 2px 35px 5px white;
     background: url(../img/div-back2.jpg) no-repeat;
@@ -290,14 +295,16 @@ body {
 
 .upcoming-title {
     font-family: 'Arial Rounded MT', sans-serif;
-    color: #ff2803;
-    font-size: 2rem;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    margin-top: -2.5rem;
 }
 
 .upcoming-track {
     font-family: 'Agency FB', sans-serif;
     color: darkgray;
-    font-size: 4rem;
+    font-size: 3rem;
     
 }
 
@@ -329,8 +336,14 @@ body {
 }
 
 .infield-div-bottom {
-    background: url(../img/tread.jpg) no-repeat;
+    /*background: url(../img/tread.jpg) no-repeat;*/
     background-size: cover;
-    height: 50%;
+    /*height: 50%;*/
     padding: 2rem;
+}
+
+.tread-bg {
+    background: url(../img//tread.jpg) fixed no-repeat;
+    background-size: cover;
+    height: 100rem;
 }

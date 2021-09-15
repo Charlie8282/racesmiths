@@ -6,57 +6,31 @@
     ViewData["Title"] = "Infield";
 }
 
+<div class="container">
+    <p class="float-left">Next Event:</p>
+    <div class="row my-center mt-2">
+        @if (Model.Events != null)
+        {
+            @foreach (var item in Model.Events)
+            {
+                <div class="upcoming-track">
+                    <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.TrackName)
+                    </a>
+                </div><br />
 
-<div class="row my-center h-100">
-    <div class="col-4 infield-div-left d-flex flex-column">
-        1
-    </div>
-    <div class="col-8 h-100">
-        <div class="h-50 infield-div-right">
-            2
-        </div>
-        <div class="h-50 infield-div-bottom">
-            3
-        </div>
-    </div>
-</div>
-
-<div class="row my-center mt-2">
-    <div class="col-md-6 upcoming">
-        <div class="upcoming-title">
-            Active Clubs<hr />
-        </div>
-        @foreach (var item in Model.Clubs)
+            }
+        }
+        else
         {
             <div>
-                <a class="btn btn-link upcoming-track" asp-controller="Clubs" asp-action="Details" asp-route-id="@item.Id">
-                    <span>@Html.DisplayFor(modelItem => item.ClubName)</span><br />
-                </a>
+                <p>No scheduled events</p>
+                @if (User.IsInRole("ClubManager"))
+                {
+                    <span><a asp-controller="Clubs" asp-action="Details"> Create a Championship</a></span>
+                }
             </div>
         }
-    </div>
-    <div class="col-md upcoming">
-        <div class="upcoming-title">
-            Upcoming races <hr />
-        </div>
-        @foreach (var item in Model.Events)
-        {
-            <div class="upcoming-track">
-                <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
-                    @Html.DisplayFor(modelItem => item.TrackName)
-                </a>
-            </div><br />
 
-        }
-        @*<div class="float-right my-center">Forecast:</div><br />
-            <span class="float-right upcoming-weather">
-                <img src="~/img/icons8-onedrive-32.png" />
-            </span>
-            <span class="float-right upcoming-weather">
-                <img src="~/img/icons8-rain-cloud-50.png" />
-            </span>
-            <span class="float-right upcoming-weather">
-                <img src="~/img/icons8-clouds-32.png" />
-            </span>*@
     </div>
 </div>

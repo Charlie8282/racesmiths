@@ -23,12 +23,14 @@ namespace racesmiths.Controllers
             _context = context;
         }
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
             InfieldViewModel model = new();
 
             model.Clubs = _context.Clubs.ToList();
-            model.Events = _context.Event.ToList();
+            model.Events = _context.Event.Take(1)
+                .ToList();
+                
 
             return View(model);
         }

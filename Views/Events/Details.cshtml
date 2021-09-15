@@ -4,7 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Model.Champ.ChampName</h1>
+<a class="btn btn-dark" data-toggle="modal" data-target="#createRace" asp-controller="Races" asp-action="Create" asp-route-id="@Model.Id">
+    Create another race
+</a>
 
 <form asp-controller="Races" asp-action="Create" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -35,12 +38,7 @@
     <h4>Event</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RoundNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RoundNumber)
-        </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TrackName)
         </dt>
@@ -58,12 +56,6 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Settings)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Created)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Scheduled)
@@ -95,3 +87,65 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+@*MODALS*@
+
+
+<div class="modal fade" id="createRace" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-animation="makeway">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalScrollableTitle">Create Ticket</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Races" asp-action="Create" enctype="multipart/form-data">
+                    <input type="hidden" name="EventId" value="@Model.Id" />
+                    <div class="dash-radius task-detail">
+
+                        <div class="row ml-2">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" name="EventId" value="@Model.Id" />
+                            <div class="form-group">
+                                <label name="TrackName" class="control-label">Track</label>
+                                <input name="TrackName" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label name="RaceNumber" class="control-label">Number of Races</label>
+                                <input name="RaceNumber" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label name="RaceLength" class="control-label">Race Length</label>
+                                <input name="RaceLength" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label name="QualifyLength" class="control-label">Qualifying Length</label>
+                                <input name="QualifyLength" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label name="Description" class="control-label"></label>
+                                <textarea name="Description" class="form-control" id="mytextarea"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div class="row ml-2">
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
