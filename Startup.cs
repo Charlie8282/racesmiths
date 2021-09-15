@@ -33,8 +33,8 @@ namespace racesmiths
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
-                    DataHelper.GetConnectionString(Configuration)));
-
+                    DataHelper.GetConnectionString(Configuration), o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<RSUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
@@ -58,7 +58,7 @@ namespace racesmiths
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {

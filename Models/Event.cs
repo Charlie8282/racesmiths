@@ -10,7 +10,7 @@ namespace racesmiths.Models
     {
         public int Id { get; set; }
         public int ChampId { get; set; }
-        public string RSUserId { get; set; }
+        //public string EventUserId { get; set; }
 
         [Display(Name = "Round")]
         public int RoundNumber { get; set; }
@@ -43,9 +43,9 @@ namespace racesmiths.Models
 
         //NAVIGATION
         public virtual Champ Champ { get; set; }
-        public RSUser EventUser { get; set; }
+        //public RSUser EventUser { get; set; }
 
-        //public virtual ICollection<ClubUser> ClubUsers { get; set; } = new HashSet<ClubUser>();
+        public virtual ICollection<RSUser> ClubUsers { get; set; } = new HashSet<RSUser>();
 
         public virtual ICollection<Race> Races { get; set; } = new HashSet<Race>();
 

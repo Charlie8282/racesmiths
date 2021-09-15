@@ -45,6 +45,7 @@ namespace racesmiths.Controllers
             }
 
             var club = await _context.Clubs
+                .Include(c => c.Champs)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (club == null)
             {
@@ -73,21 +74,14 @@ namespace racesmiths.Controllers
                 _context.Add(club);
                 await _context.SaveChangesAsync();
                     
-                 RSUser user = await _userManager.GetUserAsync(User);
+                RSUser user = await _userManager.GetUserAsync(User);
 
                 club.ClubUsers.Add(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                await _userManager.AddToRoleAsync(user, RSRoles.ClubManager.ToString());
+                await _signInManager.RefreshSignInAsync(user);
 
-                //var currentUser = await _userManager.GetUserAsync(User);
-
-                //currentUser.ClubId = club.Id;
-                //await _context.SaveChangesAsync();
-
-                //await _userManager.AddToRoleAsync(currentUser, RSRoles.ClubManager.ToString());
-                //await _signInManager.RefreshSignInAsync(currentUser);
-
-                //return RedirectToAction("Details", "Clubs", new { id = club.Id });
+                return RedirectToAction("Details", "Clubs", new { id = club.Id });
             }
             return View(club);
         }
@@ -181,15 +175,15 @@ namespace racesmiths.Controllers
         [Authorize(Roles = "Admin, ClubManager")]
         public async Task<IActionResult> AssignUsers(int id)
         {
-            var model = new ManageClubUsersViewModel();
-            var club = _context.Clubs
+            ManageClubUsersViewModel model = new();
+            Club club = await _context.Clubs
                 .Include(p => p.ClubUsers)
                 .FirstAsync(p => p.Id == id);
 
-            model.Club = await club;
+            model.Club = club;
             List<RSUser> users = await _context.Users.ToListAsync();
-            List<RSUser> members = (List<RSUser>)await _rsClubService.UsersInClub(id);
-            model.Users = new MultiSelectList(users, "Id", "Gamertag", members);
+            //List<RSUser> members = (await _rsClubService.UsersInClub(id)).ToList();
+            model.Users = new MultiSelectList(users, "Id", "Gamertag", club.ClubUsers);
             return View(model);
         }
 
@@ -231,13 +225,13 @@ namespace racesmiths.Controllers
         [Authorize(Roles = "Admin, ClubManager")]
         public async Task<IActionResult> RemoveUsers(int id)
         {
-            var model = new ManageClubUsersViewModel();
-            var club = _context.Clubs
+            ManageClubUsersViewModel model = new();
+            Club club = await _context.Clubs
                 .Include(p => p.ClubUsers)
                 .FirstAsync(p => p.Id == id);
-            model.Club = await club;
-            List<RSUser> members = (List<RSUser>)await _rsClubService.UsersInClub(id);
-            model.Users = new MultiSelectList(members, "Id", "Gamertag");
+            model.Club = club;
+            //List<RSUser> members = (List<RSUser>)await _rsClubService.UsersInClub(id);
+            model.Users = new MultiSelectList(club.ClubUsers, "Id", "Gamertag");
             return View(model);
         }
 

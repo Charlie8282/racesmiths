@@ -10,12 +10,7 @@ namespace racesmiths.Data
             : base(options)
         {
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<RSUser>()
-            .HasKey(pu => new { pu.Clubs, pu.Id });
-        }
+
         //public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Champ> Champs { get; set; }
         //public DbSet<ChampRule> ChampRules { get; set; }

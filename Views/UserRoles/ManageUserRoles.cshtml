@@ -1,0 +1,45 @@
+﻿@model IEnumerable<racesmiths.Models.ViewModels.ManageUserRolesViewModel>
+@using racesmiths.Services
+@inject IRSRolesService rService
+
+
+
+<div class="row">
+    <div class="col-10 mx-auto">
+        <div class="card">
+            <table id="responsive-datatable" class="table">
+                <thead class="dash">
+                    <tr class="dash">
+                        <th>Name</th>
+                        <th>Current Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rsuser in Model)
+                    {
+                        <tr class="dash">
+                            <td class="dash">@rsuser.User.Gamertag</td>
+                            <td class="dash" data-sort="@String.Join(" ", (await rService.ListUserRoles(rsuser.User)).ToList())">
+                                <form asp-controller="UserRoles" asp-action="ManageUserRoles" method="post">
+                                    <div asp-validation-summary="ModelOnly"></div>
+                                    <input type="hidden" asp-for="@rsuser.User.Id">
+                                    <div class="form-group multi">
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <select asp-for="@rsuser.SelectedRole" class="form-control" asp-items="@rsuser.Roles"></select>
+                                            <input type="submit" value="Assign Role" class="btn-descrip" />
+                                        }
+                                        else
+                                        {
+                                            <select asp-for="@rsuser.SelectedRole" class="form-control" asp-items="@rsuser.Roles"></select>
+                                        }
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -15,9 +15,39 @@ namespace racesmiths.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.15")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("ClubRSUser", b =>
+                {
+                    b.Property<string>("ClubUsersId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ClubsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ClubUsersId", "ClubsId");
+
+                    b.HasIndex("ClubsId");
+
+                    b.ToTable("ClubRSUser");
+                });
+
+            modelBuilder.Entity("EventRSUser", b =>
+                {
+                    b.Property<string>("ClubUsersId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("EventsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ClubUsersId", "EventsId");
+
+                    b.HasIndex("EventsId");
+
+                    b.ToTable("EventRSUser");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -29,18 +59,18 @@ namespace racesmiths.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -149,6 +179,21 @@ namespace racesmiths.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("RSUserRace", b =>
+                {
+                    b.Property<string>("ClubUsersId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RacesId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ClubUsersId", "RacesId");
+
+                    b.HasIndex("RacesId");
+
+                    b.ToTable("RSUserRace");
+                });
+
             modelBuilder.Entity("racesmiths.Models.Champ", b =>
                 {
                     b.Property<int>("Id")
@@ -158,8 +203,8 @@ namespace racesmiths.Migrations
 
                     b.Property<string>("ChampName")
                         .IsRequired()
-                        .HasColumnType("character varying(30)")
-                        .HasMaxLength(30);
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.Property<string>("ChampUserId")
                         .HasColumnType("text");
@@ -172,8 +217,8 @@ namespace racesmiths.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("character varying(1000)")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<byte[]>("ImageData")
                         .HasColumnType("bytea");
@@ -214,8 +259,8 @@ namespace racesmiths.Migrations
 
                     b.Property<string>("ClubName")
                         .IsRequired()
-                        .HasColumnType("character varying(40)")
-                        .HasMaxLength(40);
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -247,31 +292,6 @@ namespace racesmiths.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clubs");
-                });
-
-            modelBuilder.Entity("racesmiths.Models.ClubUser", b =>
-                {
-                    b.Property<int>("ClubId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("EventId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("RaceId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ClubId", "UserId");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("RaceId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ClubUsers");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Comment", b =>
@@ -323,17 +343,14 @@ namespace racesmiths.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("character varying(1000)")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<string>("FileName")
                         .HasColumnType("text");
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("bytea");
-
-                    b.Property<string>("RSUserId")
-                        .HasColumnType("text");
 
                     b.Property<int>("RoundNumber")
                         .HasColumnType("integer");
@@ -343,19 +360,17 @@ namespace racesmiths.Migrations
 
                     b.Property<string>("Settings")
                         .IsRequired()
-                        .HasColumnType("character varying(1000)")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<string>("TrackName")
                         .IsRequired()
-                        .HasColumnType("character varying(40)")
-                        .HasMaxLength(40);
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ChampId");
-
-                    b.HasIndex("RSUserId");
 
                     b.ToTable("Event");
                 });
@@ -412,16 +427,13 @@ namespace racesmiths.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
@@ -434,8 +446,8 @@ namespace racesmiths.Migrations
 
                     b.Property<string>("Gamertag")
                         .IsRequired()
-                        .HasColumnType("character varying(40)")
-                        .HasMaxLength(40);
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -444,12 +456,12 @@ namespace racesmiths.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -467,19 +479,17 @@ namespace racesmiths.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClubId");
-
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -503,20 +513,50 @@ namespace racesmiths.Migrations
                     b.Property<string>("QualifyLength")
                         .HasColumnType("text");
 
-                    b.Property<string>("RSUserId")
-                        .HasColumnType("text");
-
                     b.Property<string>("RaceLength")
                         .HasColumnType("text");
 
                     b.Property<int>("RaceNumber")
                         .HasColumnType("integer");
 
+                    b.Property<string>("TrackName")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
 
                     b.ToTable("Race");
+                });
+
+            modelBuilder.Entity("ClubRSUser", b =>
+                {
+                    b.HasOne("racesmiths.Models.RSUser", null)
+                        .WithMany()
+                        .HasForeignKey("ClubUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("racesmiths.Models.Club", null)
+                        .WithMany()
+                        .HasForeignKey("ClubsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EventRSUser", b =>
+                {
+                    b.HasOne("racesmiths.Models.RSUser", null)
+                        .WithMany()
+                        .HasForeignKey("ClubUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("racesmiths.Models.Event", null)
+                        .WithMany()
+                        .HasForeignKey("EventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -570,6 +610,21 @@ namespace racesmiths.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RSUserRace", b =>
+                {
+                    b.HasOne("racesmiths.Models.RSUser", null)
+                        .WithMany()
+                        .HasForeignKey("ClubUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("racesmiths.Models.Race", null)
+                        .WithMany()
+                        .HasForeignKey("RacesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("racesmiths.Models.Champ", b =>
                 {
                     b.HasOne("racesmiths.Models.RSUser", "ChampUser")
@@ -581,29 +636,10 @@ namespace racesmiths.Migrations
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("racesmiths.Models.ClubUser", b =>
-                {
-                    b.HasOne("racesmiths.Models.Club", "Club")
-                        .WithMany("ClubUsers")
-                        .HasForeignKey("ClubId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ChampUser");
 
-                    b.HasOne("racesmiths.Models.Event", null)
-                        .WithMany("ClubUsers")
-                        .HasForeignKey("EventId");
-
-                    b.HasOne("racesmiths.Models.Race", null)
-                        .WithMany("ClubUsers")
-                        .HasForeignKey("RaceId");
-
-                    b.HasOne("racesmiths.Models.RSUser", "User")
-                        .WithMany("ClubUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Club");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Comment", b =>
@@ -617,6 +653,10 @@ namespace racesmiths.Migrations
                     b.HasOne("racesmiths.Models.RSUser", "RSUser")
                         .WithMany()
                         .HasForeignKey("RSUserId");
+
+                    b.Navigation("Champ");
+
+                    b.Navigation("RSUser");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Event", b =>
@@ -627,9 +667,7 @@ namespace racesmiths.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("racesmiths.Models.RSUser", "EventUser")
-                        .WithMany()
-                        .HasForeignKey("RSUserId");
+                    b.Navigation("Champ");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Notification", b =>
@@ -649,13 +687,14 @@ namespace racesmiths.Migrations
                     b.HasOne("racesmiths.Models.RSUser", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId");
-                });
 
-            modelBuilder.Entity("racesmiths.Models.RSUser", b =>
-                {
-                    b.HasOne("racesmiths.Models.Club", null)
-                        .WithMany("Users")
-                        .HasForeignKey("ClubId");
+                    b.Navigation("Champ");
+
+                    b.Navigation("Race");
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("racesmiths.Models.Race", b =>
@@ -665,6 +704,23 @@ namespace racesmiths.Migrations
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Event");
+                });
+
+            modelBuilder.Entity("racesmiths.Models.Champ", b =>
+                {
+                    b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("racesmiths.Models.Club", b =>
+                {
+                    b.Navigation("Champs");
+                });
+
+            modelBuilder.Entity("racesmiths.Models.Event", b =>
+                {
+                    b.Navigation("Races");
                 });
 #pragma warning restore 612, 618
         }

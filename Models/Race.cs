@@ -10,7 +10,8 @@ namespace racesmiths.Models
     {
         public int Id { get; set; }
         public int EventId { get; set; }
-        public string RSUserId { get; set; }
+        public string TrackName { get; set; }
+        //public string RSUserId { get; set; }
         //public Position Position { get; set; }
         public int Position { get; set; }
         public int RaceNumber { get; set; }
@@ -23,8 +24,8 @@ namespace racesmiths.Models
 
         public virtual Event Event { get; set; }
 
-        public virtual ICollection<Event> Events { get; set; } = new HashSet<Event>();
-        //public virtual ICollection<ClubUser> ClubUsers { get; set; } = new HashSet<ClubUser>();
+        //public virtual Event Events { get; set; } = new HashSet<Event>();
+        public virtual ICollection<RSUser> ClubUsers { get; set; } = new HashSet<RSUser>();
 
     }
 }

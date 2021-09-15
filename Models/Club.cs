@@ -40,6 +40,7 @@ namespace racesmiths.Models
 
         //NAVIGATION
         public virtual ICollection<RSUser> ClubUsers { get; set; } = new HashSet<RSUser>();
+        //public List<RSUser> Users { get; set; }
         public virtual ICollection<Champ> Champs { get; set; } = new HashSet<Champ>();
 
     }

@@ -41,6 +41,11 @@
                 <a class="btn" asp-area="" asp-controller="Champs" asp-action="Index"><i></i>Championships</a>
                 <a class="btn" asp-area="" asp-controller="Events" asp-action="Index"><i></i>Events</a>
                 <a class="btn" asp-area="" asp-controller="Races" asp-action="Index"><i></i>Races</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn" asp-area="" asp-controller="UserRoles" asp-action="ManageUserRoles"><i></i>Roles</a>
+                }
+
             </div>
         </div>
         <main role="main" class="pb-3">
