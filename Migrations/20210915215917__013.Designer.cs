@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using racesmiths.Data;
@@ -9,9 +10,10 @@ using racesmiths.Data;
 namespace racesmiths.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210915215917__013")]
+    partial class _013
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,7 +228,7 @@ namespace racesmiths.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("text");
 
-                    b.Property<int>("Rounds")
+                    b.Property<int>("RaceCount")
                         .HasColumnType("integer");
 
                     b.Property<string>("Rules")
@@ -356,6 +358,7 @@ namespace racesmiths.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Settings")
+                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
@@ -500,7 +503,7 @@ namespace racesmiths.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("Laps")
+                    b.Property<int>("Laps")
                         .HasColumnType("integer");
 
                     b.Property<int>("Points")

@@ -7,30 +7,44 @@
 }
 
 <div class="container">
-    <p class="float-left">Next Event:</p>
     <div class="row my-center mt-2">
-        @if (Model.Events != null)
-        {
-            @foreach (var item in Model.Events)
+        <div class="col-md-6">
+            @if (Model.Events.Count == 0)
             {
-                <div class="upcoming-track">
-                    <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
-                        @Html.DisplayFor(modelItem => item.TrackName)
-                    </a>
-                </div><br />
-
-            }
-        }
-        else
-        {
-            <div>
                 <p>No scheduled events</p>
-                @if (User.IsInRole("ClubManager"))
+
+                @if (User.IsInRole("ClubManager") || User.IsInRole("Admin"))
                 {
                     <span><a asp-controller="Clubs" asp-action="Details"> Create a Championship</a></span>
                 }
-            </div>
-        }
+            }
+            else
+            {
 
+                <p>Next Event:</p>
+
+                @foreach (var item in Model.Events)
+                {
+                    <div class="">
+                        <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
+                            @Html.DisplayFor(modelItem => item.TrackName)
+                        </a>
+                    </div><br />
+
+                }
+
+            }
+        </div>
+        <div class="col-md">
+            @foreach (var item in Model.Clubs)
+            {
+                <div class="">
+                    <a asp-controller="Clubs" asp-action="Details" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.ClubName)
+                    </a>
+                </div><br />
+            }
+        </div>
     </div>
+
 </div>

@@ -20,7 +20,7 @@ namespace racesmiths.Models
         public string ChampName { get; set; }
 
         [Required]
-        public int RaceCount { get; set; }
+        public int Rounds { get; set; }
         public string Rules { get; set; }
 
         [Required]
@@ -30,6 +30,8 @@ namespace racesmiths.Models
         public string Settings { get; set; }
 
         //public ChampType? ChampType { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
         public DateTime? StartDate { get; set; }
         public Status? Status { get; set; }
 

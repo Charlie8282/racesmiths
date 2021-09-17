@@ -3,100 +3,105 @@
 @{
     ViewData["Title"] = "Details";
 }
-
 <div class="row my-center">
-    <div class="col-md-8 upcoming">
-        <div class="upcoming-title">
-            Current Championships<hr />
-        </div>
+    <h1>@Model.ClubName</h1><hr />
+    @if (User.IsInRole("ClubManager"))
+    {
+        <span class="float-right">
+            <a class="btn btn-dark" data-toggle="modal" data-target="#createChamp" asp-area="" asp-controller="Champs" asp-action="Create" asp-route-id="@Model.Id">Create Championship
+            </a>
+            <a class="btn btn-dark" asp-area="" asp-controller="Clubs" asp-action="AssignUsers" asp-route-id="@Model.Id">
+                Assign Users
+            </a>
+            <a class="btn btn-dark" asp-area="" asp-controller="Clubs" asp-action="RemoveUsers" asp-route-id="@Model.Id">
+                Remove Users
+            </a>
+        </span>
+
+    }
+</div>
+<hr />
+<div class="row my-center">
+    <div class="col-md upcoming">
+        <h2>Current Championships</h2><hr />
         @foreach (var item in Model.Champs)
-            {
-                <div class="">
-                    <a class="btn btn-link upcoming-track" asp-controller="Champs" asp-action="Details" asp-route-id="@item.Id">
-                        <span>@Html.DisplayFor(modelItem => item.ChampName)</span><br />
-                    </a>
-                </div>
-            }
+        {
+            <div class="">
+                <a class="btn btn-link upcoming-track" asp-controller="Champs" asp-action="Details" asp-route-id="@item.Id">
+                    <span>@Html.DisplayFor(modelItem => item.ChampName)</span><br />
+                </a>
+            </div>
+        }
     </div>
-    <div class="col-md">
+    @*<div class="col-md">
         <h2>Create Championship</h2>
         <form asp-controller="Champs" asp-action="Create" enctype="multipart/form-data">
             <input type="hidden" name="ClubId" value="@Model.Id" />
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label name="ChampName" class="control-label">ChampName</label>
-                <input name="ChampName" class="form-control" />
+                <input name="ChampName" class="form-control bg-soft-dark" placeholder="Championship Name" />
             </div>
             <div class="form-group">
-                <label name="RaceCount" class="control-label">RaceCount</label>
-                <input name="RaceCount" class="form-control" />
+                <input name="Round" class="form-control bg-soft-dark" placeholder="How Many Rounds?" />
             </div>
             <div class="form-group">
-                <label name="Rules" class="control-label">Rules</label>
-                <input name="Rules" class="form-control" />
+                <textarea name="Rules" class="form-control bg-soft-dark" placeholder="Rules"></textarea>
             </div>
             <div class="form-group">
-                <label name="Description" class="control-label">Description</label>
-                <input name="Description" class="form-control" />
+                <textarea name="Description" class="form-control bg-soft-dark" id="mytextarea" placeholder="Description"></textarea>
             </div>
             <div class="form-group">
-                <label name="Settings" class="control-label">Settings</label>
-                <input name="Settings" class="form-control" />
+                <input name="StartDate" class="form-control bg-soft-dark" placeholder="Start Date" />
             </div>
             <div class="form-group">
-                <label name="StartDate" class="control-label">StartDate</label>
-                <input name="StartDate" class="form-control" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-dark form-control silver-4" />
             </div>
         </form>
+    </div>*@
+</div>
+
+
+@*MODALS*@
+<div class="modal fade" id="createChamp" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-animation="makeway">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalScrollableTitle">Create a Championship</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Champs" asp-action="Create" enctype="multipart/form-data">
+                    <input type="hidden" name="ClubId" value="@Model.Id" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input name="ChampName" class="form-control bg-soft-dark" placeholder="Championship Name" />
+                    </div>
+                    <div class="form-group">
+                        <input name="Round" class="form-control bg-soft-dark" placeholder="How Many Rounds?" />
+                    </div>
+                    <div class="form-group">
+                        <textarea name="Rules" class="form-control bg-soft-dark" placeholder="Rules"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="Description" class="form-control bg-soft-dark" id="mytextarea" placeholder="Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input name="StartDate" class="form-control bg-soft-dark" placeholder="Start Date" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-dark form-control silver-4" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
-<div>
-    <h4>Club</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ClubName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ClubName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Rules)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Rules)
-        </dd>
 
-    </dl>
-</div>
-
-
-<div class="row my-center my-div">
-    <div class="col-md-3">
-        <a asp-area="" asp-controller="Clubs" asp-action="AssignUsers" asp-route-id="@Model.Id">
-            Assign Users
-        </a>
-    </div>
-</div>
-
-<div class="row my-center my-div">
-    <div class="col-md-3">
-        <a asp-area="" asp-controller="Clubs" asp-action="RemoveUsers" asp-route-id="@Model.Id">
-            Remove Users
-        </a>
-    </div>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

@@ -36,6 +36,55 @@ namespace racesmiths.Controllers
             return View(await _context.Clubs.ToListAsync());
         }
 
+
+
+        public async Task<IActionResult> MyClubs()
+        {
+            var model = new List<Club>();
+            var userId = _userManager.GetUserId(User);
+
+            if (User.IsInRole("Admin"))
+            {
+                model = _context.Clubs.Include(p => p.ClubUsers).ToList();
+            }
+
+            else if (User.IsInRole("ClubManager"))
+            {
+                var clubIds = new List<int>();
+                model = new List<Club>();
+                var userClubs = _context.ClubUsers.Where(pu => pu.Id == userId).ToList();
+
+                foreach (var record in userClubs)
+                {
+                    clubIds.Add(_context.Clubs.Find(record.Id).Id);
+                }
+                foreach (var id in clubIds)
+                {
+                    var club = _context.Clubs.Where(t => t.Id == id).ToList();
+                    model.AddRange(club);
+                }
+
+            }
+
+            else if (User.IsInRole("Driver"))
+            {
+                model = await _rsClubService.ListUserClubs(userId);
+
+            }
+
+            else if (User.IsInRole("NewUser"))
+            {
+                model = await _rsClubService.ListUserClubs(userId);
+
+            }
+            else
+            {
+                return NotFound();
+            }
+            return View(model);
+        }
+
+
         // GET: Clubs/Details/5
         public async Task<IActionResult> Details(int? id)
         {

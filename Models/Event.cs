@@ -24,16 +24,12 @@ namespace racesmiths.Models
         [Display(Name = "Event description")]
         public string Description { get; set; }
 
-        [Required]
+       
         [StringLength(1000, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
         [Display(Name = "Event settings")]
         public string Settings { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Date created")]
-        public DateTime Created { get; set; }
-
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Name = "Date scheduled")]
         public DateTime? Scheduled { get; set; }
 

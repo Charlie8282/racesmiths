@@ -78,7 +78,16 @@ h1 {
     font-family: 'Agency FB', sans-serif;
     font-size: 3rem;
 }
-
+h2 {
+    color: whitesmoke;
+    font-family: 'Agency FB', sans-serif;
+    font-size: 2rem;
+}
+h3 {
+    color: whitesmoke;
+    font-family: 'Agency FB', sans-serif;
+    font-size: 1rem;
+}
 /*.footer {
     position: absolute;
     bottom: 0;
@@ -256,10 +265,10 @@ h1 {
 }
 
 .my-div {
-    margin-top: 4rem;
-    padding: 4rem;
+    margin-top: 1rem;
+    padding: 2rem;
     color: white;
-    box-shadow: 0px 2px 35px 5px white;
+    /*box-shadow: 0px 2px 35px 5px white;*/
     background: url(../img/div-back2.jpg) no-repeat;
     background-size: cover;
     border-radius: .2rem;
@@ -346,4 +355,27 @@ h1 {
     background: url(../img//tread.jpg) fixed no-repeat;
     background-size: cover;
     height: 100rem;
+}
+
+.silver {
+    background: url(../img/silver-dark.jpg) no-repeat;
+    background-size: cover;
+}
+
+.silver-2 {
+    background: url(../img/silver-dark2.jpg) no-repeat;
+    background-size: cover;
+}
+.silver-3 {
+    background: url(../img/silver-dark3.jpg) no-repeat;
+    background-size: cover;
+}
+.silver-4 {
+    background: url(../img/silver-dark4.jpg) no-repeat;
+    background-size: cover;
+}
+
+.input-label {
+    color: white;
+
 }

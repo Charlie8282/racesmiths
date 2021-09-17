@@ -14,8 +14,9 @@ namespace racesmiths.Models
         //public string RSUserId { get; set; }
         //public Position Position { get; set; }
         public int Position { get; set; }
+        public int Points { get; set; }
         public int RaceNumber { get; set; }
-        public int Laps { get; set; }
+        public int? Laps { get; set; }
         public string RaceLength { get; set; }
         public string QualifyLength { get; set; }
         //public RSUser RaceUser { get; set; }

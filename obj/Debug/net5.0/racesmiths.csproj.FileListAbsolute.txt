@@ -430,6 +430,7 @@ C:\Users\zacks\source\repos\racesmiths\bin\Debug\net5.0\runtimes\win-x64\native\
 C:\Users\zacks\source\repos\racesmiths\bin\Debug\net5.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\zacks\source\repos\racesmiths\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\zacks\source\repos\racesmiths\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.csproj.AssemblyReference.cache
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.AssemblyInfoInputs.cache
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.AssemblyInfo.cs
@@ -514,4 +515,3 @@ C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.dll
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\ref\racesmiths.dll
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.pdb
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.genruntimeconfig.cache
-C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.csproj.AssemblyReference.cache

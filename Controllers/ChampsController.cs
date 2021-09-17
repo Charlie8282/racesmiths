@@ -36,10 +36,12 @@ namespace racesmiths.Controllers
             {
                 return NotFound();
             }
-
             var champ = await _context.Champs
                 .Include(c => c.Club)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            champ.Events = _context.Event
+                .Where(e => e.ChampId == id)
+                .ToList();
             if (champ == null)
             {
                 return NotFound();
@@ -61,7 +63,7 @@ namespace racesmiths.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClubId,ClubUserId,ChampName,RaceCount,Rules,Description,Settings,StartDate")] Champ champ)
+        public async Task<IActionResult> Create([Bind("ClubId,ClubUserId,ChampName,Rounds,Rules,Description,Settings,Scheduled")] Champ champ)
         {
             if (ModelState.IsValid)
             {

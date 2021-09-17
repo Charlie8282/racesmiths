@@ -22,7 +22,8 @@ namespace racesmiths.Controllers
         // GET: Races
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Race.Include(r => r.Event);
+            var applicationDbContext = _context.Race
+                .Include(r => r.Event);
             return View(await applicationDbContext.ToListAsync());
         }
 
