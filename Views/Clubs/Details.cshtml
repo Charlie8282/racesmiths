@@ -5,10 +5,11 @@
 }
 <div class="row my-center">
     <h1>@Model.ClubName</h1><hr />
-    @if (User.IsInRole("ClubManager"))
+    @if (User.IsInRole("ClubManager") || User.IsInRole("Admin"))
     {
         <span class="float-right">
-            <a class="btn btn-dark" data-toggle="modal" data-target="#createChamp" asp-area="" asp-controller="Champs" asp-action="Create" asp-route-id="@Model.Id">Create Championship
+            <a class="btn btn-dark" data-toggle="modal" data-target="#createChamp" asp-area="" asp-controller="Champs" asp-action="Create" asp-route-id="@Model.Id">
+                Create Championship
             </a>
             <a class="btn btn-dark" asp-area="" asp-controller="Clubs" asp-action="AssignUsers" asp-route-id="@Model.Id">
                 Assign Users
@@ -20,79 +21,188 @@
 
     }
 </div>
-<hr />
 <div class="row my-center">
-    <div class="col-md upcoming">
-        <h2>Current Championships</h2><hr />
-        @foreach (var item in Model.Champs)
-        {
-            <div class="">
-                <a class="btn btn-link upcoming-track" asp-controller="Champs" asp-action="Details" asp-route-id="@item.Id">
-                    <span>@Html.DisplayFor(modelItem => item.ChampName)</span><br />
-                </a>
-            </div>
-        }
+    <h2>Current Championships</h2>
+</div>
+<hr />
+@if (Model.Champs.Count == 0)
+{
+    <div class="row my-center upcoming-track">
+        No scheduled Championships
     </div>
-    @*<div class="col-md">
-        <h2>Create Championship</h2>
-        <form asp-controller="Champs" asp-action="Create" enctype="multipart/form-data">
-            <input type="hidden" name="ClubId" value="@Model.Id" />
+}
+else
+{
+    @foreach (var item in Model.Champs)
+    {
+        <div class="row my-center">
+            <a class="btn btn-link upcoming-track" asp-controller="Champs" asp-action="Details" asp-route-id="@item.Id">
+                <span>
+                    @Html.DisplayFor(modelItem => item.ChampName)
+                </span>
+                <span class="game">
+                    @Html.DisplayFor(modelItem => item.Game)Project Cars 2
+                </span>
+                <span class="game">
+                    | @Html.DisplayFor(modelItem => item.System)Xbox One X
+                </span><br />
+            </a>
+        </div>
+    }
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input name="ChampName" class="form-control bg-soft-dark" placeholder="Championship Name" />
-            </div>
-            <div class="form-group">
-                <input name="Round" class="form-control bg-soft-dark" placeholder="How Many Rounds?" />
-            </div>
-            <div class="form-group">
-                <textarea name="Rules" class="form-control bg-soft-dark" placeholder="Rules"></textarea>
-            </div>
-            <div class="form-group">
-                <textarea name="Description" class="form-control bg-soft-dark" id="mytextarea" placeholder="Description"></textarea>
-            </div>
-            <div class="form-group">
-                <input name="StartDate" class="form-control bg-soft-dark" placeholder="Start Date" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-dark form-control silver-4" />
-            </div>
-        </form>
-    </div>*@
+}
+<hr />
+<div class="row">
+    @foreach (var user in Model.ClubUsers)
+    {
+        @user.Gamertag
+    }
 </div>
 
 
 @*MODALS*@
-<div class="modal fade" id="createChamp" tabindex="-1" role="dialog"
+<div class="modal fade silver" id="createChamp" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-animation="makeway">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalScrollableTitle">Create a Championship</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="modal-content my-modal">
+            <div class="row my-center">
+                <div class="my-modal-head">
+                    Create Championship
+                </div>
             </div>
-            <div class="modal-body">
+            @*<div class="modal-header">
+                    <h2 class="my-modal-div" id="exampleModalScrollableTitle">Create a Championship</h2>
+                    <button type="button" class="orange close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body my-modal-div">
                 <form asp-controller="Champs" asp-action="Create" enctype="multipart/form-data">
                     <input type="hidden" name="ClubId" value="@Model.Id" />
 
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
+                        Video Game
+                        <input name="Game" class="form-control bg-soft-dark" placeholder="Game" />
+                    </div>
+                    <div class="form-group">
+                        Gaming System
+                        <input name="System" class="form-control bg-soft-dark" placeholder="System" />
+                    </div>
+                    <div class="form-group">
+                        Name
                         <input name="ChampName" class="form-control bg-soft-dark" placeholder="Championship Name" />
                     </div>
                     <div class="form-group">
-                        <input name="Round" class="form-control bg-soft-dark" placeholder="How Many Rounds?" />
+                        Rounds
+                        <input name="Rounds" class="form-control bg-soft-dark" placeholder="How Many Rounds?" />
                     </div>
                     <div class="form-group">
+                        First Race
+                        <input type="datetime" name="StartDate" class="form-control bg-soft-dark" placeholder="Date and time" />
+                    </div>
+                    <p>The following settings will be set across all Events in the championship.  Settings that will change from race to race will need to be left empty here. </p><hr />
+                    <h2>Vehicle</h2>
+                    <div class="row modal-section my-center">
+                        Choose a Class with the option of excluding car(s)
+                        <div class="col-6 form-group">
+                            Vehicle Class
+                            <input name="VehicleClass" class="form-control bg-soft-dark" placeholder="Class..." />
+                        </div>
+                        <div class="col form-group">
+                            Exclude Vehicle(s)
+                            <textarea name="ExcludeVehicle" class="form-control bg-soft-dark" placeholder="Vehicle name(s)..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row my-center">
+                        OR
+                    </div>
+                    <div class="row modal-section my-center">
+                        <div class="form-group">
+                            All drivers in the same vehicle 
+                            <input name="Vehicle" class="form-control bg-soft-dark" placeholder="Vehicle name..." />
+                        </div>
+                    </div>
+
+                    <h2>Race</h2>
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            Laps
+                            <input name="Laps" class="form-control bg-soft-dark" placeholder="Laps" />
+                        </div>
+                        <div class="col form-group">
+                            Race length
+                            <input name="RaceLength" class="form-control bg-soft-dark" placeholder="Minutes" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            In-Game Date:
+                            <input name="IGDate" class="form-control bg-soft-dark" placeholder="Season..." />
+                        </div>
+                        <div class="col form-group">
+                            In-Game time for Race
+                            <input name="IGTRace" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                    </div>
+                    <h3>Weather forecast:</h3>
+                    <div class="row my-center">
+                        <div class="col-3 form-group">
+                            Slot 1
+                            <input name="WeatherSlot1" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                        <div class="col-3 form-group">
+                            Slot 2
+                            <input name="WeatherSlot2" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                        <div class="col-3 form-group">
+                            Slot 3
+                            <input name="WeatherSlot3" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                        <div class="col form-group">
+                            Slot 4
+                            <input name="WeatherSlot4" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                    </div>
+                    <h2>Qualifying:</h2>
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            Qualifying length
+                            <input name="QualifyLength" class="form-control bg-soft-dark" placeholder="Minutes" />
+                        </div>
+                        <div class="col form-group">
+                            In-Game time for Qualifying
+                            <input name="IGTQualify" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                    </div>
+                    <h3>Qualifying Weather Forecast:</h3>
+                    <div class="row my-center">
+                        <div class="col-3 form-group">
+                            Slot1
+                            <input name="QualWeatherSlot1" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                        <div class="col-3 form-group">
+                            Slot2
+                            <input name="QualWeatherSlot2" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                        <div class="col-3 form-group">
+                            Slot3
+                            <input name="QualWeatherSlot3" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                        <div class="col-3 form-group">
+                            Slot4
+                            <input name="QualWeatherSlot4" class="form-control bg-soft-dark" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        Rules
                         <textarea name="Rules" class="form-control bg-soft-dark" placeholder="Rules"></textarea>
                     </div>
                     <div class="form-group">
+                        Description &Aacute; Additional Information
                         <textarea name="Description" class="form-control bg-soft-dark" id="mytextarea" placeholder="Description"></textarea>
                     </div>
-                    <div class="form-group">
-                        <input name="StartDate" class="form-control bg-soft-dark" placeholder="Start Date" />
-                    </div>
+
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-dark form-control silver-4" />
                     </div>

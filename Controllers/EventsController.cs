@@ -63,7 +63,7 @@ namespace racesmiths.Controllers
             {
                 _context.Add(cevent);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Champs", new { id = cevent.ChampId });
             }
             ViewData["ChampId"] = new SelectList(_context.Champs, "Id", "ChampName", cevent.ChampId);
             return View(cevent);

@@ -21,12 +21,12 @@
             else
             {
 
-                <p>Next Event:</p>
+                <h2>Next Event:</h2>
 
                 @foreach (var item in Model.Events)
                 {
                     <div class="">
-                        <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
+                        <a class="upcoming-track" asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
                             @Html.DisplayFor(modelItem => item.TrackName)
                         </a>
                     </div><br />
@@ -39,9 +39,11 @@
             @foreach (var item in Model.Clubs)
             {
                 <div class="">
-                    <a asp-controller="Clubs" asp-action="Details" asp-route-id="@item.Id">
-                        @Html.DisplayFor(modelItem => item.ClubName)
-                    </a>
+                    <h1>
+                        <a asp-controller="Clubs" asp-action="Details" asp-route-id="@item.Id">
+                            @Html.DisplayFor(modelItem => item.ClubName)
+                        </a>
+                    </h1>
                 </div><br />
             }
         </div>

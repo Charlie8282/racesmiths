@@ -8,92 +8,206 @@
 <div class="row my-center">
     <h1>@Model.ChampName</h1><hr />
     <span class="float-right">
-        <a class="btn btn-dark" data-toggle="modal" data-target="#createEvent" asp-area="" asp-controller="Events" asp-action="Create" asp-route-id="@Model.Id">
-            Add Next Round
+        <a class="btn btn-dark" data-toggle="modal" data-target="#champDescription" asp-route-id="@Model.Id">
+            Settings
         </a>
-        @*<a class="btn btn-dark" asp-area="" asp-controller="Clubs" asp-action="RemoveUsers" asp-route-id="@Model.Id">
+        @if (User.IsInRole("Admin") || User.IsInRole("ClubManager"))
+        {
+            <a class="btn btn-dark" data-toggle="modal" data-target="#createEvent" asp-area="" asp-controller="Events" asp-action="Create" asp-route-id="@Model.Id">
+                Add Next Round
+            </a>
+            <a class="btn btn-dark" asp-area="" asp-controller="Champs" asp-action="AssignUsers" asp-route-id="@Model.Id">
+                Assign Users
+            </a>
+            <a class="btn btn-dark" asp-area="" asp-controller="Champs" asp-action="RemoveUsers" asp-route-id="@Model.Id">
                 Remove Users
-            </a>*@
+            </a>
+        }
     </span>
 </div>
 <hr />
 
-
 <div class="row">
-    <div class="col-md-4">
-        @foreach (var item in Model.Events)
-        {
-            <span>
-                Round @Html.DisplayFor(modelItem => item.RoundNumber)
+    <div class="col-md-6">
+        <div class="row my-center">
+            <h2>Current Standings</h2>
+        </div><hr />
+        <div class="row my-center">
+            <div class="col-6">
+                Gamertag
+            </div>
+            <div class="col">
+                Points
+            </div>
+        </div>
+        <ol class="upcoming-track">
+            @foreach (var item in Model.ChampUsers)
+            {
+                <li>
+                    @Html.DisplayFor(modelItem => item.Gamertag)
+
+                </li>
+            }
+            <li>
+                CatTerdCanyon82
                 <span class="float-right">
-                    @Html.DisplayFor(modelItem => item.Scheduled)
+                    56 Pts.
                 </span>
-            </span><br />
-            <div class="upcoming-track">
-                <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
-                    @Html.DisplayFor(modelItem => item.TrackName)
+            </li>
+
+        </ol>
+    </div>
+    <div class="col-md">
+        <div class="row">
+            @if (Model.Laps != null)
+            {
+                <div class="col-4">
+                    @Model.Laps <br /> Laps
+                </div>
+            }
+            @if (Model.QualifyLength != null)
+            {
+                <div class="col-4">
+                    Qualifying Length:<br /> @Model.QualifyLength minutes
+                </div>
+
+            }
+            @if (Model.RaceLength != null)
+            {
+                <div class="col">
+                    Race Length:<br /> @Model.RaceLength minutes
+                </div>
+            }
+        </div><hr />
+        <div id="eventsAccordion">
+            @foreach (var item in Model.Events)
+            {
+                <a class="" data-toggle="collapse" href="#collapseEvents-@item.Id">
+
+                    <i class="fa fa-fw fa-arrow-down float-left"></i>
+                    <i class="fa fa-fw fa-arrow-down float-right"></i>
+                    <span>
+                        Round @Html.DisplayFor(modelItem => item.RoundNumber)
+                        <span class="float-right">
+                            @Html.DisplayFor(modelItem => item.Scheduled)
+                        </span>
+                    </span><br />
                 </a>
-            </div><hr />
-
-        }
+                <div id="collapseEvents-@item.Id" class="collapse" aria-labelledby="headingOne-@item.Id" data-parent="#eventsAccordion">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="upcoming-track">
+                                <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
+                                    @Html.DisplayFor(modelItem => item.TrackName)
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            @Model.Game<br />
+                            @Model.System
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-    <div class="col-md-8">
-        @Html.DisplayNameFor(model => model.Rules)<br />
-        @Html.DisplayFor(model => model.Rules)<br />
-        @*@Html.DisplayNameFor(model => model.Description)<br />
-        @Html.DisplayFor(model => model.Description)<br />*@
-        @Html.Raw(Model.Description)
-    </div>
-</div>
-
-<div class="col-md-4">
-
-</div>
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @*<div class="col-md">
+            <h2>Rules</h2>
+            @Html.DisplayFor(model => model.Rules)<br /><br />
+            <h2>Universal Event Settings</h2>
+            <span>
+                Qualifying:
+                @Model.QualifyLength Minutes
+            </span><br />
+            <span>
+                Race:
+                @Model.RaceLength Minutes<br />
+            </span><br />
+            @Html.Raw(Model.Description)
+        </div>*@
 </div>
 
 @*MODALS*@
-<div class="modal fade" id="createEvent" tabindex="-1" role="dialog"
+<div class="modal fade silver" id="createEvent" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-animation="makeway">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalScrollableTitle">Create Event</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="modal-content my-modal">
+            <div class="row my-center">
+                <div class="my-modal-head">
+                    Create Event
+                </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body my-modal-div">
                 <form asp-controller="Events" asp-action="Create" enctype="multipart/form-data">
                     <input type="hidden" name="ChampId" value="@Model.Id" />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label name="RoundNumber" class="control-label">RoundNumber</label>
-                        <input name="RoundNumber" class="form-control bg-soft-dark" />
+                        Round Number
+                        <input name="RoundNumber" class="form-control bg-soft-dark" placeholder="Round?" />
                     </div>
                     <div class="form-group">
-                        <label name="TrackName" class="control-label">TrackName</label>
-                        <input name="TrackName" class="form-control bg-soft-dark" />
+                        Track Name
+                        <input name="TrackName" class="form-control bg-soft-dark" placeholder="Track name..." />
                     </div>
                     <div class="form-group">
-                        <label name="Description" class="control-label">Description and settings</label>
+                        Track Variation
+                        <input name="TrackVariant" class="form-control bg-soft-dark" placeholder="Track name continued..." />
+                    </div>
+                    @if (Model.Laps == null || Model.QualifyLength == null || Model.RaceLength == null)
+                    {
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class=" col-4 form-group">
+                                <input name="Laps" class="form-control bg-soft-dark" placeholder="Laps" />
+                            </div>
+                            <div class="col-4 form-group">
+                                <input name="QualifyLength" class="form-control bg-soft-dark" placeholder="Minutes" />
+                            </div>
+                            <div class="col form-group">
+                                <input name="RaceLength" class="form-control bg-soft-dark" placeholder="Minutes" />
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-group">
+                        Additional Information
                         <textarea name="Description" id="mytextarea" class="form-control bg-soft-dark"></textarea>
                     </div>
-                    @*<div class="form-group">
-                        <label name="Settings" class="control-label">Settings</label>
-                        <textarea name="Settings" id="mytextarea" class="form-control bg-soft-dark"></textarea>
-                    </div>*@
                     <div class="form-group">
-                        <label name="Scheduled" class="control-label">Scheduled</label>
+                        Scheduled
                         <input type="date" name="Scheduled" class="form-control bg-soft-dark" />
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-block silver-2" />
                     </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade silver-3" id="champDescription" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-animation="makeway">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content descrip-modal">
+            <div class="row my-center descrip-modal-head">
+                Championship Settings
+            </div>
+            <div class="modal-body">
+                <span>
+                    Qualifying:
+                    @Model.QualifyLength Minutes
+                </span><br />
+                <span>
+                    Race:
+                    @Model.RaceLength Minutes<br />
+                </span><br />
+                @Html.Raw(Model.Description)
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

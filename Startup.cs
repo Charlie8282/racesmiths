@@ -47,6 +47,7 @@ namespace racesmiths
             services.AddScoped<IRSClubService, RSClubService>();
             services.AddScoped<IRSAccessService, RSAccessService>();
             services.AddScoped<IImageService, AvatarService>();
+            services.AddScoped<IRSChampService, RSChampService>();
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IEmailSender, EmailService>();
             services.AddRazorPages();

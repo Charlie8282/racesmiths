@@ -9,7 +9,7 @@ namespace racesmiths.Models.ViewModels
     public class ManageClubUsersViewModel
     {
         public Club Club { get; set; }
-        public MultiSelectList Users { get; set; }  //populates list box
-        public string[] SelectedUsers { get; set; }  // recieves selected users
+        public MultiSelectList Users { get; set; }
+        public string[] SelectedUsers { get; set; }
     }
 }

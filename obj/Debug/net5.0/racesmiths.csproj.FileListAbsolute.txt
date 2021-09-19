@@ -476,11 +476,13 @@ C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Areas\Identity\Pag
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Pages\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Champs\AssignUsers.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Champs\Create.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Champs\Delete.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Champs\Details.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Champs\Edit.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Champs\Index.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Champs\RemoveUsers.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Clubs\AssignUsers.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Clubs\Create.cshtml.g.cs
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Clubs\Delete.cshtml.g.cs

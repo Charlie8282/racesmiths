@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using racesmiths.Data;
 using racesmiths.Models;
+using racesmiths.Models.ViewModels;
+using racesmiths.Services;
 
 namespace racesmiths.Controllers
 {
     public class ChampsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IRSChampService _rschampService;
         private readonly UserManager<RSUser> _userManager;
 
-        public ChampsController(ApplicationDbContext context, UserManager<RSUser> userManager)
+        public ChampsController(ApplicationDbContext context, IRSChampService rSChampService, UserManager<RSUser> userManager)
         {
             _context = context;
+            _rschampService = rSChampService;
             _userManager = userManager;
         }
 
@@ -63,7 +68,7 @@ namespace racesmiths.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClubId,ClubUserId,ChampName,Rounds,Rules,Description,Settings,Scheduled")] Champ champ)
+        public async Task<IActionResult> Create([Bind("ClubId,ClubUserId,ChampName,Rounds,Rules,Description,Settings,Scheduled,Laps,RaceLength,QualifyLength")] Champ champ)
         {
             if (ModelState.IsValid)
             {
@@ -163,6 +168,91 @@ namespace racesmiths.Controllers
         private bool ChampExists(int id)
         {
             return _context.Champs.Any(e => e.Id == id);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, ClubManager")]
+        public async Task<IActionResult> AssignUsers(int id)
+        {
+            ManageChampUsersViewModel model = new();
+            Champ champ = await _context.Champs
+                .Include(p => p.ChampUsers)
+                .FirstAsync(p => p.Id == id);
+
+            model.Champ = champ;
+            List<RSUser> users = await _context.Users.ToListAsync();
+            model.Users = new MultiSelectList(users, "Id", "Gamertag", champ.ChampUsers);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, ClubManager")]
+        public async Task<IActionResult> AssignUsers(ManageChampUsersViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (model.SelectedUsers != null)
+                {
+                    var currentMembers = await _context.Champs.Include(p => p.ChampUsers).FirstOrDefaultAsync(p => p.Id == model.Champ.Id);
+                    List<string> memberIds = currentMembers.ChampUsers.Select(u => u.Id).ToList();
+                    memberIds.ForEach(i => _rschampService.AddUserToChamp(i, model.Champ.Id));
+                  
+                    foreach (string id in model.SelectedUsers)
+                    {
+                        await _rschampService.AddUserToChamp(id, model.Champ.Id);
+                    }
+                    return RedirectToAction("Details", "Champs", new { id = model.Champ.Id });
+                }
+                else
+                {
+
+                }
+                return View(model);
+
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, ClubManager")]
+        public async Task<IActionResult> RemoveUsers(int id)
+        {
+            ManageChampUsersViewModel model = new();
+            Champ champ = await _context.Champs
+                .Include(p => p.ChampUsers)
+                .FirstAsync(p => p.Id == id);
+            model.Champ = champ;
+            model.Users = new MultiSelectList(champ.ChampUsers, "Id", "Gamertag");
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, ClubManager")]
+        public async Task<IActionResult> RemoveUsers(ManageChampUsersViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (model.SelectedUsers != null)
+                {
+                    foreach (string id in model.SelectedUsers)
+                    {
+                        await _rschampService.RemoveUserFromChamp(id, model.Champ.Id);
+                    }
+                    return RedirectToAction("Details", "Champs", new { id = model.Champ.Id });
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+            return RedirectToAction("Details", "Champs", new { id = model.Champ.Id });
         }
     }
 }

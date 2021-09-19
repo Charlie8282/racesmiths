@@ -19,6 +19,21 @@ namespace racesmiths.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("ChampRSUser", b =>
+                {
+                    b.Property<string>("ChampUsersId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ChampsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ChampUsersId", "ChampsId");
+
+                    b.HasIndex("ChampsId");
+
+                    b.ToTable("ChampRSUser");
+                });
+
             modelBuilder.Entity("ClubRSUser", b =>
                 {
                     b.Property<string>("ClubUsersId")
@@ -36,13 +51,13 @@ namespace racesmiths.Migrations
 
             modelBuilder.Entity("EventRSUser", b =>
                 {
-                    b.Property<string>("ClubUsersId")
+                    b.Property<string>("EventUsersId")
                         .HasColumnType("text");
 
                     b.Property<int>("EventsId")
                         .HasColumnType("integer");
 
-                    b.HasKey("ClubUsersId", "EventsId");
+                    b.HasKey("EventUsersId", "EventsId");
 
                     b.HasIndex("EventsId");
 
@@ -216,9 +231,20 @@ namespace racesmiths.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
+
+                    b.Property<string>("ExcludeVehicle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Game")
+                        .HasColumnType("text");
+
+                    b.Property<string>("IGTQualify")
+                        .HasColumnType("text");
+
+                    b.Property<string>("IGTRace")
+                        .HasColumnType("text");
 
                     b.Property<byte[]>("ImageData")
                         .HasColumnType("bytea");
@@ -226,11 +252,53 @@ namespace racesmiths.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("Laps")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Multi1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Multi2")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Multi3")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Multi4")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QualWeatherSlot1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QualWeatherSlot2")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QualWeatherSlot3")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QualWeatherSlot4")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("QualifyLength")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("RaceLength")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Rounds")
                         .HasColumnType("integer");
 
                     b.Property<string>("Rules")
                         .HasColumnType("text");
+
+                    b.Property<string>("Season")
+                        .HasColumnType("text");
+
+                    b.Property<string[]>("SelectedUsers")
+                        .HasColumnType("text[]");
 
                     b.Property<string>("Settings")
                         .HasColumnType("text");
@@ -241,9 +309,28 @@ namespace racesmiths.Migrations
                     b.Property<int?>("Status")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<string>("System")
+                        .HasColumnType("text");
 
-                    b.HasIndex("ChampUserId");
+                    b.Property<string>("Vehicle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("VehicleClass")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherSlot1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherSlot2")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherSlot3")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherSlot4")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ClubId");
 
@@ -339,21 +426,65 @@ namespace racesmiths.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
                     b.Property<string>("FileName")
                         .HasColumnType("text");
 
+                    b.Property<string>("IGTQualify")
+                        .HasColumnType("text");
+
+                    b.Property<string>("IGTRace")
+                        .HasColumnType("text");
+
                     b.Property<byte[]>("Image")
                         .HasColumnType("bytea");
+
+                    b.Property<int?>("Laps")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Multi1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Multi2")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Multi3")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Multi4")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QualWeatherSlot1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QualWeatherSlot2")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QualWeatherSlot3")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QualWeatherSlot4")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("QualifyLength")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("RaceLength")
+                        .HasColumnType("integer");
 
                     b.Property<int>("RoundNumber")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("Scheduled")
+                    b.Property<DateTime>("Scheduled")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Season")
+                        .HasColumnType("text");
+
+                    b.Property<string[]>("SelectedUsers")
+                        .HasColumnType("text[]");
 
                     b.Property<string>("Settings")
                         .HasMaxLength(1000)
@@ -363,6 +494,27 @@ namespace racesmiths.Migrations
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)");
+
+                    b.Property<string>("TrackVariant")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Vehicle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("VehicleClass")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherSlot1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherSlot2")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherSlot3")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherSlot4")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -497,25 +649,19 @@ namespace racesmiths.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int?>("Bonus")
+                        .HasColumnType("integer");
+
                     b.Property<int>("EventId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("Laps")
+                    b.Property<int?>("Points")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Points")
+                    b.Property<int?>("Position")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Position")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("QualifyLength")
-                        .HasColumnType("text");
-
-                    b.Property<string>("RaceLength")
-                        .HasColumnType("text");
-
-                    b.Property<int>("RaceNumber")
+                    b.Property<int?>("Revoke")
                         .HasColumnType("integer");
 
                     b.Property<string>("TrackName")
@@ -526,6 +672,21 @@ namespace racesmiths.Migrations
                     b.HasIndex("EventId");
 
                     b.ToTable("Race");
+                });
+
+            modelBuilder.Entity("ChampRSUser", b =>
+                {
+                    b.HasOne("racesmiths.Models.RSUser", null)
+                        .WithMany()
+                        .HasForeignKey("ChampUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("racesmiths.Models.Champ", null)
+                        .WithMany()
+                        .HasForeignKey("ChampsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ClubRSUser", b =>
@@ -547,7 +708,7 @@ namespace racesmiths.Migrations
                 {
                     b.HasOne("racesmiths.Models.RSUser", null)
                         .WithMany()
-                        .HasForeignKey("ClubUsersId")
+                        .HasForeignKey("EventUsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -626,17 +787,11 @@ namespace racesmiths.Migrations
 
             modelBuilder.Entity("racesmiths.Models.Champ", b =>
                 {
-                    b.HasOne("racesmiths.Models.RSUser", "ChampUser")
-                        .WithMany("Champs")
-                        .HasForeignKey("ChampUserId");
-
                     b.HasOne("racesmiths.Models.Club", "Club")
                         .WithMany("Champs")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ChampUser");
 
                     b.Navigation("Club");
                 });
@@ -720,11 +875,6 @@ namespace racesmiths.Migrations
             modelBuilder.Entity("racesmiths.Models.Event", b =>
                 {
                     b.Navigation("Races");
-                });
-
-            modelBuilder.Entity("racesmiths.Models.RSUser", b =>
-                {
-                    b.Navigation("Champs");
                 });
 #pragma warning restore 612, 618
         }

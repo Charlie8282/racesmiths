@@ -1,0 +1,41 @@
+﻿@model racesmiths.Models.ViewModels.ManageChampUsersViewModel
+
+
+
+@{ ViewData["Title"] = "Assign Members"; }
+
+
+
+
+<div class="row my-center">
+    <div class="col-md-4">
+        <form asp-controller="Champs" asp-action="AssignUsers" method="post">
+            <div asp-validation-summary="ModelOnly" class=""></div>
+            <input type="hidden" asp-for="@Model.Champ.Id">
+            <input type="hidden" asp-for="@Model.Champ.ChampName">
+            <span class="">Assign Member(s) to</span>
+            <span class="descrip">
+                @Model.Champ.ChampName
+            </span>
+            <div>
+                <a class="float-right ml-1" asp-controller="Champs" asp-action="Details" asp-route-id="@Model.Champ.Id">Back to Champ</a>
+            </div>
+            <hr />
+            <input type="submit" value="Assign Member(s)" class="btn btn-block assign float-right mb-1" />
+            <div class="">
+                <label asp-for="@Model.Users" class="control-label">Current Members:</label>
+                <select asp-for="@Model.SelectedUsers" class="form-control user-list" asp-items="@Model.Users" multiple="multiple"></select>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3 member-list">
+        <label>Currently assigned:</label><br />
+        @foreach (var user in Model.Champ.ChampUsers)
+        {
+            @user.Gamertag
+            <br />
+        }
+    </div>
+</div>
+
+

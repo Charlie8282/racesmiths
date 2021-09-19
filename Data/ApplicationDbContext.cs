@@ -12,17 +12,17 @@ namespace racesmiths.Data
         }
 
         //public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<Champ> Champs { get; set; }
-        //public DbSet<ChampRule> ChampRules { get; set; }
-        //public DbSet<ChampSetting> ChampSettings { get; set; }
-
         public DbSet<Club> Clubs { get; set; }
+        public DbSet<Champ> Champs { get; set; }
+        public DbSet<Event> Event { get; set; }
+        public DbSet<Race> Race { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        //public DbSet<Race> Races { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<RSUser> ClubUsers { get; set; }
-        public DbSet<racesmiths.Models.Event> Event { get; set; }
-        public DbSet<racesmiths.Models.Race> Race { get; set; }
+        public DbSet<RSUser> ChampUsers { get; set; }
+        public DbSet<RSUser> EventUsers { get; set; }
+
+
 
     }
 }
