@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace racesmiths.Enums
+{
+    public enum IGDateType
+    {
+        [Display(Name = "Not Set")]
+        NotSet,
+        Current,
+        Default,
+        Custom
+    }
+}

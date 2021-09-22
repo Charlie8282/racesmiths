@@ -95,7 +95,13 @@ namespace racesmiths.Controllers
 
             var club = await _context.Clubs
                 .Include(c => c.Champs)
+                .Include(c => c.ClubUsers)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            club.Champs = await _context.Champs
+                .Where(t => t.ClubId == id)
+                .Include(t => t.Club)
+                .ToListAsync();
             if (club == null)
             {
                 return NotFound();
@@ -248,11 +254,13 @@ namespace racesmiths.Controllers
                 {
                     var currentMembers = await _context.Clubs.Include(p => p.ClubUsers).FirstOrDefaultAsync(p => p.Id == model.Club.Id);
                     List<string> memberIds = currentMembers.ClubUsers.Select(u => u.Id).ToList();
-                    memberIds.ForEach(i => _rsClubService.AddUserToClub(i, model.Club.Id));
-                    //foreach (string id in memberIds)
-                    //{
-                    //    await _btProjectService.RemoveUserFromProject(id, model.Project.Id);
-                    //}
+                    //memberIds.ForEach(i => _rsClubService.RemoveUserFromClub(i, model.Club.Id));
+                    //memberIds.ForEach(i => _rsClubService.AddUserToClub(i, model.Club.Id));
+
+                    foreach (string id in memberIds)
+                    {
+                        await _rsClubService.RemoveUserFromClub(id, model.Club.Id);
+                    }
                     foreach (string id in model.SelectedUsers)
                     {
                         await _rsClubService.AddUserToClub(id, model.Club.Id);

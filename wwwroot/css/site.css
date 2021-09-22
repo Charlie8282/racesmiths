@@ -65,11 +65,7 @@ html {
 }
 
 body {
-    /*/* fallback for old browsers */
     background: black;
-   /* background: url(../img/bg-idea3.jpg) fixed no-repeat;
-    background-size: cover;*/
-    /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
 
@@ -308,6 +304,7 @@ h3 {
     border-radius: .3rem;
     background: url(../img/div-back3.jpg) no-repeat;
     background-size: cover;
+    padding: 1.5rem;
 }
 
 .descrip-modal-head {
@@ -319,11 +316,11 @@ h3 {
     margin-bottom: 1rem;
 }
 
-.descrip-modal {
+.champ-settings-modal-bg {
     padding: 2rem;
     border-radius: .4rem;
-    box-shadow: 0px 2px 35px 5px white;
-    background: url(../img/div-back.JPG) no-repeat;
+    box-shadow: -0px -2px -35px -5px white;
+    background: url(../img/bg-idea2.jpg) no-repeat;
     background-size: cover;
 }
 
@@ -402,9 +399,9 @@ h3 {
 }
 
 .tread-bg {
-    background: url(../img//tread.jpg) fixed no-repeat;
+    background: url(../img/bg-idea.jpg) fixed no-repeat;
     background-size: cover;
-    height: 100rem;
+    height: 660px;
 }
 
 .silver {
@@ -434,4 +431,34 @@ h3 {
     color: #a9a9a9;
     font-size: 1rem;
 }
+.warning {
+    padding: 1.5rem;
+    background: url(../img/div-back1.jpg) no-repeat;
+    background-size: cover;
+    border-radius: .5rem;
+}
+
+.inner-warning {
+    background: url(../img/div-back4.jpg) no-repeat;
+    background-size: cover;
+    color: white;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    border: solid;
+    border-width: .3rem;
+    border-color: white;
+}
+
+.red-flag {
+    color: #ff2803;
+    font-family: 'Agency FB', sans-serif;
+    font-size: 1rem;
+}
+
+
+
+
+
+
+
 

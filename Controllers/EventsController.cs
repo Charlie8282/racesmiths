@@ -37,6 +37,9 @@ namespace racesmiths.Controllers
             var cevent = await _context.Event
                 .Include(c => c.Champ)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            cevent.Races = _context.Race
+               .Where(e => e.EventId == id)
+               .ToList();
             if (cevent == null)
             {
                 return NotFound();

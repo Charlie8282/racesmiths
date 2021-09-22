@@ -43,6 +43,7 @@ namespace racesmiths.Controllers
             }
             var champ = await _context.Champs
                 .Include(c => c.Club)
+                .Include(c => c.ChampUsers)
                 .FirstOrDefaultAsync(m => m.Id == id);
             champ.Events = _context.Event
                 .Where(e => e.ChampId == id)
@@ -68,7 +69,7 @@ namespace racesmiths.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClubId,ClubUserId,ChampName,Rounds,Rules,Description,Settings,Scheduled,Laps,RaceLength,QualifyLength")] Champ champ)
+        public async Task<IActionResult> Create([Bind("ClubId,ClubUserId,ChampName,Game,System,Rounds,Rules,Laps,PracticeLength,RaceLength,QualifyLength,IGTimeRace,IGTimeQualify,IGDateRace,Season,StartType,FormationLap,MandatoryPit,AutoStart,ForceInnerView,ForceDriveLine,ForceSetup,ForceGears,ForceAids,AllowTcs,AllowAbs,AllowStm,MechFailures,AllowGhost,ForceManualPit,FuelUsage,ForceCoolDown,RulesPenalty,TrackLimit,DriveThruPenalty,PitExitPenalty,RacingLicense,Type,VehicleClass,Vehicle,ExcludedVehicle,Multi1,Multi2,Multi3,Multi4,TimeProgression,WeatherProgression,QualWeatherSlot1,QualWeatherSlot2,QualWeatherSlot3,QualWeatherSlot4,WeatherSlot1,WeatherSlot2,WeatherSlot3,WeatherSlot4,AllowablePenalty,TireWear,DamageType,IsPublished,Description,StartDate")] Champ champ)
         {
             if (ModelState.IsValid)
             {
