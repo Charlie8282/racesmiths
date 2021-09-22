@@ -119,7 +119,7 @@
                     <div class="row my-center">
                         (Fill 1 of 3 options)
                     </div>
-                    <div class="row my-center modal-section">
+                    <div class="my-center modal-section">
                         Option 1
                         <div class="row my-center">
                             <h3>All drivers in the same vehicle class</h3>
@@ -133,7 +133,7 @@
                             </div>
                         </div>
                     </div><br />
-                    <div class="row modal-section my-center">
+                    <div class="modal-section my-center">
                         Option 2
                         <div class="row my-center">
                             <h3>Enter class names for Multi-Class racing</h3>
@@ -157,7 +157,7 @@
                             </div>
                         </div>
                     </div><br />
-                    <div class="row modal-section my-center">
+                    <div class="modal-section my-center">
                         Option 3
                         <div class="row my-center">
                             <h3>All drivers in the same vehicle</h3>
@@ -168,7 +168,7 @@
                     </div><br />
 
                     <h2>Race Settings</h2>
-                    <div class="row my-center modal-section">
+                    <div class="my-center modal-section">
                         <div class="row my-center">
                             <div class="col-3 form-group">
                                 Laps
@@ -185,9 +185,6 @@
                                 Minutes
                                 <input asp-for="Champs.FirstOrDefault().RaceMinutes" class="form-control bg-soft-dark" />
                             </div>
-                        </div><br />
-                        <div class="row my-center">
-
                         </div>
                         <div class="row my-center">
                             <div class="col form-group">
@@ -214,7 +211,7 @@
                                 <select asp-for="Champs.FirstOrDefault().TimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
                             </div>
                         </div>
-                        <div class="row my-center">
+                        <div class="my-center">
                             Weather Forecast
                             <div class="row my-center">
                                 <div class="col form-group">
@@ -238,42 +235,44 @@
                             </div>
                         </div>
                         <div class="row my-center">
-                            <div class="col form-group">
+                            <div class="col-5 form-group">
                                 Start Type
                                 <select asp-for="Champs.FirstOrDefault().StartType" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<StartType>()"></select>
                             </div>
                             <div class="col form-group">
                                 Formation Lap
-                                <div class="game">
-                                    <input asp-for="Champs.FirstOrDefault().FormationLap" class="select-checkbox" placeholder="" />
+                                <div>
+                                    <input asp-for="Champs.FirstOrDefault().FormationLap" class="select-checkbox" />
                                 </div>
                             </div>
                             <div class="col form-group">
                                 Mandatory Pit
-                                <input asp-for="Champs.FirstOrDefault().MandatoryPit" class="select-checkbox" placeholder="" />
+                                <div>
+                                    <input asp-for="Champs.FirstOrDefault().MandatoryPit" class="select-checkbox" />
+                                </div>
                             </div>
                         </div>
                     </div>
                     <h2>Qualifying:</h2>
-                    <div class="row modal-section">
-                        <div class="row">
-                            <div class="col-4 form-group">
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            <div class="col-6 form-group">
                                 Hours
-                                <input asp-for="Champs.FirstOrDefault().QualifyHours" class="form-control bg-soft-dark" placeholder="Hours" />
+                                <input asp-for="Champs.FirstOrDefault().QualifyHours" class="form-control bg-soft-dark" placeholder="0" />
                             </div>
                             <div class="col form-group">
                                 Minutes
-                                <input asp-for="Champs.FirstOrDefault().QualifyMinutes" class="form-control bg-soft-dark" placeholder="Minutes" />
+                                <input asp-for="Champs.FirstOrDefault().QualifyMinutes" class="form-control bg-soft-dark" placeholder="0" />
                             </div>
-                            <div class="row my-center">
-                                <div class="col form-group">
-                                    In-game Time
-                                    <input asp-for="Champs.FirstOrDefault().IGTimeQualify" class="form-control bg-soft-dark" placeholder="00:00" />
-                                </div>
-                                <div class="col form-group">
-                                    Time Progression
-                                    <select asp-for="Champs.FirstOrDefault().QualTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
-                                </div>
+                        </div>
+                        <div class="row my-center">
+                            <div class="col-6 form-group">
+                                In-game Time
+                                <input asp-for="Champs.FirstOrDefault().IGTimeQualify" class="form-control bg-soft-dark" placeholder="00:00" />
+                            </div>
+                            <div class="col form-group">
+                                Time Progression
+                                <select asp-for="Champs.FirstOrDefault().QualTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
                             </div>
                         </div>
                         <div class="row my-center">
@@ -300,52 +299,111 @@
                             </div>
                         </div>
                     </div>
-
-
                     <h2>Realism Settings</h2>
-                    <div class="row my-center modal-section">
+                    <div class="modal-section">
                         <div class="row my-center">
-                            <div class="col-3 form-group">
-                                Allow Auto Start
+                            <div class="col">
+                                Damage Type
+                                <select asp-for="Champs.FirstOrDefault().DamageType" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<DamageType>()"></select>
+                            </div>
+                            <div class="col">
+                                Tire Wear
+                                <select asp-for="Champs.FirstOrDefault().TireWear" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TireWear>()"></select>
+                            </div>
+                        </div><br />
+                        <dl class="row">
+                            <dt class="col-9">
+                                Allow Auto Start Engine
+                            </dt>
+                            <dd class="col">
                                 <input asp-for="Champs.FirstOrDefault().AutoStart" class="select-checkbox" />
-                            </div>
-                            <div class="col-3 form-group">
+                            </dd>
+                            <dt class="col-9">
                                 Force Interior View
+                            </dt>
+                            <dd class="col">
                                 <input asp-for="Champs.FirstOrDefault().ForceInnerView" class="select-checkbox" />
-                            </div>
-                        </div>
-                        <div class="row my-center">
-                            <div class="col-3 form-group">
-                                Allow Auto Start
-                                <input asp-for="Champs.FirstOrDefault().AutoStart" class="select-checkbox" />
-                            </div>
-                            <div class="col-3 form-group">
-                                Force Interior View
-                                <input asp-for="Champs.FirstOrDefault().ForceInnerView" class="select-checkbox" />
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-                    <div class="col form-group">
-                        Allowable Penalty
-                        <select asp-for="Champs.FirstOrDefault().AllowablePenalty" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<AllowablePenalty>()"></select>
-                    </div>
-
-
-
-
-                    <div class="form-group">
-                        Club Manager Rules
-                        <textarea asp-for="Champs.FirstOrDefault().Rules" class="form-control bg-soft-dark" placeholder="Rules"></textarea>
-                    </div>
+                            </dd>
+                            <dt class="col-9">
+                                Force Driving Line
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().ForceDriveLine" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Force Default Setup
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().ForceSetup" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Force Manual Gears
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().ForceGears" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Force Realistic Driving Aids
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().ForceAids" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Allow Anti-Lock Brakes
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().AllowAbs" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Allow Traction Control
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().AllowTcs" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Allow Stability Control
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().AllowStm" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Mechanical Failures
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().MechFailure" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Allow Ghosted Vehicles
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().AllowGhost" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Force Manual Pit Stops
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().ForceManualPit" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Allow Pit Stop Errors
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().PitStopErrors" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Fuel Depletion
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().FuelUsage" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Force Cooldown Lap
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().ForceCoolDown" class="select-checkbox" />
+                            </dd>
+                        </dl>
+                    </div><br />
                     <div class="form-group">
                         Additional Information
                         <textarea asp-for="Champs.FirstOrDefault().Description" class="form-control bg-soft-dark" id="mytextarea" placeholder="Description"></textarea>

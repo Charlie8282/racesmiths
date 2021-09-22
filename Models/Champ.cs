@@ -83,6 +83,7 @@ namespace racesmiths.Models
         public bool FuelUsage { get; set; }
 
         public bool ForceCoolDown { get; set; }
+        public bool PitStopErrors { get; set; }
 
         //Rules and Penalties
         public bool RulesPenalty { get; set; }

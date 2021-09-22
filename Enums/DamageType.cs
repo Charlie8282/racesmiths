@@ -13,7 +13,7 @@ namespace racesmiths.Enums
         Off,
         [Display(Name = "Visual Only")]
         VisualOnly,
-        [Display(Name = "Performance Only")]
+        [Display(Name = "Performance Impacting")]
         PerformanceOnly,
         [Display(Name = "Full Damage")]
         FullDamage
