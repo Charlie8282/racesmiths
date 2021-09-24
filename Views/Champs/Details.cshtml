@@ -8,7 +8,7 @@
 <div class="row my-center">
     <h1>@Model.ChampName</h1><hr />
     <span class="float-right">
-        <a class="btn btn-dark" data-toggle="modal" data-target="#champDescription" asp-route-id="@Model.Id">
+        <a class="btn btn-dark" data-toggle="modal" data-target="#champSettings" asp-route-id="@Model.Id">
             Settings
         </a>
         @if (User.IsInRole("Admin") || User.IsInRole("ClubManager"))
@@ -128,7 +128,10 @@
                                 <input asp-for="Events.FirstOrDefault().Laps" class="form-control bg-soft-dark" placeholder="Laps" />
                             </div>
                             <div class="col form-group">
-                                <input asp-for="Events.FirstOrDefault().RaceLength" class="form-control bg-soft-dark" placeholder="Minutes" />
+                                <input asp-for="Events.FirstOrDefault().RaceHours" class="form-control bg-soft-dark" placeholder="Minutes" />
+                            </div>
+                            <div class="col form-group">
+                                <input asp-for="Events.FirstOrDefault().RaceMinutes" class="form-control bg-soft-dark" placeholder="Minutes" />
                             </div>
                         }
                         else
@@ -150,7 +153,7 @@
                     <h2>
                         Vehicle
                     </h2>
-                    @if (Model.VehicleClass == null && Model.ExcludeVehicle == null && Model.Multi1 == null && Model.Multi2 == null && Model.Multi3 == null && Model.Multi4 == null && Model.Vehicle == null)
+                    @if (Model.VehicleClass == 0 && Model.ExcludeVehicle == null && Model.Multi1 == 0 && Model.Multi2 == 0 && Model.Multi3 == 0 && Model.Multi4 == 0 && Model.Vehicle == null)
                     {
                         <div class="row modal-section my-center">
                             <h3>Choose a Class w/option of excluding car(s)</h3>
@@ -220,8 +223,12 @@
                                 <p>OR</p>
                             </div>
                             <div class="col form-group">
-                                Race length
-                                <input asp-for="Events.FirstOrDefault().RaceLength" class="form-control bg-soft-dark" placeholder="Minutes" />
+                                Race Hours
+                                <input asp-for="Events.FirstOrDefault().RaceHours" class="form-control bg-soft-dark" placeholder="Minutes" />
+                            </div>
+                            <div class="col form-group">
+                                Race Minutes
+                                <input asp-for="Events.FirstOrDefault().RaceHours" class="form-control bg-soft-dark" placeholder="Minutes" />
                             </div>
                         }
                         else
@@ -247,9 +254,7 @@
 
                     </div>
 
-
-
-                    @*<div class="row my-center">
+                    <div class="row my-center">
                         @if (Model.IGDateRace == null && Model.IGTimeRace == null)
                         {
                             <div class="col-6 form-group">
@@ -298,7 +303,7 @@
                                 </div>
                             </div>
                         }
-                    </div>*@
+                    </div>
                     <div class="form-group">
                         Additional Information
                         <textarea asp-for="Events.FirstOrDefault().Description" id="mytextarea" class="form-control bg-soft-dark"></textarea>
@@ -315,7 +320,7 @@
     </div>
 </div>
 
-<div class="modal fade silver-3" id="champDescription" tabindex="-1" role="dialog"
+<div class="modal fade silver-3" id="champSettings" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-animation="makeway">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content my-modal">
@@ -324,20 +329,6 @@
             </div>
             <div class="modal-body modal-section">
                 <h2 class="my-center">@Model.ChampName</h2><hr />
-                <div class="row my-center">
-                    <div class="col">
-                        Game
-                        <div class="game">
-                            @Model.Game
-                        </div>
-                    </div>
-                    <div class="col">
-                        System
-                        <div class="game">
-                            @Model.System
-                        </div>
-                    </div>
-                </div><br />
                 <div class="row my-center">
                     <div class="col-6">
                         @Model.Rounds Rounds
@@ -351,7 +342,7 @@
                 </div>
                 <h2>Vehicle</h2><br />
                 <div class="row my-center">
-                    @if (Model.VehicleClass != null)
+                    @if (Model.VehicleClass != 0)
                     {
                         <div class="col">
                             Vehicle Class
@@ -380,7 +371,7 @@
                     }
                 </div>
                 <div class="row my-center">
-                    @if (Model.Multi1 != null)
+                    @if (Model.Multi1 != 0)
                     {
                         <div class="col">
                             1st Class
@@ -389,7 +380,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.Multi2 != null)
+                    @if (Model.Multi2 != 0)
                     {
                         <div class="col">
                             2nd Class
@@ -398,7 +389,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.Multi3 != null)
+                    @if (Model.Multi3 != 0)
                     {
                         <div class="col">
                             3rd Class
@@ -407,7 +398,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.Multi4 != null)
+                    @if (Model.Multi4 != 0)
                     {
                         <div class="col">
                             4th Class
@@ -482,7 +473,7 @@
                     </div>
                 </div><br />
                 <div class="row my-center">
-                    @if (Model.QualWeatherSlot1 != null)
+                    @if (Model.QualWeatherSlot1 != 0)
                     {
                         <div class="col">
                             Slot 1
@@ -491,7 +482,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.QualWeatherSlot2 != null)
+                    @if (Model.QualWeatherSlot2 != 0)
                     {
                         <div class="col">
                             Slot 2
@@ -500,7 +491,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.QualWeatherSlot3 != null)
+                    @if (Model.QualWeatherSlot3 != 0)
                     {
                         <div class="col">
                             Slot 3
@@ -509,7 +500,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.QualWeatherSlot4 != null)
+                    @if (Model.QualWeatherSlot4 != 0)
                     {
                         <div class="col">
                             Slot 4
@@ -611,7 +602,7 @@
                     </div>
                 </div><br />
                 <div class="row my-center">
-                    @if (Model.WeatherSlot1 != null)
+                    @if (Model.WeatherSlot1 != 0)
                     {
                         <div class="col">
                             Slot 1
@@ -620,7 +611,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.WeatherSlot2 != null)
+                    @if (Model.WeatherSlot2 != 0)
                     {
                         <div class="col">
                             Slot 2
@@ -629,7 +620,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.WeatherSlot3 != null)
+                    @if (Model.WeatherSlot3 != 0)
                     {
                         <div class="col">
                             Slot 3
@@ -638,7 +629,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.WeatherSlot4 != null)
+                    @if (Model.WeatherSlot4 != 0)
                     {
                         <div class="col">
                             Slot 4

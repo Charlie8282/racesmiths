@@ -32,20 +32,19 @@ namespace racesmiths.Models
        
         public int Rounds { get; set; }
 
-        [StringLength(1500, ErrorMessage = "The {0} must be at least {2} but no longer than {1} characters.", MinimumLength = 2)]
-        public string Rules { get; set; }
-
         [StringLength(999, ErrorMessage = "The {0} must be at least {2} but no longer than {1} characters.", MinimumLength = 2)]
         public int? Laps { get; set; }
+        public int? PracticeHours { get; set; }
+        public int? PracticeMinutes { get; set; }
 
-        //Annotation for hours and minutes.  Moving in increments of 5
-        public int? PracticeLength { get; set; }
         public int? RaceHours { get; set; }
         public int? RaceMinutes { get; set; }
         public int? QualifyHours { get; set; }
         public int? QualifyMinutes { get; set; }
+        public string IGTimePractice { get; set; } //Need annotation for entering just the time
         public string IGTimeQualify { get; set; } //Need annotation for entering just the time
         public string IGTimeRace { get; set; } //Need annotation for entering just the time
+        public string Vehicle { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Custom In-Game Date")]
@@ -91,6 +90,7 @@ namespace racesmiths.Models
         public bool DriveThruPenalty { get; set; }
         public bool PitExitPenalty { get; set; }
         public bool RacingLicense { get; set; }
+        public bool IsPublished { get; set; }
 
         [StringLength(5, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
         [Display(Name = "Minimum Racing License")]
@@ -98,11 +98,9 @@ namespace racesmiths.Models
 
         public string ExcludeVehicle { get; set; }
 
-
-
         //Enums
-        public string VehicleClass { get; set; }
-        public string Vehicle { get; set; }
+        [EnumDataType(typeof(VehicleClass))]
+        public VehicleClass VehicleClass { get; set; }
 
         [EnumDataType(typeof(StartType))]
         public StartType StartType { get; set; }
@@ -127,13 +125,22 @@ namespace racesmiths.Models
 
         [EnumDataType(typeof(DamageType))]
         public DamageType DamageType { get; set; }
-        public bool IsPublished { get; set; }
-
-
-        public string Multi1 { get; set; }
-        public string Multi2 { get; set; }
-        public string Multi3 { get; set; }
-        public string Multi4 { get; set; }
+        [EnumDataType(typeof(Multi1))]
+        public Multi1 Multi1 { get; set; }
+        [EnumDataType(typeof(Multi2))]
+        public Multi2 Multi2 { get; set; }
+        [EnumDataType(typeof(Multi3))]
+        public Multi3 Multi3 { get; set; }
+        [EnumDataType(typeof(Multi4))]
+        public Multi4 Multi4 { get; set; }
+        [EnumDataType(typeof(PracWeatherSlot1))]
+        public PracWeatherSlot1 PracWeatherSlot1 { get; set; }
+        [EnumDataType(typeof(PracWeatherSlot2))]
+        public PracWeatherSlot2 PracWeatherSlot2 { get; set; }
+        [EnumDataType(typeof(PracWeatherSlot3))]
+        public PracWeatherSlot3 PracWeatherSlot3 { get; set; }
+        [EnumDataType(typeof(PracWeatherSlot4))]
+        public PracWeatherSlot4 PracWeatherSlot4 { get; set; }
         [EnumDataType(typeof(QualWeatherSlot1))]
         public QualWeatherSlot1 QualWeatherSlot1 { get; set; }
         [EnumDataType(typeof(QualWeatherSlot2))]
@@ -154,12 +161,15 @@ namespace racesmiths.Models
         public QualTimeProgression QualTimeProgression { get; set; }
         [EnumDataType(typeof(QualWeatherProgression))]
         public QualWeatherProgression QualWeatherProgression { get; set; }
+        [EnumDataType(typeof(PracTimeProgression))]
+        public PracTimeProgression PracTimeProgression { get; set; }
+        [EnumDataType(typeof(PracWeatherProgression))]
+        public PracWeatherProgression PracWeatherProgression { get; set; }
 
 
         [StringLength(1000, ErrorMessage = "The {0} must be at least {2} but no longer than {1} characters.", MinimumLength = 2)]
         [Display(Name = "Championship description")]
         public string Description { get; set; }
-        public string Settings { get; set; }
         public string[] SelectedUsers { get; set; }
 
         [DataType(DataType.DateTime)]

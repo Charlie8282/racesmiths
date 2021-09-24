@@ -23,12 +23,13 @@
 
     }
 </div>
-<div class="row my-center">
-    <h2>Current Championships</h2>
-</div>
-<hr />
+
 <div class="row">
     <div class="col-md-6">
+        <div class="row my-center">
+            <h2>Current Championships</h2>
+        </div>
+        <hr />
         @if (Model.Champs.Count == 0)
         {
             <div class="row my-center upcoming-track">
@@ -44,23 +45,24 @@
                         <span>
                             @Html.DisplayFor(modelItem => item.ChampName)
                         </span>
-                        <span class="game">
-                            @Html.DisplayFor(modelItem => item.Game)
-                        </span>
-                        <span class="game">
-                            | @Html.DisplayFor(modelItem => item.System)
-                        </span><br />
+                        @*<span class="game">
+                                @Html.DisplayFor(modelItem => item.Game)
+                            </span>
+                            <span class="game">
+                                | @Html.DisplayFor(modelItem => item.System)
+                            </span><br />*@
                     </a>
                 </div>
             }
-
         }
-
     </div>
     <div class="col-md">
+        <div class="row my-center">
+            <h2>Members</h2>
+        </div><hr />
         @foreach (var user in Model.ClubUsers)
         {
-            @user.Gamertag
+            @user.Gamertag<br />
         }
     </div>
 </div>
@@ -76,12 +78,6 @@
                     Create Championship
                 </div>
             </div>
-            @*<div class="modal-header">
-                    <h2 class="my-modal-div" id="exampleModalScrollableTitle">Create a Championship</h2>
-                    <button type="button" class="orange close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>*@
             <div class="modal-body my-modal-div">
                 <form asp-controller="Champs" asp-action="Create" enctype="multipart/form-data">
                     <input type="hidden" name="ClubId" value="@Model.Id" />
@@ -125,7 +121,7 @@
                             <h3>All drivers in the same vehicle class</h3>
                             <div class="col-6 form-group">
                                 Vehicle Class
-                                <input asp-for="Champs.FirstOrDefault().VehicleClass" class="form-control bg-soft-dark" placeholder="Class..." />
+                                <select asp-for="Champs.FirstOrDefault().VehicleClass" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<VehicleClass>()"></select>
                             </div>
                             <div class="col form-group">
                                 Exclude Vehicle(s)
@@ -139,21 +135,21 @@
                             <h3>Enter class names for Multi-Class racing</h3>
                             <div class=" col-6 form-group">
                                 Slot 1
-                                <input asp-for="Champs.FirstOrDefault().Multi1" class="form-control bg-soft-dark" placeholder="class..." />
+                                <select asp-for="Champs.FirstOrDefault().Multi1" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Multi1>()"></select>
                             </div>
                             <div class=" col form-group">
                                 Slot 2
-                                <input asp-for="Champs.FirstOrDefault().Multi2" class="form-control bg-soft-dark" placeholder="class..." />
+                                <select asp-for="Champs.FirstOrDefault().Multi2" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Multi2>()"></select>
                             </div>
                         </div>
                         <div class="row my-center">
                             <div class=" col-6 form-group">
                                 Slot 3
-                                <input asp-for="Champs.FirstOrDefault().Multi3" class="form-control bg-soft-dark" placeholder="class..." />
+                                <select asp-for="Champs.FirstOrDefault().Multi3" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Multi3>()"></select>
                             </div>
                             <div class=" col form-group">
                                 Slot 4
-                                <input asp-for="Champs.FirstOrDefault().Multi4" class="form-control bg-soft-dark" placeholder="class..." />
+                                <select asp-for="Champs.FirstOrDefault().Multi4" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Multi4>()"></select>
                             </div>
                         </div>
                     </div><br />
@@ -165,8 +161,111 @@
                                 <input asp-for="Champs.FirstOrDefault().Vehicle" class="form-control bg-soft-dark" placeholder="Vehicle name..." />
                             </div>
                         </div>
-                    </div><br />
-
+                    </div>
+                    <h2>Practice</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            <div class="col-6 form-group">
+                                Hours
+                                <input asp-for="Champs.FirstOrDefault().PracticeHours" class="form-control bg-soft-dark" placeholder="0" />
+                            </div>
+                            <div class="col form-group">
+                                Minutes
+                                <input asp-for="Champs.FirstOrDefault().PracticeMinutes" class="form-control bg-soft-dark" placeholder="0" />
+                            </div>
+                        </div>
+                        <div class="row my-center">
+                            <div class="col-6 form-group">
+                                In-game Time
+                                <input asp-for="Champs.FirstOrDefault().IGTimePractice" class="form-control bg-soft-dark" placeholder="00:00" />
+                            </div>
+                            <div class="col form-group">
+                                Time Progression
+                                <select asp-for="Champs.FirstOrDefault().PracTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
+                            </div>
+                        </div>
+                        <div class="row my-center">
+                            Practice Weather Forecast
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Slot 1
+                                    <select asp-for="Champs.FirstOrDefault().PracWeatherSlot1" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherSlot1>()"></select>
+                                </div>
+                                <div class="col form-group">
+                                    Slot 2
+                                    <select asp-for="Champs.FirstOrDefault().PracWeatherSlot2" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherSlot2>()"></select>
+                                </div>
+                            </div>
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Slot 3
+                                    <select asp-for="Champs.FirstOrDefault().PracWeatherSlot3" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherSlot3>()"></select>
+                                </div>
+                                <div class="col form-group">
+                                    Slot 4
+                                    <select asp-for="Champs.FirstOrDefault().PracWeatherSlot4" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherSlot4>()"></select>
+                                </div>
+                            </div>
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Weather Progression
+                                    <select asp-for="Champs.FirstOrDefault().PracWeatherProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherProgression>()"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Qualifying</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            <div class="col-6 form-group">
+                                Hours
+                                <input asp-for="Champs.FirstOrDefault().QualifyHours" class="form-control bg-soft-dark" placeholder="0" />
+                            </div>
+                            <div class="col form-group">
+                                Minutes
+                                <input asp-for="Champs.FirstOrDefault().QualifyMinutes" class="form-control bg-soft-dark" placeholder="0" />
+                            </div>
+                        </div>
+                        <div class="row my-center">
+                            <div class="col-6 form-group">
+                                In-game Time
+                                <input asp-for="Champs.FirstOrDefault().IGTimeQualify" class="form-control bg-soft-dark" placeholder="00:00" />
+                            </div>
+                            <div class="col form-group">
+                                Time Progression
+                                <select asp-for="Champs.FirstOrDefault().QualTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
+                            </div>
+                        </div>
+                        <div class="row my-center">
+                            Qualifying Weather Forecast
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Slot 1
+                                    <select asp-for="Champs.FirstOrDefault().QualWeatherSlot1" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualWeatherSlot1>()"></select>
+                                </div>
+                                <div class="col form-group">
+                                    Slot 2
+                                    <select asp-for="Champs.FirstOrDefault().QualWeatherSlot2" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualWeatherSlot2>()"></select>
+                                </div>
+                            </div>
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Slot 3
+                                    <select asp-for="Champs.FirstOrDefault().QualWeatherSlot3" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualWeatherSlot3>()"></select>
+                                </div>
+                                <div class="col form-group">
+                                    Slot 4
+                                    <select asp-for="Champs.FirstOrDefault().QualWeatherSlot4" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualWeatherSlot4>()"></select>
+                                </div>
+                            </div>
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Weather Progression
+                                    <select asp-for="Champs.FirstOrDefault().QualWeatherProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualWeatherProgression>()"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <h2>Race Settings</h2>
                     <div class="my-center modal-section">
                         <div class="row my-center">
@@ -212,7 +311,7 @@
                             </div>
                         </div>
                         <div class="my-center">
-                            Weather Forecast
+                            Race Weather Forecast
                             <div class="row my-center">
                                 <div class="col form-group">
                                     Slot 1
@@ -235,6 +334,12 @@
                             </div>
                         </div>
                         <div class="row my-center">
+                            <div class="col form-group">
+                                Weather Progression
+                                <select asp-for="Champs.FirstOrDefault().WeatherProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<WeatherProgression>()"></select>
+                            </div>
+                        </div>
+                        <div class="row my-center">
                             <div class="col-5 form-group">
                                 Start Type
                                 <select asp-for="Champs.FirstOrDefault().StartType" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<StartType>()"></select>
@@ -249,52 +354,6 @@
                                 Mandatory Pit
                                 <div>
                                     <input asp-for="Champs.FirstOrDefault().MandatoryPit" class="select-checkbox" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h2>Qualifying:</h2>
-                    <div class="modal-section">
-                        <div class="row my-center">
-                            <div class="col-6 form-group">
-                                Hours
-                                <input asp-for="Champs.FirstOrDefault().QualifyHours" class="form-control bg-soft-dark" placeholder="0" />
-                            </div>
-                            <div class="col form-group">
-                                Minutes
-                                <input asp-for="Champs.FirstOrDefault().QualifyMinutes" class="form-control bg-soft-dark" placeholder="0" />
-                            </div>
-                        </div>
-                        <div class="row my-center">
-                            <div class="col-6 form-group">
-                                In-game Time
-                                <input asp-for="Champs.FirstOrDefault().IGTimeQualify" class="form-control bg-soft-dark" placeholder="00:00" />
-                            </div>
-                            <div class="col form-group">
-                                Time Progression
-                                <select asp-for="Champs.FirstOrDefault().QualTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
-                            </div>
-                        </div>
-                        <div class="row my-center">
-                            Qualifying Weather Forecast
-                            <div class="row my-center">
-                                <div class="col form-group">
-                                    Slot 1
-                                    <select asp-for="Champs.FirstOrDefault().QualWeatherSlot1" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualWeatherSlot1>()"></select>
-                                </div>
-                                <div class="col form-group">
-                                    Slot 2
-                                    <select asp-for="Champs.FirstOrDefault().QualWeatherSlot2" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualWeatherSlot2>()"></select>
-                                </div>
-                            </div>
-                            <div class="row my-center">
-                                <div class="col form-group">
-                                    Slot 3
-                                    <select asp-for="Champs.FirstOrDefault().QualWeatherSlot3" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualWeatherSlot3>()"></select>
-                                </div>
-                                <div class="col form-group">
-                                    Slot 4
-                                    <select asp-for="Champs.FirstOrDefault().QualWeatherSlot4" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<WeatherSlot4>()"></select>
                                 </div>
                             </div>
                         </div>
@@ -325,7 +384,7 @@
                                 <input asp-for="Champs.FirstOrDefault().ForceInnerView" class="select-checkbox" />
                             </dd>
                             <dt class="col-9">
-                                Force Driving Line
+                                Force Driving Line Off
                             </dt>
                             <dd class="col">
                                 <input asp-for="Champs.FirstOrDefault().ForceDriveLine" class="select-checkbox" />
@@ -403,7 +462,50 @@
                                 <input asp-for="Champs.FirstOrDefault().ForceCoolDown" class="select-checkbox" />
                             </dd>
                         </dl>
-                    </div><br />
+                    </div>
+                    <h2>Rules and Penatlies</h2>
+                    <div class="modal-section">
+                        <dl class="row">
+                            <dt class="col-9">
+                                Track Limit Penalties
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().TrackLimit" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Drive Thru Penalty
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().DriveThruPenalty" class="select-checkbox" />
+
+                            </dd>
+                            <dt class="col-7">
+                                Allowable Time Penalty
+                            </dt>
+                            <dd class="col form-group">
+                                <select asp-for="Champs.FirstOrDefault().AllowablePenalty" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<AllowablePenalty>()"></select>
+                            </dd>
+                            <dt class="col-9">
+                                Pit Exit Penalty
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().PitExitPenalty" class="select-checkbox" />
+                            </dd>
+                            <dt class="col-9">
+                                Competitive Racing License
+                            </dt>
+                            <dd class="col">
+                                <input asp-for="Champs.FirstOrDefault().RacingLicense" class="select-checkbox" />
+                            </dd>
+
+                        </dl>
+                        <div class="row my-center">
+                            Min. Racing License Required
+                            <div class="form-group">
+                                <input asp-for="Champs.FirstOrDefault().License" class="form-control bg-soft-dark" placeholder="U1100" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         Additional Information
                         <textarea asp-for="Champs.FirstOrDefault().Description" class="form-control bg-soft-dark" id="mytextarea" placeholder="Description"></textarea>

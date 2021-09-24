@@ -298,6 +298,9 @@ namespace racesmiths.Migrations
                     b.Property<int>("IGDateType")
                         .HasColumnType("integer");
 
+                    b.Property<string>("IGTimePractice")
+                        .HasColumnType("text");
+
                     b.Property<string>("IGTimeQualify")
                         .HasColumnType("text");
 
@@ -327,17 +330,17 @@ namespace racesmiths.Migrations
                     b.Property<bool>("MechFailure")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Multi1")
-                        .HasColumnType("text");
+                    b.Property<int>("Multi1")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Multi2")
-                        .HasColumnType("text");
+                    b.Property<int>("Multi2")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Multi3")
-                        .HasColumnType("text");
+                    b.Property<int>("Multi3")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Multi4")
-                        .HasColumnType("text");
+                    b.Property<int>("Multi4")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("PitExitPenalty")
                         .HasColumnType("boolean");
@@ -345,7 +348,28 @@ namespace racesmiths.Migrations
                     b.Property<bool>("PitStopErrors")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("PracticeLength")
+                    b.Property<int>("PracTimeProgression")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PracWeatherProgression")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PracWeatherSlot1")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PracWeatherSlot2")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PracWeatherSlot3")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PracWeatherSlot4")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("PracticeHours")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("PracticeMinutes")
                         .HasColumnType("integer");
 
                     b.Property<int>("QualTimeProgression")
@@ -384,10 +408,6 @@ namespace racesmiths.Migrations
                     b.Property<int>("Rounds")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Rules")
-                        .HasMaxLength(1500)
-                        .HasColumnType("character varying(1500)");
-
                     b.Property<bool>("RulesPenalty")
                         .HasColumnType("boolean");
 
@@ -396,9 +416,6 @@ namespace racesmiths.Migrations
 
                     b.Property<string[]>("SelectedUsers")
                         .HasColumnType("text[]");
-
-                    b.Property<string>("Settings")
-                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("StartDate")
                         .HasColumnType("timestamp with time zone");
@@ -425,8 +442,8 @@ namespace racesmiths.Migrations
                     b.Property<string>("Vehicle")
                         .HasColumnType("text");
 
-                    b.Property<string>("VehicleClass")
-                        .HasColumnType("text");
+                    b.Property<int>("VehicleClass")
+                        .HasColumnType("integer");
 
                     b.Property<int>("WeatherProgression")
                         .HasColumnType("integer");
@@ -535,12 +552,36 @@ namespace racesmiths.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<bool>("AllowAbs")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AllowGhost")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AllowStm")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AllowTcs")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("AllowablePenalty")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("AutoStart")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("ChampId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DamageType")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
+
+                    b.Property<bool>("DriveThruPenalty")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("ExcludeVehicle")
                         .HasColumnType("text");
@@ -548,8 +589,38 @@ namespace racesmiths.Migrations
                     b.Property<string>("FileName")
                         .HasColumnType("text");
 
-                    b.Property<string>("IGDateRace")
-                        .HasColumnType("text");
+                    b.Property<bool>("ForceAids")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ForceCoolDown")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ForceDriveLine")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ForceGears")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ForceInnerView")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ForceManualPit")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ForceSetup")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("FormationLap")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("FuelUsage")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("IGDateRace")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("IGDateType")
+                        .HasColumnType("integer");
 
                     b.Property<string>("IGTimeQualify")
                         .HasColumnType("text");
@@ -560,50 +631,90 @@ namespace racesmiths.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("bytea");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
                     b.Property<int?>("Laps")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Multi1")
-                        .HasColumnType("text");
+                    b.Property<string>("License")
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)");
 
-                    b.Property<string>("Multi2")
-                        .HasColumnType("text");
+                    b.Property<bool>("MandatoryPit")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Multi3")
-                        .HasColumnType("text");
+                    b.Property<bool>("MechFailure")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Multi4")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("PracticeLength")
+                    b.Property<int>("Multi1")
                         .HasColumnType("integer");
 
-                    b.Property<string>("QualWeatherSlot1")
-                        .HasColumnType("text");
-
-                    b.Property<string>("QualWeatherSlot2")
-                        .HasColumnType("text");
-
-                    b.Property<string>("QualWeatherSlot3")
-                        .HasColumnType("text");
-
-                    b.Property<string>("QualWeatherSlot4")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("QualifyLength")
+                    b.Property<int>("Multi2")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("RaceLength")
+                    b.Property<int>("Multi3")
                         .HasColumnType("integer");
+
+                    b.Property<int>("Multi4")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("PitExitPenalty")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("PitStopErrors")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("PracticeHours")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("PracticeMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QualTimeProgression")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QualWeatherProgression")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QualWeatherSlot1")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QualWeatherSlot2")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QualWeatherSlot3")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QualWeatherSlot4")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("QualifyHours")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("QualifyMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("RaceHours")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("RaceMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("RacingLicense")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("RoundNumber")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("RulesPenalty")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTimeOffset>("Scheduled")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Season")
-                        .HasColumnType("text");
+                    b.Property<int>("Season")
+                        .HasColumnType("integer");
 
                     b.Property<string[]>("SelectedUsers")
                         .HasColumnType("text[]");
@@ -611,6 +722,18 @@ namespace racesmiths.Migrations
                     b.Property<string>("Settings")
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
+
+                    b.Property<int>("StartType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TimeProgression")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TireWear")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("TrackLimit")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("TrackName")
                         .IsRequired()
@@ -624,20 +747,23 @@ namespace racesmiths.Migrations
                     b.Property<string>("Vehicle")
                         .HasColumnType("text");
 
-                    b.Property<string>("VehicleClass")
-                        .HasColumnType("text");
+                    b.Property<int>("VehicleClass")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("WeatherSlot1")
-                        .HasColumnType("text");
+                    b.Property<int>("WeatherProgression")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("WeatherSlot2")
-                        .HasColumnType("text");
+                    b.Property<int>("WeatherSlot1")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("WeatherSlot3")
-                        .HasColumnType("text");
+                    b.Property<int>("WeatherSlot2")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("WeatherSlot4")
-                        .HasColumnType("text");
+                    b.Property<int>("WeatherSlot3")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WeatherSlot4")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

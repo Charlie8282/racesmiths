@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace racesmiths.Enums
 {
-    public enum VehicleClass
+    public enum Multi3
     {
         [Display(Name = "Not Set")]
         NotSet,

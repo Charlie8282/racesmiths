@@ -9,7 +9,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Enums\Acura.cs" />
+    <Compile Remove="Enums\AstonMartin.cs" />
+    <Compile Remove="Enums\Audi.cs" />
+    <Compile Remove="Enums\Bentley.cs" />
+    <Compile Remove="Enums\BMW.cs" />
     <Compile Remove="Enums\ChampType.cs" />
+    <Compile Remove="Enums\Chevrolet.cs" />
+    <Compile Remove="Enums\Ferrari.cs" />
+    <Compile Remove="Enums\Ford.cs" />
+    <Compile Remove="Enums\Ginetta.cs" />
+    <Compile Remove="Enums\Honda.cs" />
+    <Compile Remove="Enums\Indycar.cs" />
+    <Compile Remove="Enums\Jaguar.cs" />
+    <Compile Remove="Enums\KTM.cs" />
+    <Compile Remove="Enums\Lamborghini.cs" />
+    <Compile Remove="Enums\Ligier.cs" />
+    <Compile Remove="Enums\Lotus.cs" />
+    <Compile Remove="Enums\McLaren.cs" />
+    <Compile Remove="Enums\Mercedes.cs" />
+    <Compile Remove="Enums\Mitsubishi.cs" />
+    <Compile Remove="Enums\Nissan.cs" />
     <Compile Remove="Models\Attachment.cs" />
     <Compile Remove="Models\ChampAttachment.cs" />
     <Compile Remove="Models\ChampComments.cs" />
