@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using racesmiths.Data;
@@ -9,9 +10,10 @@ using racesmiths.Data;
 namespace racesmiths.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210929171123__003")]
+    partial class _003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -347,9 +349,6 @@ namespace racesmiths.Migrations
                     b.Property<bool>("NoQualify")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("NoRace")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("NoRealism")
                         .HasColumnType("boolean");
 
@@ -682,9 +681,6 @@ namespace racesmiths.Migrations
                     b.Property<bool>("NoQualify")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("NoRace")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("NoRealism")
                         .HasColumnType("boolean");
 
@@ -696,24 +692,6 @@ namespace racesmiths.Migrations
 
                     b.Property<bool>("PitStopErrors")
                         .HasColumnType("boolean");
-
-                    b.Property<int>("PracTimeProgression")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PracWeatherProgression")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PracWeatherSlot1")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PracWeatherSlot2")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PracWeatherSlot3")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PracWeatherSlot4")
-                        .HasColumnType("integer");
 
                     b.Property<int?>("PracticeHours")
                         .HasColumnType("integer");

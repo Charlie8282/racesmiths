@@ -32,7 +32,6 @@ namespace racesmiths.Models
        
         public int Rounds { get; set; }
 
-        [StringLength(999, ErrorMessage = "The {0} must be at least {2} but no longer than {1} characters.", MinimumLength = 2)]
         public int? Laps { get; set; }
         public int? PracticeHours { get; set; }
         public int? PracticeMinutes { get; set; }
@@ -51,6 +50,16 @@ namespace racesmiths.Models
         public DateTime? IGDateRace { get; set; } // In-game Date for race(s) - If IGDateType "Custom" is selcted, User will input custom date here
 
         //bools
+        public bool NoPractice { get; set; }
+
+        public bool NoQualify { get; set; }
+
+        public bool NoRace { get; set; }
+
+        public bool NoRealism { get; set; }
+
+        public bool NoRules { get; set; }
+
         public bool FormationLap { get; set; }
 
         public bool MandatoryPit { get; set; }

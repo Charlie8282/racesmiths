@@ -41,6 +41,7 @@ namespace racesmiths.Models
         public int? RaceMinutes { get; set; }
         public int? QualifyHours { get; set; }
         public int? QualifyMinutes { get; set; }
+        public string IGTimePractice { get; set; } //Need annotation for entering just the time
         public string IGTimeQualify { get; set; } //Need annotation for entering just the time
         public string IGTimeRace { get; set; } //Need annotation for entering just the time
 
@@ -49,6 +50,16 @@ namespace racesmiths.Models
         public DateTime? IGDateRace { get; set; } // In-game Date for race(s) - If IGDateType "Custom" is selcted, User will input custom date here
 
         //bools
+        public bool NoPractice { get; set; }
+
+        public bool NoQualify { get; set; }
+
+        public bool NoRace { get; set; }
+
+        public bool NoRealism { get; set; }
+
+        public bool NoRules { get; set; }
+
         public bool FormationLap { get; set; }
 
         public bool MandatoryPit { get; set; }
@@ -132,6 +143,14 @@ namespace racesmiths.Models
         public Multi3 Multi3 { get; set; }
         [EnumDataType(typeof(Multi4))]
         public Multi4 Multi4 { get; set; }
+        [EnumDataType(typeof(PracWeatherSlot1))]
+        public PracWeatherSlot1 PracWeatherSlot1 { get; set; }
+        [EnumDataType(typeof(PracWeatherSlot2))]
+        public PracWeatherSlot2 PracWeatherSlot2 { get; set; }
+        [EnumDataType(typeof(PracWeatherSlot3))]
+        public PracWeatherSlot3 PracWeatherSlot3 { get; set; }
+        [EnumDataType(typeof(PracWeatherSlot4))]
+        public PracWeatherSlot4 PracWeatherSlot4 { get; set; }
         [EnumDataType(typeof(QualWeatherSlot1))]
         public QualWeatherSlot1 QualWeatherSlot1 { get; set; }
         [EnumDataType(typeof(QualWeatherSlot2))]
@@ -148,6 +167,10 @@ namespace racesmiths.Models
         public WeatherSlot3 WeatherSlot3 { get; set; }
         [EnumDataType(typeof(WeatherSlot4))]
         public WeatherSlot4 WeatherSlot4 { get; set; }
+        [EnumDataType(typeof(PracTimeProgression))]
+        public PracTimeProgression PracTimeProgression { get; set; }
+        [EnumDataType(typeof(PracWeatherProgression))]
+        public PracWeatherProgression PracWeatherProgression { get; set; }
         [EnumDataType(typeof(QualTimeProgression))]
         public QualTimeProgression QualTimeProgression { get; set; }
         [EnumDataType(typeof(QualWeatherProgression))]

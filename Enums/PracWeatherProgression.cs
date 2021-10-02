@@ -14,24 +14,24 @@ namespace racesmiths.Enums
         [Display(Name = "Real Time")]
         RealTime,
         [Display(Name = "2X")]
-        _2X,
+        twoX,
         [Display(Name = "5X")]
-        _5X,
+        fiveX,
         [Display(Name = "10X")]
-        _10X,
+        tenX,
         [Display(Name = "15X")]
-        _15X,
+        fifteenX,
         [Display(Name = "20X")]
-        _20X,
+        twentyX,
         [Display(Name = "25X")]
-        _25X,
+        twofiveX,
         [Display(Name = "30X")]
-        _30X,
+        thirtyX,
         [Display(Name = "40X")]
-        _40X,
+        fourtyX,
         [Display(Name = "50X")]
-        _50X,
+        fiftyX,
         [Display(Name = "60X")]
-        _60X
+        sixtyX
     }
 }

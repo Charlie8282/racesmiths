@@ -1,4 +1,5 @@
 ﻿@model racesmiths.Models.Champ
+@using racesmiths.Enums
 
 @{
     ViewData["Title"] = "Details";
@@ -105,22 +106,29 @@
                 <form asp-controller="Events" asp-action="Create" enctype="multipart/form-data">
                     <input type="hidden" name="ChampId" value="@Model.Id" />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        Round Number
-                        <input asp-for="Events.FirstOrDefault().RoundNumber" class="form-control bg-soft-dark" placeholder="Round?" />
-                    </div>
-                    <div class="form-group">
-                        Scheduled
-                        <input asp-for="Events.FirstOrDefault().Scheduled" class="form-control bg-soft-dark" />
-                    </div>
-                    <div class="form-group">
-                        Track Name
-                        <input asp-for="Events.FirstOrDefault().TrackName" class="form-control bg-soft-dark" placeholder="Track name..." />
-                    </div>
-                    <div class="form-group">
-                        Track Variation
-                        <input asp-for="Events.FirstOrDefault().TrackVariant" class="form-control bg-soft-dark" placeholder="Track name continued..." />
-                    </div>
+                    <div class="modal-section">
+
+                        <div class="row my-center">
+                            <div class="col-4 form-group">
+                                Round #
+                                <input asp-for="Events.FirstOrDefault().RoundNumber" class="form-control bg-soft-dark" />
+                            </div>
+                            <div class="col form-group">
+                                Scheduled
+                                <input asp-for="Events.FirstOrDefault().Scheduled" class="form-control bg-soft-dark" />
+                            </div>
+                        </div>
+                        <div class="row my-center">
+                            <div class="col-6 form-group">
+                                Track Name
+                                <input asp-for="Events.FirstOrDefault().TrackName" class="form-control bg-soft-dark" />
+                            </div>
+                            <div class="col form-group">
+                                Track Variation
+                                <input asp-for="Events.FirstOrDefault().TrackVariant" class="form-control bg-soft-dark" />
+                            </div>
+                        </div>
+                    </div><br />
                     <div class="row my-center">
                         @if (Model.Laps == 0 && Model.RaceHours == 0 && Model.RaceMinutes == 0)
                         {
@@ -128,181 +136,541 @@
                                 <input asp-for="Events.FirstOrDefault().Laps" class="form-control bg-soft-dark" placeholder="Laps" />
                             </div>
                             <div class="col form-group">
-                                <input asp-for="Events.FirstOrDefault().RaceHours" class="form-control bg-soft-dark" placeholder="Minutes" />
+                                <input asp-for="Events.FirstOrDefault().RaceHours" class="form-control bg-soft-dark" placeholder="Hours" />
                             </div>
                             <div class="col form-group">
                                 <input asp-for="Events.FirstOrDefault().RaceMinutes" class="form-control bg-soft-dark" placeholder="Minutes" />
                             </div>
                         }
-                        else
-                        {
-                            @if (Model.Laps != 0)
-                            {
-                                <div class="form-control modal-section">
-                                    <p>Race Length: @Model.Laps Laps</p>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="form-control modal-section">
-                                    <p>Race Length: @Model.RaceHours Hours @Model.RaceMinutes Minutes</p>
-                                </div>
-                            }
-                        }
                     </div>
-                    <h2>
-                        Vehicle
-                    </h2>
                     @if (Model.VehicleClass == 0 && Model.ExcludeVehicle == null && Model.Multi1 == 0 && Model.Multi2 == 0 && Model.Multi3 == 0 && Model.Multi4 == 0 && Model.Vehicle == null)
                     {
-                        <div class="row modal-section my-center">
-                            <h3>Choose a Class w/option of excluding car(s)</h3>
-                            <div class="col-6 form-group">
-                                Vehicle Class
-                                <input asp-for="Events.FirstOrDefault().VehicleClass" class="form-control bg-soft-dark" placeholder="Class..." />
-                            </div>
-                            <div class="col form-group">
-                                Exclude Vehicle(s)
-                                <textarea asp-for="Events.FirstOrDefault().ExcludeVehicle" class="form-control bg-soft-dark" placeholder="Vehicle name(s)..."></textarea>
-                            </div>
-                        </div>
+                        <h2>Vehicle Selection</h2>
                         <div class="row my-center">
-                            OR
+                            (Fill 1 of 3 options)
                         </div>
-                        <div class="row modal-section my-center">
-                            <h3>Enter class names for Multi-Class racing</h3>
-                            <div class=" col-3 form-group">
-                                <input asp-for="Events.FirstOrDefault().Multi1" class="form-control bg-soft-dark" placeholder="class..." />
+                        <div class="my-center modal-section">
+                            Option 1
+                            <div class="row my-center">
+                                <h3>All drivers in the same vehicle class</h3>
+                                <div class="col-6 form-group">
+                                    Vehicle Class
+                                    <select asp-for="Events.FirstOrDefault().VehicleClass" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<VehicleClass>()"></select>
+                                </div>
+                                <div class="col form-group">
+                                    Exclude Vehicle(s)
+                                    <textarea asp-for="Events.FirstOrDefault().ExcludeVehicle" class="form-control bg-soft-dark" placeholder="Optional..."></textarea>
+                                </div>
                             </div>
-                            <div class=" col-3 form-group">
-                                <input asp-for="Events.FirstOrDefault().Multi2" class="form-control bg-soft-dark" placeholder="class..." />
+                        </div><br />
+                        <div class="modal-section my-center">
+                            Option 2
+                            <div class="row my-center">
+                                <h3>Enter class names for Multi-Class racing</h3>
+                                <div class=" col-6 form-group">
+                                    Slot 1
+                                    <select asp-for="Events.FirstOrDefault().Multi1" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Multi1>()"></select>
+                                </div>
+                                <div class=" col form-group">
+                                    Slot 2
+                                    <select asp-for="Events.FirstOrDefault().Multi2" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Multi2>()"></select>
+                                </div>
                             </div>
-                            <div class=" col-3 form-group">
-                                <input asp-for="Events.FirstOrDefault().Multi3" class="form-control bg-soft-dark" placeholder="class..." />
+                            <div class="row my-center">
+                                <div class=" col-6 form-group">
+                                    Slot 3
+                                    <select asp-for="Events.FirstOrDefault().Multi3" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Multi3>()"></select>
+                                </div>
+                                <div class=" col form-group">
+                                    Slot 4
+                                    <select asp-for="Events.FirstOrDefault().Multi4" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Multi4>()"></select>
+                                </div>
                             </div>
-                            <div class=" col form-group">
-                                <input asp-for="Events.FirstOrDefault().Multi4" class="form-control bg-soft-dark" placeholder="class..." />
-                            </div>
-                        </div>
-                        <div class="row my-center">
-                            OR
-                        </div>
-                        <div class="row modal-section my-center">
-                            <h3>All drivers in the same vehicle</h3>
-                            <div class="form-group">
-                                <input asp-for="Events.FirstOrDefault().Vehicle" class="form-control bg-soft-dark" placeholder="Vehicle name..." />
+                        </div><br />
+                        <div class="modal-section my-center">
+                            Option 3
+                            <div class="row my-center">
+                                <h3>All drivers in the same vehicle</h3>
+                                <div class="form-group">
+                                    <input asp-for="Events.FirstOrDefault().Vehicle" class="form-control bg-soft-dark" placeholder="Vehicle name..." />
+                                </div>
                             </div>
                         </div>
                     }
-                    else
+
+                    @if (Model.VehicleClass != 0 && Model.Multi1 == 0 && Model.Multi2 == 0 && Model.Multi3 == 0 && Model.Multi4 == 0 && Model.Vehicle == null)
                     {
-                        <div class="row my-center">
-                            <div class="form-control modal-section">
-                                @Model.VehicleClass
-                                @Model.ExcludeVehicle
-                                @Model.Multi1
-                                @Model.Multi2
-                                @Model.Multi3
-                                @Model.Multi4
-                                @Model.Vehicle
+                        <h2>
+                            Vehicle
+                        </h2>
+                        <div class="modal-section">
+                            <div class="row my-center">
+                                <div class="col">
+                                    Vehicle Class
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.VehicleClass)
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </div><br />
                     }
 
-
-
-                    <h2>Race</h2>
-                    <div class="row my-center">
-                        @if (Model.Laps == 0 && Model.RaceHours == 0 && Model.RaceMinutes == 0)
-                        {
-                            <div class="col-5 form-group">
-                                Laps
-                                <input asp-for="Events.FirstOrDefault().Laps" class="form-control bg-soft-dark" placeholder="Laps" />
+                    @if (Model.Multi1 != 0 && Model.VehicleClass == 0 && Model.Vehicle == null)
+                    {
+                        <h2>
+                            Vehicle
+                        </h2>
+                        <div class="modal-section my-center">
+                            Selected Classes
+                            <div class="row my-center">
+                                <div class=" col-6">
+                                    Slot 1
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.Multi1)
+                                    </div>
+                                </div>
+                                <div class=" col form-group">
+                                    Slot 2
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.Multi2)
+                                    </div>
+                                </div>
+                            </div><br />
+                            <div class="row my-center">
+                                <div class=" col-6 form-group">
+                                    Slot 3
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.Multi3)
+                                    </div>
+                                </div>
+                                <div class=" col form-group">
+                                    Slot 4
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.Multi4)
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <p>OR</p>
+                        </div><br />
+                    }
+                    @if (Model.Vehicle != null && Model.VehicleClass == 0 && Model.Multi1 == 0)
+                    {
+                        <h2>
+                            Vehicle
+                        </h2>
+                        <div class="modal-section my-center">
+                            All drivers in the same vehicle
+                            <div class="row my-center">
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.Vehicle)
+                                </div>
                             </div>
-                            <div class="col form-group">
-                                Race Hours
-                                <input asp-for="Events.FirstOrDefault().RaceHours" class="form-control bg-soft-dark" placeholder="Minutes" />
-                            </div>
-                            <div class="col form-group">
-                                Race Minutes
-                                <input asp-for="Events.FirstOrDefault().RaceHours" class="form-control bg-soft-dark" placeholder="Minutes" />
-                            </div>
-                        }
-                        else
-                        {
-                            @if (Model.Laps != 0)
+                        </div><br />
+                    }
+                    <h2>Practice</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            @if (Model.PracticeHours != null && Model.PracticeMinutes != null)
                             {
-                                <div class="row my-center">
-                                    <div class="form-control modal-section">
-                                        @Model.Laps Laps
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.PracticeHours Hour(s) @Model.PracticeMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.PracticeHours == null && Model.PracticeMinutes == null)
+                            {
+                                <div class="col form-group">
+                                    Hours
+                                    <input asp-for="Events.FirstOrDefault().PracticeHours" class="form-control bg-soft-dark" />
+                                </div>
+                                <div class="col form-group">
+                                    Minutes
+                                    <input asp-for="Events.FirstOrDefault().PracticeMinutes" class="form-control bg-soft-dark" />
+                                </div>
+                            }
+                            @if (Model.PracticeHours != null && Model.PracticeMinutes == null)
+                            {
+                                <div class="col">
+                                    Length
+                                    <div class="game">
+                                        @Model.PracticeHours Hour(s)
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.PracticeMinutes != null && Model.PracticeHours == null)
+                            {
+                                <div class="col">
+                                    Length
+                                    <div class="game">
+                                        @Model.PracticeMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+
+
+                        </div><br />
+                        <div class="row my-center">
+                            @if (Model.IGTimePractice != null)
+                            {
+                                <div class="col">
+                                    In-game Time
+                                    <div class="game">
+                                        @Model.IGTimePractice
                                     </div>
                                 </div>
                             }
                             else
                             {
-                                <div class="row my-center">
-                                    <div class="form-control modal-section">
-                                        @Model.RaceHours Hours @Model.RaceMinutes Minutes
+                                <div class="col form-group">
+                                    In-game Time
+                                    <input asp-for="Events.FirstOrDefault().IGTimePractice" class="form-control bg-soft-dark" placeholder="00:00" />
+                                </div>
+                            }
+                            @if (Model.PracTimeProgression != 0)
+                            {
+                                <div class="col">
+                                    Time Progression
+                                    <div class="game">
+                                        @Model.PracTimeProgression
                                     </div>
                                 </div>
-
                             }
-                        }
+                            else
+                            {
+                                <div class="col form-group">
+                                    Time Progression
+                                    <select asp-for="Events.FirstOrDefault().PracTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
+                                </div>
+                            }
+                        </div><br />
 
+                        @if (Model.PracWeatherSlot1 != 0)
+                        {
+                            <div class="my-center">
+                                Practice Weather Forecast
+                            </div><br />
+                            <div class="row my-center">
+                                <div class="col">
+                                    Slot 1
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.PracWeatherSlot1)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    Slot 2
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.PracWeatherSlot2)
+                                    </div>
+                                </div>
+                            </div><br />
+                            <div class="row my-center">
+                                <div class="col">
+                                    Slot 3
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.PracWeatherSlot3)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    Slot 4
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.PracWeatherSlot4)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="my-center">
+                                Practice Weather Forecast
+                            </div><br />
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Slot 1
+                                    <select asp-for="Events.FirstOrDefault().PracWeatherSlot1" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherSlot1>()"></select>
+                                </div>
+                                <div class="col form-group">
+                                    Slot 2
+                                    <select asp-for="Events.FirstOrDefault().PracWeatherSlot2" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherSlot2>()"></select>
+                                </div>
+                            </div><br />
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Slot 3
+                                    <select asp-for="Events.FirstOrDefault().PracWeatherSlot3" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherSlot3>()"></select>
+                                </div>
+                                <div class="col form-group">
+                                    Slot 4
+                                    <select asp-for="Events.FirstOrDefault().PracWeatherSlot4" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherSlot4>()"></select>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.PracWeatherProgression != 0)
+                        {
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Weather Progression
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.PracWeatherProgression)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row my-center">
+                                <div class="col form-group">
+                                    Weather Progression
+                                    <select asp-for="Events.FirstOrDefault().PracWeatherProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<PracWeatherProgression>()"></select>
+                                </div>
+                            </div>
+                        }
                     </div>
 
-                    <div class="row my-center">
-                        @if (Model.IGDateRace == null && Model.IGTimeRace == null)
+                    <h2>Qualifying</h2>
+                    <div class="modal-section">
+                        @if (Model.NoQualify == true)
                         {
-                            <div class="col-6 form-group">
-                                In-Game Date:
-                                <input asp-for="Events.FirstOrDefault().IGDateRace" class="form-control bg-soft-dark" placeholder="Date..." />
+                            <div class="row my-center">
+                                <div class="col">
+                                    No Qualifying for this event
+                                    <input asp-for="Events.FirstOrDefault().NoQualify" class="select-checkbox" />
+                                </div>
+                            </div><br />
+                            <div class="row my-center">
+                                <div class="col-6 form-group">
+                                    Hours
+                                    <input asp-for="Events.FirstOrDefault().QualifyHours" class="form-control bg-soft-dark" placeholder="0" />
+                                </div>
+                                <div class="col form-group">
+                                    Minutes
+                                    <input asp-for="Events.FirstOrDefault().QualifyMinutes" class="form-control bg-soft-dark" placeholder="0" />
+                                </div>
                             </div>
-                            <div class="col form-group">
-                                In-Game time for Race
-                                <input asp-for="Events.FirstOrDefault().IGTimeRace" class="form-control bg-soft-dark" placeholder="" />
+                            <div class="row my-center">
+                                <div class="col-6 form-group">
+                                    In-game Time
+                                    <input asp-for="Events.FirstOrDefault().IGTimeQualify" class="form-control bg-soft-dark" placeholder="00:00" />
+                                </div>
+                                <div class="col form-group">
+                                    Time Progression
+                                    <select asp-for="Events.FirstOrDefault().QualTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
+                                </div>
                             </div>
                         }
                         else
                         {
-                            <div class="col-6 form-group modal-section">
-                                <p>In-Game Date:</p>
-                                @Model.IGDateRace
-                            </div>
-                            <div class="col form-group">
-                                In-Game time for Race:
-                                <div class="modal-section">
-                                    @Model.IGTimeRace
+
+                        }
+                        <div class="row my-center">
+                            @if (Model.QualifyHours != null && Model.QualifyMinutes != null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.QualifyHours Hour(s) @Model.QualifyMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.QualifyHours != null && Model.QualifyMinutes == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.QualifyHours Hour(s)
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.QualifyMinutes != null && Model.QualifyHours == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.QualifyMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.QualifyHours == null && Model.QualifyMinutes == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        Not Set
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.IGTimeQualify != null)
+                            {
+                                <div class="col-6">
+                                    In-game Time
+                                    <div class="game">
+                                        @Model.IGTimeQualify
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-6">
+                                    In-game Time
+                                    <div class="game">
+                                        Check event
+                                    </div>
+                                </div>
+                            }
+                        </div><br />
+                        <div class="row my-center">
+                            <div class="col-6">
+                                Time Progression
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualTimeProgression)
                                 </div>
                             </div>
-                        }
-                        @if (Model.IGDateRace != null)
-                        {
-                            <p>In - Game Date:</p>
-                            <div class="col-6 form-group modal-section">
-                                @Model.IGDateRace
-                            </div>
-                            <div class="col form-group">
-                                In-Game time for Race
-                                <input asp-for="Events.FirstOrDefault().IGTimeRace" class="form-control bg-soft-dark" placeholder="" />
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-6 form-group">
-                                In-Game Date:
-                                <input asp-for="Events.FirstOrDefault().IGDateRace" class="form-control bg-soft-dark" placeholder="Date..." />
-                            </div>
-                            <div class="col form-group">
-                                In - Game time for Race:
-                                <div class="modal-section">
-                                    @Model.IGTimeRace
+                            <div class="col-6">
+                                Weather Progression
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherProgression)
                                 </div>
                             </div>
-                        }
+                        </div><br />
+                        <div class="row my-center">
+                            Weather Forecast
+                        </div>
+                        <div class="row my-center">
+                            <div class="col">
+                                Slot 1
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherSlot1)
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                Slot 2
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherSlot2)
+
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row my-center">
+                            <div class="col">
+                                Slot 3
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherSlot3)
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                Slot 4
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherSlot4)
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Race</h2>
+                    <div class="modal-section my-center">
+                        <div class="row my-center">
+                            @if (Model.Laps == null && Model.RaceHours == null && Model.RaceMinutes == null)
+                            {
+                                <div>
+                                    Length
+                                </div><br />
+                                <div class="col form-group">
+                                    Laps
+                                    <input asp-for="Events.FirstOrDefault().Laps" class="form-control bg-soft-dark" />
+                                </div>
+                                <div class="col-2">
+                                    <p>OR</p>
+                                </div>
+                                <div class="col form-group">
+                                    Hours
+                                    <input asp-for="Events.FirstOrDefault().RaceHours" class="form-control bg-soft-dark" />
+                                </div>
+                                <div class="col form-group">
+                                    Minutes
+                                    <input asp-for="Events.FirstOrDefault().RaceMinutes" class="form-control bg-soft-dark" />
+                                </div>
+                            }
+                            @if (Model.Laps != null && Model.RaceHours == null && Model.RaceMinutes == null)
+                            {
+                                <div>
+                                    Length
+                                </div><br />
+                                <div class="col game">
+                                    @Model.Laps Laps
+                                </div>
+                            }
+                            @if (Model.RaceHours != null && Model.RaceMinutes == null && Model.Laps == null)
+                            {
+                                <div>
+                                    Length
+                                </div><br />
+                                <div class="col game">
+                                    @Model.RaceHours Hour(s)
+                                </div>
+                            }
+                            @if (Model.RaceMinutes != null && Model.RaceHours == null && Model.Laps == null)
+                            {
+                                <div>
+                                    Length
+                                </div><br />
+                                <div class="col game">
+                                    @Model.RaceMinutes Minutes
+                                </div>
+                            }
+                            @if (Model.RaceHours != null && Model.RaceMinutes != null && Model.Laps == null)
+                            {
+                                <div>
+                                    Length
+                                </div><br />
+                                <div class="col game">
+                                    @Model.RaceHours Hour(s) @Model.RaceMinutes Minutes
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row">
+                            @if (Model.IGDateType == 0 && Model.Season == 0 && Model.IGDateRace == null)
+                            {
+                                <div class="row my-center">
+                                    <div class="col form-group">
+                                        Date Type
+                                        <select asp-for="Events.FirstOrDefault().IGDateType" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<IGDateType>()"></select>
+                                    </div>
+                                    <div class="col form-group">
+                                        Season
+                                        <select asp-for="Events.FirstOrDefault().Season" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<Season>()"></select>
+                                    </div>
+                                    <div class="col form-group">
+                                        In-game Time:
+                                        <input asp-for="Events.FirstOrDefault().IGTimeRace" class="form-control bg-soft-dark" placeholder="00:00" />
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.IGDateType != 0 && Model.IGDateRace == null && Model.Season == 0)
+                            {
+                                <div>
+                                    Date Type
+                                </div>
+                                <div class="row my-center">
+                                    <div class="col game">
+                                        @Html.DisplayFor(Model => Model.IGDateType)
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.IGDateRace != null && Model.IGDateType == 0 && Model.Season == 0)
+                            {
+
+                            }
+                        </div>
+
+                    </div>
+                    <h2>
+                        Realism Settings
+                    </h2>
+                    <div class="modal-section">
+
                     </div>
                     <div class="form-group">
                         Additional Information
@@ -327,321 +695,719 @@
             <div class="row my-center my-modal-head">
                 Championship Settings
             </div>
-            <div class="modal-body modal-section">
-                <h2 class="my-center">@Model.ChampName</h2><hr />
-                <div class="row my-center">
-                    <div class="col-6">
-                        @Model.Rounds Rounds
-                    </div>
-                    <div class="col">
-                        First Race
-                        <div class="game">
-                            @Model.StartDate
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h2 class="my-center">@Model.ChampName</h2><hr />
+                    <div class="row my-center">
+                        <div class="col-6">
+                            @Model.Rounds Rounds
+                        </div>
+                        <div class="col">
+                            First Race
+                            <div class="game">
+                                @Model.StartDate
+                            </div>
                         </div>
                     </div>
                 </div>
-                <h2>Vehicle</h2><br />
-                <div class="row my-center">
-                    @if (Model.VehicleClass != 0)
-                    {
-                        <div class="col">
-                            Vehicle Class
-                            <div class="game">
-                                @Model.VehicleClass
-                            </div>
-                        </div>
-                        @if (Model.ExcludeVehicle != null)
+                <h2>Vehicle</h2>
+                <div class="modal-section">
+                    <div class="row my-center">
+                        @if (Model.VehicleClass == 0 && Model.Vehicle == null)
                         {
                             <div class="col">
-                                Excluded Cars
-                                <div class="game">
-                                    @Model.ExcludeVehicle
-                                </div>
+                                Set per Event
                             </div>
                         }
-                        else
+
+                        @if (Model.VehicleClass != 0)
                         {
                             <div class="col">
-                                Excluded Cars
+                                Vehicle Class
                                 <div class="game">
-                                    None
+                                    @Model.VehicleClass
                                 </div>
                             </div>
-                        }
-                    }
-                </div>
-                <div class="row my-center">
-                    @if (Model.Multi1 != 0)
-                    {
-                        <div class="col">
-                            1st Class
-                            <div class="game">
-                                @Model.Multi1
-                            </div>
-                        </div>
-                    }
-                    @if (Model.Multi2 != 0)
-                    {
-                        <div class="col">
-                            2nd Class
-                            <div class="game">
-                                @Model.Multi2
-                            </div>
-                        </div>
-                    }
-                    @if (Model.Multi3 != 0)
-                    {
-                        <div class="col">
-                            3rd Class
-                            <div class="game">
-                                @Model.Multi3
-                            </div>
-                        </div>
-                    }
-                    @if (Model.Multi4 != 0)
-                    {
-                        <div class="col">
-                            4th Class
-                            <div class="game">
-                                @Model.Multi4
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div class="row my-center">
-                    @if (Model.Vehicle != null)
-                    {
-                        <div class="col">
-                            All drivers in the same vehicle
-                            <div class="game">
-                                @Model.Vehicle
-                            </div>
-                        </div>
-                    }
-                </div><br />
-                <h2>Qualifying</h2><br />
-                <div class="row my-center">
-                    @if (Model.QualifyHours != null && Model.QualifyMinutes != null)
-                    {
-                        <div class="col-6">
-                            Length
-                            <div class="game">
-                                @Model.QualifyHours Hours @Model.QualifyMinutes minutes
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-6">
-                            Length
-                            <div class="game">
-                                None
-                            </div>
-                        </div>
-                    }
-                    @if (Model.IGTimeQualify != null)
-                    {
-                        <div class="col-6">
-                            In-game Time
-                            <div class="game">
-                                @Model.IGTimeQualify
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-6">
-                            In-game Time
-                            <div class="game">
-                                Check event
-                            </div>
-                        </div>
-                    }
-                </div><br />
-                <div class="row my-center">
-                    <div class="col-6">
-                        Time Progression
-                        <div class="game">
-                            Real time
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        Weather Progression
-                        <div class="game">
-                            2X
-                        </div>
-                    </div>
-                </div><br />
-                <div class="row my-center">
-                    @if (Model.QualWeatherSlot1 != 0)
-                    {
-                        <div class="col">
-                            Slot 1
-                            <div class="game">
-                                @Model.QualWeatherSlot1
-                            </div>
-                        </div>
-                    }
-                    @if (Model.QualWeatherSlot2 != 0)
-                    {
-                        <div class="col">
-                            Slot 2
-                            <div class="game">
-                                @Model.QualWeatherSlot2
-                            </div>
-                        </div>
-                    }
-                    @if (Model.QualWeatherSlot3 != 0)
-                    {
-                        <div class="col">
-                            Slot 3
-                            <div class="game">
-                                @Model.QualWeatherSlot3
-                            </div>
-                        </div>
-                    }
-                    @if (Model.QualWeatherSlot4 != 0)
-                    {
-                        <div class="col">
-                            Slot 4
-                            <div class="game">
-                                @Model.QualWeatherSlot4
-                            </div>
-                        </div>
-                    }
-                </div><br />
-                <h2>Race</h2><br />
-                <div class="row my-center">
-                    @if (Model.Laps == null & Model.RaceHours == null & Model.RaceMinutes == null)
-                    {
-                        <div class="col">
-                            Check event
-                        </div>
-                    }
-                    @if (Model.Laps != null & Model.RaceHours != null & Model.RaceMinutes != null)
-                    {
-                        @if (User.IsInRole("ClubManager"))
-                        {
-                            <div class="col red-flag">
-                                Cannot set both Laps and Minutes for a race
-                                <div>
-                                    <a class="btn btn-link" asp-controller="Champs" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                            @if (Model.ExcludeVehicle != null)
+                            {
+                                <div class="col">
+                                    Excluded Cars
+                                    <div class="game">
+                                        @Model.ExcludeVehicle
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                <div class="col">
+                                    Excluded Cars
+                                    <div class="game">
+                                        None
+                                    </div>
+                                </div>
+                            }
                         }
-                        else
+                    </div>
+                    <div class="row my-center">
+                        @if (Model.Multi1 != 0)
                         {
                             <div class="col">
-                                Length
+                                1st Class
                                 <div class="game">
-                                    Not available
+                                    @Model.Multi1
                                 </div>
                             </div>
                         }
-                    }
-                    @if (Model.Laps != null && Model.RaceHours == null && Model.RaceMinutes == null)
-                    {
-                        <div class="col-6">
-                            Laps
-                            <div class="game">
-                                @Model.Laps
+                        @if (Model.Multi2 != 0)
+                        {
+                            <div class="col">
+                                2nd Class
+                                <div class="game">
+                                    @Model.Multi2
+                                </div>
                             </div>
-                        </div>
-                    }
-                    @if (Model.RaceHours == null && Model.RaceMinutes == null && Model.Laps == null)
-                    {
-                        <div class="col-6">
-                            Length
-                            <div class="game">
-                                @Model.RaceHours Hours @Model.RaceMinutes minutes
+                        }
+                        @if (Model.Multi3 != 0)
+                        {
+                            <div class="col">
+                                3rd Class
+                                <div class="game">
+                                    @Model.Multi3
+                                </div>
                             </div>
-                        </div>
-                    }
-                    @if (Model.IGTimeRace != null)
-                    {
-                        <div class="col-6">
-                            In-game Time
-                            <div class="game">
-                                @Model.IGTimeRace
+                        }
+                        @if (Model.Multi4 != 0)
+                        {
+                            <div class="col">
+                                4th Class
+                                <div class="game">
+                                    @Model.Multi4
+                                </div>
                             </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col">
-                            Check event
-                        </div>
-                    }
-                </div><br />
-                <div class="row my-center">
-                    <div class="col-6">
-                        Time Progression
-                        <div class="game">
-                            @Html.DisplayFor(Model => Model.TimeProgression)
-                        </div>
+                        }
                     </div>
-                    <div class="col-6">
-                        Weather Progression
-                        <div class="game">
-                            2X
-                        </div>
+                    <div class="row my-center">
+                        @if (Model.Vehicle != null)
+                        {
+                            <div class="col">
+                                All drivers in the same vehicle
+                                <div class="game">
+                                    @Model.Vehicle
+                                </div>
+                            </div>
+                        }
                     </div>
-                </div><br />
-                <div class="row my-center">
-                    <div class="col-6">
-                       Allowable Penalty
-                        <div class="game">
-                            @Html.DisplayFor(Model => Model.AllowablePenalty) 
-                        </div>
-                    </div>
-                    <div class="col-6">
-                       Season
-                        <div class="game">
-                            @Html.DisplayFor(Model => Model.Season)
-                        </div>
-                    </div>
-                </div><br />
-                <div class="row my-center">
-                    @if (Model.WeatherSlot1 != 0)
-                    {
-                        <div class="col">
-                            Slot 1
-                            <div class="game">
-                                @Model.WeatherSlot1
-                            </div>
-                        </div>
-                    }
-                    @if (Model.WeatherSlot2 != 0)
-                    {
-                        <div class="col">
-                            Slot 2
-                            <div class="game">
-                                @Model.WeatherSlot2
-                            </div>
-                        </div>
-                    }
-                    @if (Model.WeatherSlot3 != 0)
-                    {
-                        <div class="col">
-                            Slot 3
-                            <div class="game">
-                                @Model.WeatherSlot3
-                            </div>
-                        </div>
-                    }
-                    @if (Model.WeatherSlot4 != 0)
-                    {
-                        <div class="col">
-                            Slot 4
-                            <div class="game">
-                                @Model.WeatherSlot4
-                            </div>
-                        </div>
-                    }
-                </div><br />
-                <div class="row my-center">
-                    @Model.StartType
                 </div>
+
+                @if (Model.NoPractice == true)
+                {
+                    <h2>Practice</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            Set per Event
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h2>Practice</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            @if (Model.PracticeHours != null && Model.PracticeMinutes != null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.PracticeHours Hour(s) @Model.PracticeMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.PracticeHours != null && Model.PracticeMinutes == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.PracticeHours Hour(s)
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.PracticeMinutes != null && Model.PracticeHours == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.PracticeMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.PracticeHours == null && Model.PracticeMinutes == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        Not Set
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.IGTimePractice != null)
+                            {
+                                <div class="col">
+                                    In-game Time
+                                    <div class="game">
+                                        @Model.IGTimePractice
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-6">
+                                    In-game Time
+                                    <div class="game">
+                                        Not Set
+                                    </div>
+                                </div>
+                            }
+                        </div><br />
+                        <div class="row my-center">
+                            <div class="col-6">
+                                Time Progression
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.PracTimeProgression)
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                Weather Progression
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.PracWeatherProgression)
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row my-center">
+                            Weather Forecast
+                        </div>
+                        <div class="row my-center">
+                            <div class="col">
+                                Slot 1
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.PracWeatherSlot1)
+                                </div>
+                            </div>
+                            <div class="col">
+                                Slot 2
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.PracWeatherSlot2)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-center">
+                            <div class="col">
+                                Slot 3
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.PracWeatherSlot3)
+                                </div>
+                            </div>
+                            <div class="col">
+                                Slot 4
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.PracWeatherSlot4)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.NoQualify == true)
+                {
+                    <h2>Qualifying</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            Set per Event
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h2>Qualifying</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            @if (Model.QualifyHours != null && Model.QualifyMinutes != null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.QualifyHours Hour(s) @Model.QualifyMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.QualifyHours != null && Model.QualifyMinutes == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.QualifyHours Hour(s)
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.QualifyMinutes != null && Model.QualifyHours == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.QualifyMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.QualifyHours == null && Model.QualifyMinutes == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        Not Set
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.IGTimeQualify != null)
+                            {
+                                <div class="col-6">
+                                    In-game Time
+                                    <div class="game">
+                                        @Model.IGTimeQualify
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-6">
+                                    In-game Time
+                                    <div class="game">
+                                        Check event
+                                    </div>
+                                </div>
+                            }
+                        </div><br />
+                        <div class="row my-center">
+                            <div class="col-6">
+                                Time Progression
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualTimeProgression)
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                Weather Progression
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherProgression)
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row my-center">
+                            Weather Forecast
+                        </div>
+                        <div class="row my-center">
+                            <div class="col">
+                                Slot 1
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherSlot1)
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                Slot 2
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherSlot2)
+
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row my-center">
+                            <div class="col">
+                                Slot 3
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherSlot3)
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                Slot 4
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.QualWeatherSlot4)
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.NoRace == true)
+                {
+                    <h2>Race</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            Set per Event
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h2>Race</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            @if (Model.Laps == null && Model.RaceHours == null && Model.RaceMinutes == null)
+                            {
+                                <div class="col">
+                                    Check event
+                                </div>
+                            }
+                            @if (Model.Laps != null && Model.RaceHours == null && Model.RaceMinutes == null)
+                            {
+                                <div class="col-6">
+                                    Laps
+                                    <div class="game">
+                                        @Model.Laps
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.RaceHours != null && Model.RaceMinutes != null && Model.Laps == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.RaceHours Hours @Model.RaceMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.RaceMinutes != null && Model.RaceHours == null && Model.Laps == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.RaceMinutes Minutes
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.RaceHours != null && Model.RaceMinutes == null && Model.Laps == null)
+                            {
+                                <div class="col-6">
+                                    Length
+                                    <div class="game">
+                                        @Model.RaceHours Hours
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.IGTimeRace != null)
+                            {
+                                <div class="col-6">
+                                    In-game Time
+                                    <div class="game">
+                                        @Model.IGTimeRace
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col">
+                                    Check event
+                                </div>
+                            }
+                        </div><br />
+                        <div class="row my-center">
+                            <div class="col-6">
+                                Time Progression
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.TimeProgression)
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                Weather Progression
+                                <div class="game">
+                                    2X
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row my-center">
+                            @if (Model.Season != 0)
+                            {
+                                <div class="col-6">
+                                    Season
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.Season)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-6">
+                                    Date Type
+                                    <div class="game">
+                                        @Html.DisplayFor(Model => Model.IGDateType)
+                                    </div>
+                                </div>
+                                @if (Model.IGDateRace != null)
+                                {
+                                    <div class="col">
+                                        Custom Date
+                                        <div class="game">
+                                            @Html.DisplayFor(Model => Model.IGDateRace)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @if (Model.IGDateType == 0 && Model.IGDateRace == null)
+                            {
+                                <div class="col">
+                                    <div class="game">
+                                    </div>
+                                </div>
+                            }
+                        </div><br />
+                        <div class="row my-center">
+                            Weather Forecast
+                        </div>
+                        <div class="row my-center">
+                            <div class="col">
+                                Slot 1
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.WeatherSlot1)
+                                </div>
+                            </div>
+                            <div class="col">
+                                Slot 2
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.WeatherSlot2)
+
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row my-center">
+                            <div class="col">
+                                Slot 3
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.WeatherSlot3)
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                Slot 4
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.WeatherSlot4)
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row my-center">
+                            <div class="col">
+                                Start Type
+                                <div class="game">
+                                    @Model.StartType
+                                </div>
+                            </div>
+                            <div class="col">
+                                Formation Lap
+                                <div class="game">
+                                    @Model.FormationLap
+                                </div>
+                            </div>
+                            <div class="col">
+                                Mandatory Pit
+                                <div class="game">
+                                    @Model.MandatoryPit
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.NoRealism == true)
+                {
+                    <h2>Realism Settings</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            Set per Event
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h2>Realism Settings</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            <div class="col">
+                                Damage Type
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.DamageType)
+                                </div>
+                            </div>
+                            <div class="col">
+                                Tire Wear
+                                <div class="game">
+                                    @Html.DisplayFor(Model => Model.TireWear)
+                                </div>
+                            </div>
+                        </div><br />
+                        <dl class="row">
+                            <dt class="col-9">
+                                Allow Auto Start Engine
+                            </dt>
+                            <dd class="col">
+                                @Model.AutoStart
+                            </dd>
+                            <dt class="col-9">
+                                Force Interior View
+                            </dt>
+                            <dd class="col">
+                                @Model.ForceInnerView
+                            </dd>
+                            <dt class="col-9">
+                                Force Driving Line Off
+                            </dt>
+                            <dd class="col">
+                                @Model.ForceDriveLine
+                            </dd>
+                            <dt class="col-9">
+                                Force Default Setup
+                            </dt>
+                            <dd class="col">
+                                @Model.ForceSetup
+                            </dd>
+                            <dt class="col-9">
+                                Force Manual Gears
+                            </dt>
+                            <dd class="col">
+                                @Model.ForceGears
+                            </dd>
+                            <dt class="col-9">
+                                Force Realistic Driving Aids
+                            </dt>
+                            <dd class="col">
+                                @Model.ForceAids
+                            </dd>
+                            <dt class="col-9">
+                                Allow Anti-Lock Brakes
+                            </dt>
+                            <dd class="col">
+                                @Model.AllowAbs
+                            </dd>
+                            <dt class="col-9">
+                                Allow Traction Control
+                            </dt>
+                            <dd class="col">
+                                @Model.AllowTcs
+                            </dd>
+                            <dt class="col-9">
+                                Allow Stability Control
+                            </dt>
+                            <dd class="col">
+                                @Model.AllowStm
+                            </dd>
+                            <dt class="col-9">
+                                Mechanical Failures
+                            </dt>
+                            <dd class="col">
+                                @Model.MechFailure
+                            </dd>
+                            <dt class="col-9">
+                                Allow Ghosted Vehicles
+                            </dt>
+                            <dd class="col">
+                                @Model.AllowGhost
+                            </dd>
+                            <dt class="col-9">
+                                Force Manual Pit Stops
+                            </dt>
+                            <dd class="col">
+                                @Model.ForceManualPit
+                            </dd>
+                            <dt class="col-9">
+                                Allow Pit Stop Errors
+                            </dt>
+                            <dd class="col">
+                                @Model.PitStopErrors
+                            </dd>
+                            <dt class="col-9">
+                                Fuel Depletion
+                            </dt>
+                            <dd class="col">
+                                @Model.FuelUsage
+                            </dd>
+                            <dt class="col-9">
+                                Force Cooldown Lap
+                            </dt>
+                            <dd class="col">
+                                @Model.ForceCoolDown
+                            </dd>
+                        </dl>
+                    </div>
+                }
+                @if (Model.NoRules == true)
+                {
+                    <h2>Rules and Penalties</h2>
+                    <div class="modal-section">
+                        <div class="row my-center">
+                            Set per Event
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h2>Rules and Penatlies</h2>
+                    <div class="modal-section">
+                        <dl class="row">
+                            <dt class="col-9">
+                                Track Limit Penalties
+                            </dt>
+                            <dd class="col">
+                                @Model.TrackLimit
+                            </dd>
+                            <dt class="col-9">
+                                Drive Thru Penalty
+                            </dt>
+                            <dd class="col">
+                                @Model.DriveThruPenalty
+
+                            </dd>
+                            <dt class="col-9">
+                                Allowable Time Penalty
+                            </dt>
+                            <dd class="col">
+                                @Html.DisplayFor(Model => Model.AllowablePenalty)
+                            </dd>
+                            <dt class="col-9">
+                                Pit Exit Penalty
+                            </dt>
+                            <dd class="col">
+                                @Model.PitExitPenalty
+                            </dd>
+                            <dt class="col-9">
+                                Competitive Racing License
+                            </dt>
+                            <dd class="col">
+                                @Model.RacingLicense
+                            </dd>
+                            <dt class="col-9">
+                                Min. Racing License Required
+                            </dt>
+                            <dd class="col">
+                                @Model.License
+                            </dd>
+                        </dl>
+                    </div>
+                }
+
+                @if (Model.Description != null)
+                {
+                    <h2>
+                        Additional Information
+                    </h2>
+                    <div class="modal-section">
+                        <div class="row">
+                            <div class="col">
+                                @Html.Raw(Model.Description)
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+
+                }
             </div>
             <div class="modal-footer">
                 @if (User.IsInRole("ClubManager"))

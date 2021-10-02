@@ -165,13 +165,19 @@
                     <h2>Practice</h2>
                     <div class="modal-section">
                         <div class="row my-center">
+                            <div class="col">
+                                No Practice
+                                <input asp-for="Champs.FirstOrDefault().NoPractice" class="select-checkbox" />
+                            </div>
+                        </div><br />
+                        <div class="row my-center">
                             <div class="col-6 form-group">
                                 Hours
-                                <input asp-for="Champs.FirstOrDefault().PracticeHours" class="form-control bg-soft-dark" placeholder="0" />
+                                <input asp-for="Champs.FirstOrDefault().PracticeHours" class="form-control bg-soft-dark" />
                             </div>
                             <div class="col form-group">
                                 Minutes
-                                <input asp-for="Champs.FirstOrDefault().PracticeMinutes" class="form-control bg-soft-dark" placeholder="0" />
+                                <input asp-for="Champs.FirstOrDefault().PracticeMinutes" class="form-control bg-soft-dark" />
                             </div>
                         </div>
                         <div class="row my-center">
@@ -216,6 +222,12 @@
                     </div>
                     <h2>Qualifying</h2>
                     <div class="modal-section">
+                        <div class="row my-center">
+                            <div class="col">
+                                No Qualifying
+                                <input asp-for="Champs.FirstOrDefault().NoQualify" class="select-checkbox" />
+                            </div>
+                        </div><br />
                         <div class="row my-center">
                             <div class="col-6 form-group">
                                 Hours
@@ -268,6 +280,12 @@
                     </div>
                     <h2>Race Settings</h2>
                     <div class="my-center modal-section">
+                        <div class="row my-center">
+                            <div class="col">
+                                Pass Race Settings to Event creation
+                                <input asp-for="Champs.FirstOrDefault().NoRace" class="select-checkbox" />
+                            </div>
+                        </div><br />
                         <div class="row my-center">
                             <div class="col-3 form-group">
                                 Laps
@@ -360,6 +378,12 @@
                     </div>
                     <h2>Realism Settings</h2>
                     <div class="modal-section">
+                        <div class="row my-center">
+                            <div class="col">
+                                Pass all Realism Settings to Event creation 
+                                <input asp-for="Champs.FirstOrDefault().NoRealism" class="select-checkbox" />
+                            </div>
+                        </div><br />
                         <div class="row my-center">
                             <div class="col">
                                 Damage Type
@@ -465,6 +489,12 @@
                     </div>
                     <h2>Rules and Penatlies</h2>
                     <div class="modal-section">
+                        <div class="row my-center">
+                            <div class="col">
+                                Pass all Rules to Event creation
+                                <input asp-for="Champs.FirstOrDefault().NoRules" class="select-checkbox" />
+                            </div>
+                        </div><br />
                         <dl class="row">
                             <dt class="col-9">
                                 Track Limit Penalties
