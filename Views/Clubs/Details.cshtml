@@ -245,7 +245,7 @@
                             </div>
                             <div class="col form-group">
                                 Time Progression
-                                <select asp-for="Champs.FirstOrDefault().QualTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<TimeProgression>()"></select>
+                                <select asp-for="Champs.FirstOrDefault().QualTimeProgression" class="form-control bg-soft-dark" asp-items="Html.GetEnumSelectList<QualTimeProgression>()"></select>
                             </div>
                         </div>
                         <div class="row my-center">
@@ -536,8 +536,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <h2>
                         Additional Information
+                    </h2>
+                    <div class="form-group">
                         <textarea asp-for="Champs.FirstOrDefault().Description" class="form-control bg-soft-dark" id="mytextarea" placeholder="Description"></textarea>
                     </div>
 
