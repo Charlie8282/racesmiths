@@ -37,6 +37,10 @@ namespace racesmiths.Models
         public int? RaceMinutes { get; set; }
         public int? QualifyHours { get; set; }
         public int? QualifyMinutes { get; set; }
+        public int? EventPts { get; set; }
+        public int? EventBonusPts { get; set; }
+        public int? EventRevokePts { get; set; }
+        public int? Position { get; set; }
         public string IGTimePractice { get; set; } //Need annotation for entering just the time
         public string IGTimeQualify { get; set; } //Need annotation for entering just the time
         public string IGTimeRace { get; set; } //Need annotation for entering just the time

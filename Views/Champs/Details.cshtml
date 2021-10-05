@@ -51,13 +51,16 @@
                 <li>
                     @Html.DisplayFor(modelItem => item.Gamertag)
                     <span class="float-right">
-                        56 Pts
+                        0 Pts
                     </span>
                 </li>
             }
         </ol>
     </div>
     <div class="col-md">
+        <div class="row my-center">
+            <h2>Schedule</h2>
+        </div><hr />
         <div id="eventsAccordion">
             @foreach (var item in Model.Events)
             {
@@ -924,11 +927,7 @@
                                     </div>
                                 </div><br />
                             }
-
-
-
                         }
-
 
                     </div>
                     <h2>

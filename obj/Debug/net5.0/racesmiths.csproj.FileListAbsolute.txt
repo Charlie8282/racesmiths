@@ -516,3 +516,9 @@ C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.dll
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\ref\racesmiths.dll
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.pdb
 C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.genruntimeconfig.cache
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\racesmiths.csproj.AssemblyReference.cache
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Scoreboards\Create.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Scoreboards\Delete.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Scoreboards\Details.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Scoreboards\Edit.cshtml.g.cs
+C:\Users\zacks\source\repos\racesmiths\obj\Debug\net5.0\Razor\Views\Scoreboards\Index.cshtml.g.cs

@@ -21,6 +21,7 @@ namespace racesmiths.Data
         public DbSet<RSUser> ClubUsers { get; set; }
         public DbSet<RSUser> ChampUsers { get; set; }
         public DbSet<RSUser> EventUsers { get; set; }
+        public DbSet<racesmiths.Models.Scoreboard> Scoreboard { get; set; }
 
 
 

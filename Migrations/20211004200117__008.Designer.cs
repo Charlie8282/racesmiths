@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using racesmiths.Data;
@@ -9,9 +10,10 @@ using racesmiths.Data;
 namespace racesmiths.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211004200117__008")]
+    partial class _008
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -597,15 +599,6 @@ namespace racesmiths.Migrations
                     b.Property<bool>("DriveThruPenalty")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("EventBonusPts")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("EventPts")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("EventRevokePts")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ExcludeVehicle")
                         .HasColumnType("text");
 
@@ -706,9 +699,6 @@ namespace racesmiths.Migrations
                     b.Property<bool>("PitStopErrors")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("Position")
-                        .HasColumnType("integer");
-
                     b.Property<int>("PracTimeProgression")
                         .HasColumnType("integer");
 
@@ -775,9 +765,6 @@ namespace racesmiths.Migrations
                     b.Property<DateTimeOffset>("Scheduled")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("ScoreboardId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Season")
                         .HasColumnType("integer");
 
@@ -829,8 +816,6 @@ namespace racesmiths.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ChampId");
-
-                    b.HasIndex("ScoreboardId");
 
                     b.ToTable("Event");
                 });
@@ -932,9 +917,6 @@ namespace racesmiths.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("ScoreboardId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -953,8 +935,6 @@ namespace racesmiths.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("ScoreboardId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -989,33 +969,6 @@ namespace racesmiths.Migrations
                     b.HasIndex("EventId");
 
                     b.ToTable("Race");
-                });
-
-            modelBuilder.Entity("racesmiths.Models.Scoreboard", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("Bonus")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ChampId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("Points")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("RSUserId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("Revoke")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Scoreboard");
                 });
 
             modelBuilder.Entity("ChampRSUser", b =>
@@ -1165,10 +1118,6 @@ namespace racesmiths.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("racesmiths.Models.Scoreboard", null)
-                        .WithMany("Events")
-                        .HasForeignKey("ScoreboardId");
-
                     b.Navigation("Champ");
                 });
 
@@ -1199,13 +1148,6 @@ namespace racesmiths.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("racesmiths.Models.RSUser", b =>
-                {
-                    b.HasOne("racesmiths.Models.Scoreboard", null)
-                        .WithMany("Drivers")
-                        .HasForeignKey("ScoreboardId");
-                });
-
             modelBuilder.Entity("racesmiths.Models.Race", b =>
                 {
                     b.HasOne("racesmiths.Models.Event", "Event")
@@ -1230,13 +1172,6 @@ namespace racesmiths.Migrations
             modelBuilder.Entity("racesmiths.Models.Event", b =>
                 {
                     b.Navigation("Races");
-                });
-
-            modelBuilder.Entity("racesmiths.Models.Scoreboard", b =>
-                {
-                    b.Navigation("Drivers");
-
-                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }
